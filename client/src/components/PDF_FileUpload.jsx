@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Box, Icon, Button, IconButton, useTheme } from "@mui/material";
+import { useSelector } from "react-redux";
+import { connect } from "react-redux";
+import fileUpload from "../store/action";
 import PropTypes from "prop-types";
 import { tokens } from "../theme";
 
@@ -25,7 +28,7 @@ const emails = ["username@gmail.com", "user02@gmail.com"];
 function SimpleDialog(props) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const { onClose, selectedValue, open } = props;
+  const { onClose, selectedValue, open, filesList, fileUpload } = props;
 
   const handleClose = () => {
     onClose(selectedValue);
@@ -34,12 +37,15 @@ function SimpleDialog(props) {
   const handleListItemClick = (value) => {
     onClose(value);
   };
-  const [files, setFiles] = useState([]);
+  const [uploadfiles, setUploadFiles] = useState([]);
   const filesJsonData = [];
 
-  console.log("File Data", files);
   const saveFiles = () => {
-    filesJsonData.push(...files);
+    filesJsonData.push(...uploadfiles);
+    //Add new files to the filesList prop from the redux data store
+    filesList.push(...uploadfiles);
+    fileUpload(filesList);
+    //Close Upload Dialog
     handleClose();
   };
 
@@ -72,7 +78,7 @@ function SimpleDialog(props) {
           }}
         />
 
-        <FileUpload value={files} onChange={setFiles} />
+        <FileUpload value={uploadfiles} onChange={setUploadFiles} />
         <Button
           autoFocus
           onClick={saveFiles}
@@ -96,7 +102,8 @@ SimpleDialog.propTypes = {
   selectedValue: PropTypes.string.isRequired,
 };
 
-export default function PDF_FileUpload(props) {
+function PDF_FileUpload(props) {
+  const { filesList, fileUpload } = props;
   const [open, setOpen] = React.useState(false);
   const openDialog = props.open;
 
@@ -122,7 +129,19 @@ export default function PDF_FileUpload(props) {
         selectedValue={selectedValue}
         open={open}
         onClose={handleClose}
+        filesList={filesList}
+        fileUpload={fileUpload}
       />
     </div>
   );
 }
+
+const mapStateToProps = (state) => ({ filesList: state.filesList });
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fileUpload: (filesList) => dispatch({ type: "UPLOAD", payload: filesList }),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PDF_FileUpload);

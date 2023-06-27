@@ -17,6 +17,7 @@ import Dashboard from './pages/dashboard'
 import Calendar from './pages/calendar';
 import Forum from "./pages/forum";
 import ViewTask from "./pages/viewTask";
+import ScorePage from "./pages/ScorePage";
 
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
             <Route path="/calendar" element={<Calendar/>}/> 
             <Route path="/forum" element={<Forum/>}/>
             <Route path="/viewTask" element={<ViewTask/>}/>
+            <Route path="/score" element={<ScorePage/>}/>
           </Routes>
         </main>
       </div>

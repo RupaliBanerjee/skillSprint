@@ -1437,3 +1437,359 @@ export const projectData = [
     endDate: "31-07-23",
   },
 ];
+
+export const student_data = [
+  {
+    id: "2117280000",
+    name: "Pooja Bose",
+    email: "abc@gmail.com",
+    password: "abc@123",
+    star: 20,
+    task_list: [
+      {
+        id: "1000",
+        key: "HCI0001",
+        title: "A weather Report App",
+        score: {
+          accuracy: 5,
+          basic_functionality: 10,
+          code_quality: 9,
+          documentation: 3,
+        },
+        scoreTotal: 27,
+        type: "ASSIGNMENT",
+        active:false
+      },
+      {
+        id: "1001",
+        key: "HCI0002",
+        title: "An E-commerce Website",
+        score: {
+          accuracy: 8,
+          basic_functionality: 7,
+          code_quality: 9,
+          documentation: 6,
+        },
+        scoreTotal: 30,
+        type: "ASSIGNMENT",
+        active:false
+      },
+      {
+        id: "1002",
+        key: "HCI0003",
+        title: "Mobile Game Development",
+        score: {
+          accuracy: 9,
+          basic_functionality: 8,
+          code_quality: 7,
+          documentation: 6,
+        },
+        scoreTotal: 30,
+        type: "ASSIGNMENT",
+        active:false
+      },
+      {
+        id: "1003",
+        key: "HCI0004",
+        title: "Website Redesign",
+        score: {
+          accuracy: 7,
+          basic_functionality: 9,
+          code_quality: 8,
+          documentation: 5,
+        },
+        scoreTotal: 29,
+        type: "ASSIGNMENT",
+        active:false
+      },
+      {
+        id: "1004",
+        key: "HCI0005",
+        title: "Data Visualization Dashboard",
+        score: {
+          accuracy: 6,
+          basic_functionality: 8,
+          code_quality: 7,
+          documentation: 4,
+        },
+        scoreTotal: 25,
+        type: "ASSIGNMENT",
+        active:false
+      },
+      {
+        id: "1005",
+        key: "HCI0006",
+        title: "Mobile App UI Design",
+        score: {
+          accuracy: 9,
+          basic_functionality: 6,
+          code_quality: 8,
+          documentation: 7,
+        },
+        scoreTotal: 30,
+        type: "ASSIGNMENT",
+        active:false
+      },
+      {
+        id: "1006",
+        key: "HCI0007",
+        title: "Database Optimization",
+        score: {
+          accuracy: 8,
+          basic_functionality: 9,
+          code_quality: 7,
+          documentation: 6,
+        },
+        scoreTotal: 30,
+        type: "ASSIGNMENT",
+        active:false
+      },
+      {
+        id: "1007",
+        key: "HCI0008",
+        title: "User Experience Analysis",
+        score: {
+          accuracy: 6,
+          basic_functionality: 7,
+          code_quality: 8,
+          documentation: 5,
+        },
+        scoreTotal: 26,
+        type: "ASSIGNMENT",
+        active:false
+      },
+      {
+        id: "1008",
+        key: "HCI0009",
+        title: "Security Audit",
+        score: {
+          accuracy: 9,
+          basic_functionality: 8,
+          code_quality: 7,
+          documentation: 6,
+        },
+        scoreTotal: 30,
+        type: "ASSIGNMENT",
+        active:false
+      },
+      {
+        id: "1009",
+        key: "HCI0010",
+        title: "Chatbot Development",
+        score: {
+          accuracy: 7,
+          basic_functionality: 9,
+          code_quality: 8,
+          documentation: 7,
+        },
+        scoreTotal: 31,
+        type: "ASSIGNMENT",
+        active:false
+      },
+      {
+        id: "2000",
+        key: "PROJ0001",
+        title: "E-commerce Website Development",
+        score: {
+          accuracy: 8,
+          basic_functionality: 9,
+          code_quality: 7,
+          documentation: 6,
+        },
+        scoreTotal: 30,
+        type: "PROJECT",
+        active:false
+      },
+      {
+        id: "2001",
+        key: "PROJ0002",
+        title: "Mobile App Development",
+        score: {
+          accuracy: 9,
+          basic_functionality: 8,
+          code_quality: 7,
+          documentation: 6,
+        },
+        scoreTotal: 30,
+        type: "PROJECT",
+        active:false
+      },
+      {
+        id: "2002",
+        key: "PROJ0003",
+        title: "Data Analysis Dashboard",
+        score: {
+          accuracy: 7,
+          basic_functionality: 9,
+          code_quality: 8,
+          documentation: 6,
+        },
+        scoreTotal: 30,
+        type: "PROJECT",
+        active:false
+      },
+      {
+        id: "2003",
+        key: "PROJ0004",
+        title: "Website Redesign",
+        score: {
+          accuracy: 8,
+          basic_functionality: 9,
+          code_quality: 7,
+          documentation: 6,
+        },
+        scoreTotal: 30,
+        type: "PROJECT",
+        active:false
+      },
+      {
+        id: "2004",
+        key: "PROJ0005",
+        title: "Social Media Marketing Campaign",
+        score: {
+          accuracy: 6,
+          basic_functionality: 7,
+          code_quality: 8,
+          documentation: 5,
+        },
+        scoreTotal: 26,
+        type: "PROJECT",
+        active:false
+      },
+      {
+        id: "2005",
+        key: "PROJ0006",
+        title: "Cloud Migration",
+        score: {
+          accuracy: 9,
+          basic_functionality: 8,
+          code_quality: 7,
+          documentation: 6,
+        },
+        scoreTotal: 30,
+        type: "PROJECT",
+        active:false
+      },
+      {
+        id: "2006",
+        key: "PROJ0007",
+        title: "UI/UX Design for Mobile App",
+        score: {
+          accuracy: 7,
+          basic_functionality: 8,
+          code_quality: 7,
+          documentation: 6,
+        },
+        scoreTotal: 28,
+        type: "PROJECT",
+        active:false
+      },
+      {
+        id: "2007",
+        key: "PROJ0008",
+        title: "Database Optimization for ERP System",
+        score: {
+          accuracy: 8,
+          basic_functionality: 9,
+          code_quality: 7,
+          documentation: 6,
+        },
+        scoreTotal: 30,
+        type: "PROJECT",
+        active:false
+      },
+      {
+        id: "2008",
+        key: "PROJ0009",
+        title: "Website Localization for International Market",
+        score: {
+          accuracy: 6,
+          basic_functionality: 7,
+          code_quality: 8,
+          documentation: 5,
+        },
+        scoreTotal: 26,
+        type: "PROJECT",
+        active:false
+      },
+      {
+        id: "2009",
+        key: "PROJ0010",
+        title: "Chatbot Implementation for Customer Support",
+        score: {
+          accuracy: 9,
+          basic_functionality: 8,
+          code_quality: 7,
+          documentation: 6,
+        },
+        type: "PROJECT",
+        active:false
+      },
+      {
+        id: "3000",
+        key: "MIX0001",
+        title: "User Interface Redesign",
+        score: {
+          accuracy: 8,
+          basic_functionality: 9,
+          code_quality: 7,
+          documentation: 6,
+        },
+        scoreTotal: 30,
+        type: "PROJECT",
+      },
+      {
+        id: "3001",
+        key: "MIX0002",
+        title: "Bug Fixing for Mobile App",
+        score: {
+          accuracy: 9,
+          basic_functionality: 8,
+          code_quality: 7,
+          documentation: 6,
+        },
+        scoreTotal: 30,
+        type: "ASSIGNMENT",
+      },
+      {
+        id: "3002",
+        key: "MIX0003",
+        title: "Data Analysis Report",
+        score: {
+          accuracy: 7,
+          basic_functionality: 9,
+          code_quality: 8,
+          documentation: 6,
+        },
+        scoreTotal: 30,
+        type: "PROJECT",
+      },
+      {
+        id: "3003",
+        key: "MIX0004",
+        title: "Website Content Writing",
+        score: {
+          accuracy: 8,
+          basic_functionality: 9,
+          code_quality: 7,
+          documentation: 6,
+        },
+        scoreTotal: 30,
+        type: "ASSIGNMENT",
+      },
+      {
+        id: "3004",
+        key: "MIX0005",
+        title: "API Integration for Web Application",
+        score: {
+          accuracy: 6,
+          basic_functionality: 7,
+          code_quality: 8,
+          documentation: 5,
+        },
+        scoreTotal: 26,
+        type: "PROJECT",
+      },
+    ],
+  },
+];

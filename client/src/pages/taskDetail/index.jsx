@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import {
   Box,
   Button,
@@ -13,6 +14,11 @@ import { tokens } from "../../theme";
 import styles from "./styles.css";
 import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
 import PDF_FileUpload from "../../components/PDF_FileUpload";
+import PictureAsPdfOutlinedIcon from "@mui/icons-material/PictureAsPdfOutlined";
+import PDFView from "../../components/PDFView";
+import InputOutlinedIcon from "@mui/icons-material/InputOutlined";
+import Tooltip from "@mui/material/Tooltip";
+import ReviewsOutlinedIcon from '@mui/icons-material/ReviewsOutlined';
 
 // const useStyles = createUseStyles({
 //   title: {
@@ -27,73 +33,120 @@ const TaskDetail = (props) => {
   const colors = tokens(theme.palette.mode);
 
   const [showFileUpload_dialog, setShowFileUpload_dialog] = useState(false);
+  const [showFilePreview_dialog, setShowFilePreview_dialog] = useState(false);
 
-  const showDialog = () => {
-    setShowFileUpload_dialog(!showFileUpload_dialog);
+  const showDialog = (type) => {
+    if (type === "upload") {
+      setShowFileUpload_dialog(!showFileUpload_dialog);
+    } else {
+      setShowFilePreview_dialog(!showFilePreview_dialog);
+    }
   };
   const closeDialog = () => {
     setShowFileUpload_dialog(false);
   };
 
   return (
-    <Box border={`4px solid ${colors.primary[500]}`} marginTop="20px">
-      <Box width="100%" p="10px">
-        <Box display={"flex"} justifyContent={"space-between"}>
-          <Box display="flex" flexDirection={"column"}>
-            <Box display="flex" justifyContent="space-between">
-              <Typography
-                variant="h4"
-                margin={"10px 0 10px 0"}
-                paddingBottom="10px"
-                borderBottom={`2px solid ${colors.grey[200]}`}
-                sx={{ color: colors.grey[200] }}
-                className={styles.label}
-              >
-                {taskData.title}
-              </Typography>
-              <IconButton type="button" onClick={showDialog}>
-                <FileUploadOutlinedIcon />
-              </IconButton>
-            </Box>
+    <>
+      {!showFilePreview_dialog && (
+        <Box border={`4px solid ${colors.primary[500]}`} marginTop="20px">
+          <Box width="100%" p="10px">
+            <Box display={"flex"} justifyContent={"space-between"}>
+              <Box display="flex" flexDirection={"column"}>
+                <Box display="flex" justifyContent="space-between">
+                  <Typography
+                    variant="h4"
+                    margin={"10px 0 10px 0"}
+                    paddingBottom="10px"
+                    borderBottom={`2px solid ${colors.grey[200]}`}
+                    sx={{ color: colors.grey[200] }}
+                    className={styles.label}
+                  >
+                    {taskData.title}
+                  </Typography>
+                  <Box display="flex" justifyContent="flex-end">
+                    <Tooltip title="Upload Solution">
+                      <IconButton
+                        type="button"
+                        onClick={() => showDialog("upload")}
+                      >
+                        <FileUploadOutlinedIcon />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="preview PDF">
+                      <IconButton
+                        type="button"
+                        onClick={() => showDialog("preview")}
+                      >
+                        <PictureAsPdfOutlinedIcon />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Enroll Now">
+                      <IconButton type="button">
+                        <InputOutlinedIcon />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="View Score">
+                      <IconButton type="button">
+                        <ReviewsOutlinedIcon />
+                      </IconButton>
+                    </Tooltip>
+                  </Box>
+                </Box>
 
-            <Typography variant="h5" sx={{ color: colors.greenAccent[500] }}>
-              {taskData.summary}
-            </Typography>
-            <Typography
-              variant="h4"
-              margin={"10px 0 10px 0"}
-              paddingBottom="10px"
-              borderBottom={`2px solid ${colors.grey[200]}`}
-              sx={{ color: colors.grey[200] }}
-              className={styles.label}
-            >
-              Description
-            </Typography>
-            <Typography
-              borderBottom={`1px solid ${colors.primary[500]}`}
-              marginBottom={"10px"}
-            >
-              Tech Stack
-            </Typography>
-            <Typography>{taskData.techStack}</Typography>
-            <Box display={"flex"} gap={"2em"} marginTop={"20px"}>
-              <Typography variant="h5" sx={{ color: colors.greenAccent[500] }}>
-                From : {taskData.startDate}
-              </Typography>
-              <Typography variant="h5" sx={{ color: colors.greenAccent[500] }}>
-                To: {taskData.endDate}
-              </Typography>
+                <Typography
+                  variant="h5"
+                  sx={{ color: colors.greenAccent[500] }}
+                >
+                  {taskData.summary}
+                </Typography>
+                <Typography
+                  variant="h4"
+                  margin={"10px 0 10px 0"}
+                  paddingBottom="10px"
+                  borderBottom={`2px solid ${colors.grey[200]}`}
+                  sx={{ color: colors.grey[200] }}
+                  className={styles.label}
+                >
+                  Description
+                </Typography>
+                <Typography
+                  borderBottom={`1px solid ${colors.primary[500]}`}
+                  marginBottom={"10px"}
+                >
+                  Tech Stack
+                </Typography>
+                <Typography>{taskData.techStack}</Typography>
+                <Box display={"flex"} gap={"2em"} marginTop={"20px"}>
+                  <Typography
+                    variant="h5"
+                    sx={{ color: colors.greenAccent[500] }}
+                  >
+                    From : {taskData.startDate}
+                  </Typography>
+                  <Typography
+                    variant="h5"
+                    sx={{ color: colors.greenAccent[500] }}
+                  >
+                    To: {taskData.endDate}
+                  </Typography>
+                </Box>
+              </Box>
             </Box>
           </Box>
+          {showFileUpload_dialog && (
+            <PDF_FileUpload
+              open={showFileUpload_dialog}
+              closeDialog={closeDialog}
+            />
+          )}
         </Box>
-      </Box>
-      {showFileUpload_dialog && (
-        <PDF_FileUpload
-          open={showFileUpload_dialog}
-          closeDialog={closeDialog}
-        />
       )}
-    </Box>
+
+      {showFilePreview_dialog && (
+        <PDFView open={showFilePreview_dialog} closeDialog={closeDialog} />
+      )}
+    </>
   );
 };
 
