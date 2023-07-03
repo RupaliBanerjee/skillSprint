@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Box, Icon, Button, IconButton, useTheme } from "@mui/material";
 import { useSelector } from "react-redux";
 import { connect } from "react-redux";
-import fileUpload from "../store/action";
+//import fileUpload from "../store/action";
 import PropTypes from "prop-types";
 import { tokens } from "../theme";
 

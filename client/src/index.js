@@ -1,19 +1,33 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
+//import "./index.css";
 import App from "./App";
-import store from "./store/index";
+
+
+/* For Redux toolkit */
 import { Provider } from "react-redux";
+import store from "store/store";
+
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
+//import { userSlice } from "store";
+//const store = createStore(allReducers)
+
+// const store = configureStore({
+//   reducer: {
+//     user: userSlice,
+//   },
+// });
+//setupListeners(store.dispatch);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Provider store={store}>
-        <App />
-      </Provider>
+    <Provider store={store}>
+    <App />
+    </Provider>
+     
     </BrowserRouter>
   </React.StrictMode>
 );

@@ -39,6 +39,7 @@ const Sidebar = () => {
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSlected] = useState("Dashboard");
+ 
   return (
     <Box
       sx={{
@@ -135,7 +136,7 @@ const Sidebar = () => {
             </Typography>
             <Item
               title="Profile"
-              to="/team"
+              to="/profile"
               icon={<PeopleOutlinedIcon />}
               selected={selected}
               setSelected={setSlected}

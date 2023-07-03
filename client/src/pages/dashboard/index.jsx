@@ -7,10 +7,27 @@ import ScoreCard from "../../components/ScoreCard";
 import StatBox from "../../components/StatBox";
 import { assignmentData } from "../../data/mockData";
 import SendIcon from "@mui/icons-material/Send";
+import React, { useEffect } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const {id}=useParams()
+
+  const getTaskIds=async()=>{
+    try{
+     const response= axios.get(`/taskMap/${id}`);
+     console.log("Check response",response)
+    }catch(err){
+      console.log("Task Map Error",err)
+    }
+  }
+
+  useEffect(()=>{
+    getTaskIds()
+  },[])
 
   return (
     <Box m="10px 20px" p="10px 20px">

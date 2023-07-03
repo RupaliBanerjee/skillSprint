@@ -1,0 +1,90 @@
+body {
+  background: linear-gradient(90deg, #141b2d 0%, #141b2def 34%, #141b2dee 100%);
+  color:#e0e0e0;
+}
+
+.login {
+  width: 360px;
+  padding: 8% 0 0;
+  margin: auto;
+  font-family: "Source Sans 3", sans-serif;
+}
+
+.form {
+  position: relative;
+  z-index: 1;
+  background: #0f131e;
+  border-radius: 10px;
+  max-width: 360px;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+  box-shadow: rgb(0, 0, 0, 0.7) 5px 10px 50px, rgb(0, 0, 0, 0.7) -5px 0px 250px;
+}
+
+.form input {
+  outline: 0;
+  background: #090d17;
+  width: 100%;
+  border: 0;
+  color:#e0e0e0;
+  border-radius: 5px;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+  font-family: "Source Sans 3", sans-serif;
+}
+
+.form select{
+  outline: 0;
+  background: #090d17;
+  width: 100%;
+  border: 0;
+  color:#e0e0e0;
+  border-radius: 5px;
+  margin: 0 0 15px;
+  padding: 15px 10px 15px 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+  font-family: "Source Sans 3", sans-serif;
+}
+
+.form input:focus {
+  background: #1f2535;
+}
+
+.form button {
+  font-family: "Source Sans 3", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #090d17;
+  width: 100%;
+  border: 0;
+  border-radius: 5px;
+  padding: 15px;
+  color:#e0e0e0;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+
+.form button:active {
+  background: #1f2535;
+  color:#e0e0e0;
+}
+
+.form span {
+  font-size: 40px;
+  color: #e0e0e0;
+  margin-bottom: 25px;
+  display: block;
+}
+
+.form p.error {
+  margin: 0 0 10px 10px;
+  text-align: left;
+  font-size: 10px;
+  color: #f07f7f;
+}

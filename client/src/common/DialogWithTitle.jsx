@@ -61,8 +61,7 @@ BootstrapDialogTitle.propTypes = {
 export default function DialogWithTitle(props) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const { oncloseDialog, openDialog, title, showActionButton, children } =
-    props;
+  const { oncloseDialog, openDialog, title, showActionButton, children } =props;
   const [open, setOpen] = React.useState(openDialog);
 
   const handleClickOpen = () => {

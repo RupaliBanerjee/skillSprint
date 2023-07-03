@@ -1,7 +1,7 @@
-import React from "react";
-import { Box, Icon, Button, IconButton,useTheme } from "@mui/material";
+import React, { useState } from "react";
+import { Box, Icon, Button, IconButton, useTheme ,Menu,MenuItem} from "@mui/material";
 import { useContext } from "react";
-import { ColorModeContext,tokens } from "../theme";
+import { ColorModeContext, tokens } from "../theme";
 import { InputBase } from "@mui/material";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
@@ -9,11 +9,21 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
+import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 //import { useTheme } from "@emotion/react";
 const Topbar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
+  const [showProfileOptions, setShowProfileOptions] = useState(false);
+  const [selectedOption,setSelectedOption]= useState(null)
+
+
+  const handleClose=()=>{
+    setShowProfileOptions(false);
+  }
+
+  //const showProfileOptions = () => {};
   return (
     <Box display={"flex"} justifyContent={"space-between"} p={1}>
       {/* Search Bar */}
@@ -41,9 +51,32 @@ const Topbar = () => {
         <IconButton>
           <SettingsOutlinedIcon />
         </IconButton>
-        <IconButton>
+        <IconButton
+          onClick={(e) => {
+            setShowProfileOptions(true);
+            setSelectedOption(e.currentTarget)
+          }}
+        >
           <PersonOutlinedIcon />
         </IconButton>
+        <Menu
+          id="menu-appbar"
+          selectedOption={selectedOption}
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          keepMounted
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          open={Boolean(showProfileOptions)}
+          onClose={handleClose}
+        >
+          <MenuItem onClick={handleClose}>Sign out</MenuItem>
+          <MenuItem onClick={handleClose}>Activity Tracker</MenuItem>
+        </Menu>
       </Box>
     </Box>
   );
