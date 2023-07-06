@@ -3,17 +3,21 @@ import { Typography, Box, useTheme, Button } from "@mui/material";
 import { tokens } from "../theme";
 import CelebrationIcon from "@mui/icons-material/Celebration";
 import AccessAlarmsOutlinedIcon from "@mui/icons-material/AccessAlarmsOutlined";
+import { useNavigate } from "react-router-dom";
 
-const NotificationWidget = () => {
+const NotificationWidget = (props) => {
+
+  const{taskdata,dateInfo}=props;
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const navigate= useNavigate();
   return (
     <Box>
       {/* Message Title */}
       <Box
         display="flex"
         gap={1}
-        m="20px 0 10px 20px"
+        m="10px 0 10px 20px"
         justifyContent="flex-start"
       >
         <Typography
@@ -27,9 +31,9 @@ const NotificationWidget = () => {
       </Box>
       {/* Message Content */}
       <Box marginLeft="20px">
-        <Typography variant="h3">2 DAYS</Typography>
+        <Typography variant="h3">{parseInt(dateInfo)} DAYS</Typography>
         <Box display="flex"  justifyContent="space-between">
-          <Typography>25-06-23</Typography>
+          <Typography>{taskdata?.task_detail?.end_date}</Typography>
           <Button
             sx={{
               backgroundColor: colors.blueAccent[700],
@@ -38,6 +42,7 @@ const NotificationWidget = () => {
               marginRight: "10px",
             }}
             variant="contained"
+            onClick={()=>navigate('/viewTask')}
           >
             View Tasks
           </Button>

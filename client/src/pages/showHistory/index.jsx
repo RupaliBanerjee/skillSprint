@@ -9,20 +9,26 @@ import React, { useState } from "react";
 import ScoreCard from "../../components/ScoreCard";
 
 import DialogWithTitle from "../../common/DialogWithTitle";
-const ShowHistory = () => {
+const ShowHistory = (props) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const { data } = props;
   const [showScoreDetail, setShowScoreDetail] = useState(false);
 
   const [scoreDetail, setScoreDetail] = useState({});
+  const taskData = [];
+
+  /* Destructure the data object for TAskDetails */
+  data.map((task) => {
+    const taskObj = Object.assign({}, task, task.task_detail);
+    taskData.push({ ...taskObj });
+  });
 
   const rowDataOnClick = (rowData) => {
-    console.log("Check Value here", rowData);
-    const key = rowData.key;
-    setScoreDetail({ rowData });
+    const scoreList = rowData.score;
+    setScoreDetail(scoreList);
     //setScoreDetail({...scoreDetail, "data": "abc" });
     setShowScoreDetail(true);
-    console.log("Show The new obj", scoreDetail);
   };
 
   const oncloseDialog = () => {
@@ -30,8 +36,12 @@ const ShowHistory = () => {
   };
 
   const columns = [
-    { field: "key", headerName: "KEY", flex: 0.5 },
-    { field: "type", headerName: "TYPE", flex: 1 },
+    { field: "task_id", headerName: "KEY", flex: 0.5 },
+    {
+      field: `task_type`,
+      headerName: "TYPE",
+      flex: 1,
+    },
     {
       field: "title",
       headerName: "Title",
@@ -39,7 +49,7 @@ const ShowHistory = () => {
       cellClassName: "name-column--cell",
     },
     {
-      field: "scoreTotal",
+      field: "totalScore",
       headerName: "Total Score",
       type: "number",
       headerAlign: "left",
@@ -119,18 +129,19 @@ const ShowHistory = () => {
       }}
     >
       <DataGrid
-        rows={student_data[0].task_list}
+        rows={taskData}
         columns={columns}
+        getRowId={(row) => row.task_id}
         components={{ Toolbar: GridToolbar }}
       />
       {showScoreDetail && (
-        <DialogWithTitle 
+        <DialogWithTitle
           oncloseDialog={oncloseDialog}
           openDialog={showScoreDetail}
           title="Score Details"
           showActionButton={false}
         >
-          <ScoreCard scoreDetail={scoreDetail}></ScoreCard>
+          <ScoreCard scoreDetail={scoreDetail} showLabel={false}></ScoreCard>
         </DialogWithTitle>
       )}
     </Box>

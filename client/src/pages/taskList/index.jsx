@@ -17,13 +17,7 @@ const TaskList = (props) => {
   const truncate = (str) => {
     return str.length > 400 ? str.substring(0, 250) + "..." : str;
   };
-  // const showDetail=(selectedTask)=>{
-  //   // console.log("All Props",props)
-  //   //navigate('../', { replace: true })
-  //   //console.log("History",history)
-  //   console.log("Task:",selectedTask);
-  // }
-
+  
   return (
     <Box overflow="auto" height={"55vh"}>
       {taskData.map((assignment, i) => (
@@ -43,10 +37,10 @@ const TaskList = (props) => {
               fontWeight="600"
               marginBottom={"15px"}
             >
-              {assignment.title}
+              {assignment.task_detail.title}
             </Typography>
             <Typography color={colors.greenAccent[500]}>
-              {truncate(assignment.summary)}
+              {truncate(assignment.task_detail.summary)}
             </Typography>
           </Box>
           <Box color={colors.grey[100]}>{assignment.startDate}</Box>

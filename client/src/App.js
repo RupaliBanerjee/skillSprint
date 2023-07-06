@@ -15,6 +15,7 @@ import ScorePage from "./pages/ScorePage";
 import ProfilePage from "./pages/profilePage";
 import { useSelector } from "react-redux";
 import { ACCOUNT_TYPES } from "../src/constants";
+import ViewInactiveTask from "pages/viewInactiveTask";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -48,6 +49,7 @@ function App() {
               <Route path="/viewTask" element={<ViewTask />} />
               <Route path="/score" element={<ScorePage />} />
               <Route path="/profile" element={<ProfilePage />} />
+              <Route path='/latestTask/:task_key' element={<ViewInactiveTask/>}/>
             </Routes>
           </main>
         )}

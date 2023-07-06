@@ -10,10 +10,15 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { reset } from "store/userInfo/userInfoSlice";
 //import { useTheme } from "@emotion/react";
 const Topbar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const navigate=useNavigate();
+  const dispatch=useDispatch();
   const colorMode = useContext(ColorModeContext);
   const [showProfileOptions, setShowProfileOptions] = useState(false);
   const [selectedOption,setSelectedOption]= useState(null)
@@ -21,6 +26,13 @@ const Topbar = () => {
 
   const handleClose=()=>{
     setShowProfileOptions(false);
+  }
+
+  const signOut=()=>{
+    // setShowProfileOptions(false);
+    navigate("/")
+    dispatch(reset())
+    
   }
 
   //const showProfileOptions = () => {};
@@ -74,7 +86,7 @@ const Topbar = () => {
           open={Boolean(showProfileOptions)}
           onClose={handleClose}
         >
-          <MenuItem onClick={handleClose}>Sign out</MenuItem>
+          <MenuItem onClick={signOut}>Sign out</MenuItem>
           <MenuItem onClick={handleClose}>Activity Tracker</MenuItem>
         </Menu>
       </Box>

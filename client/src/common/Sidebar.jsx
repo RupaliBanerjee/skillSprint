@@ -17,10 +17,15 @@ import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
+import { useSelector } from "react-redux";
+import profileImage from "../assets/images/profileIcon.png"
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  
+  
   return (
     <MenuItem
       active={selected === title}
@@ -39,6 +44,21 @@ const Sidebar = () => {
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSlected] = useState("Dashboard");
+
+
+  const user_id=useSelector((state)=>state?.userInfo?.logged_in_userId);
+  const userInfo=useSelector((state)=>state.userInfo.userData);
+
+  const generateInitials=(fname,lname)=>{
+    const firstName=fname.toUpperCase().split('')[0];
+    const lastName=lname.toUpperCase().split('')[0];
+    return (firstName+lastName)
+   
+  }
+
+
+  const initials=userInfo ? generateInitials(userInfo.first_name,userInfo.last_name): '';
+  
  
   return (
     <Box
@@ -79,8 +99,8 @@ const Sidebar = () => {
                 alignItems="center"
                 ml="15px"
               >
-                <Typography variant="h3" color={colors.grey[100]}>
-                  ADMINIS
+                <Typography variant="h3" color={colors.grey[100]} sx={{textTransform:"capitalize"}}>
+                  {userInfo.role}
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
@@ -96,7 +116,7 @@ const Sidebar = () => {
                   alt="profile-User"
                   width="100px"
                   height="100px"
-                  src="../assets/images/profileIcon.png"
+                  src={profileImage}
                   style={{
                     cursor: "pointer",
                     borderRadius: "50%",
@@ -110,10 +130,10 @@ const Sidebar = () => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  John
+                  {initials}
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                  Fancy Admin
+                 {userInfo?.first_name} {userInfo?.last_name}
                 </Typography>
               </Box>
             </Box>
@@ -122,7 +142,7 @@ const Sidebar = () => {
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
             <Item
               title="Dashboard"
-              to="/"
+              to={`/dashboard/${user_id}`}
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSlected}

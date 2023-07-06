@@ -17,11 +17,11 @@ const BarChart = ({ isDashboard = false }) => {
   };
   const recordCount= student_data[0]?.task_list.length>10 ? 10: (student_data[0]?.task_list.length)
   const taskData = student_data[0]?.task_list.slice(0, recordCount);
-  //console.log("task_list",student_data)
+
   const uniqueCriteria = [];
   const nivoData = [];
   taskData?.map((task, task_index) => {
-    //console.log("task_list",task)
+    
     const nivoDataObj = { taskKey: task.key };
     let criteria = [];
     Object.keys(task.score).map((key, score_index) => {
@@ -36,7 +36,7 @@ const BarChart = ({ isDashboard = false }) => {
         [`${key}color`]: color(),
       };
 
-      //console.log("Check Color generation ", color());
+      
 
       criteria.push(item);
       return;
@@ -49,7 +49,7 @@ const BarChart = ({ isDashboard = false }) => {
     return;
   });
 
-  console.log("NIVO DATA", nivoData);
+
   return (
     <ResponsiveBar
       data={nivoData}

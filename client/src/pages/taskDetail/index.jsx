@@ -18,7 +18,7 @@ import PictureAsPdfOutlinedIcon from "@mui/icons-material/PictureAsPdfOutlined";
 import PDFView from "../../components/PDFView";
 import InputOutlinedIcon from "@mui/icons-material/InputOutlined";
 import Tooltip from "@mui/material/Tooltip";
-import ReviewsOutlinedIcon from '@mui/icons-material/ReviewsOutlined';
+import ReviewsOutlinedIcon from "@mui/icons-material/ReviewsOutlined";
 
 // const useStyles = createUseStyles({
 //   title: {
@@ -28,7 +28,7 @@ import ReviewsOutlinedIcon from '@mui/icons-material/ReviewsOutlined';
 
 const TaskDetail = (props) => {
   //const classses = useStyles({ ...props });
-  const taskData = props.taskData;
+  const { taskData, activeTask } = props;
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -62,7 +62,7 @@ const TaskDetail = (props) => {
                     sx={{ color: colors.grey[200] }}
                     className={styles.label}
                   >
-                    {taskData.title}
+                    {activeTask ? taskData.task_detail.title : taskData.title}
                   </Typography>
                   <Box display="flex" justifyContent="flex-end">
                     <Tooltip title="Upload Solution">
@@ -98,7 +98,7 @@ const TaskDetail = (props) => {
                   variant="h5"
                   sx={{ color: colors.greenAccent[500] }}
                 >
-                  {taskData.summary}
+                  {activeTask ? taskData.task_detail.summary : taskData.summary}
                 </Typography>
                 <Typography
                   variant="h4"
@@ -116,19 +116,29 @@ const TaskDetail = (props) => {
                 >
                   Tech Stack
                 </Typography>
-                <Typography>{taskData.techStack}</Typography>
+                <Typography>
+                  {activeTask
+                    ? taskData.task_detail.comments.publisher
+                    : taskData.comments.publisher}
+                </Typography>
                 <Box display={"flex"} gap={"2em"} marginTop={"20px"}>
                   <Typography
                     variant="h5"
                     sx={{ color: colors.greenAccent[500] }}
                   >
-                    From : {taskData.startDate}
+                    From :{" "}
+                    {activeTask
+                      ? taskData.task_detail.start_date
+                      : taskData.start_date}
                   </Typography>
                   <Typography
                     variant="h5"
                     sx={{ color: colors.greenAccent[500] }}
                   >
-                    To: {taskData.endDate}
+                    To:{" "}
+                    {activeTask
+                      ? taskData.task_detail.end_date
+                      : taskData.end_date}
                   </Typography>
                 </Box>
               </Box>

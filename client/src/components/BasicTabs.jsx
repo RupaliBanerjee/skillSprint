@@ -26,7 +26,7 @@ function TabPanel(props) {
     setShowBackButton(true);
   };
 
-  console.log("Name", name);
+  
 
   return (
     <div
@@ -63,9 +63,9 @@ function TabPanel(props) {
           {taskData == undefined && !showBackButton && name !== "HISTORY" ? (
             <TaskList data={data} viewTaskDetail={viewTaskDetail} />
           ) : name !== "HISTORY" ? (
-            <TaskDetail taskData={taskData} />
+            <TaskDetail taskData={taskData} activeTask={true} />
           ) : (
-            <ShowHistory />
+            <ShowHistory data={data} />
           )}
         </Box>
       )}
@@ -90,6 +90,8 @@ function a11yProps(index) {
 export default function BasicTabs(props) {
   //Tab Names from Parent Component
   const tabInfo = props.tabInfo;
+
+  console.log("TAB INFO",tabInfo);
 
   const [value, setValue] = React.useState(0);
   const [currentTab, setCurrentTab] = useState("ASSIGNMNENTS");

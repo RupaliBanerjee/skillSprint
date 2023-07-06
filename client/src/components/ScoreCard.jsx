@@ -6,14 +6,14 @@ import LinearProgressWithLabel from "./LinearProgressWithLabel";
 import { scoreData } from "../data/mockData";
 
 const ScoreCard = (props) => {
-  const { scoreDetail } = props;
+  const { scoreDetail,showLablel} = props;
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   //const scoreDataSet={};
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", width: "100% " }}>
-      {!scoreDetail && (
+      {showLablel && (
         <Typography
           variant="h4"
           fontWeight="bold"
@@ -26,16 +26,16 @@ const ScoreCard = (props) => {
       <Box
         display={"flex"}
         flexDirection={"column"}
-        marginLeft={scoreDetail ? undefined :"20px"}
+        marginLeft={!showLablel ? undefined :"20px"}
         width={"100%"}
       >
         {scoreDetail
-          ? Object.keys(scoreDetail?.rowData?.score).map((key) => {
+          ? scoreDetail.map((score) => {
               return (
                 <Box width={"100%"}>
-                  <Typography>{key}</Typography>
+                  <Typography>{score.name}</Typography>
                   <LinearProgressWithLabel
-                    value={parseInt(scoreDetail.rowData.score[key]) * 10}
+                    value={parseInt(score.weightage) * 10}
                   />
                 </Box>
               );

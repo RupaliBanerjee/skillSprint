@@ -12,6 +12,7 @@ import "./signIn.css";
 //import { useGetUserQuery } from "store/api";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchUserData } from "store/userInfo/userInfoSlice";
+import { fetchUserTaskMap } from "store/userTaskMap/userTaskMapSlice";
 //import { addUserData } from "store";
 
 // Creating schema
@@ -34,10 +35,10 @@ const SignIn = () => {
   const [backendData, setBackendData] = useState([{}]);
   const [userCredential, setUserCredentials] = useState();
 
-  const getUserData = (id,user_id) => {
-    console.log("USERID", id);
+  const getUserData = (id, user_id) => {
     dispatch(fetchUserData(id));
-    navigate(`/dashboard/${user_id}`)
+    dispatch(fetchUserTaskMap(user_id));
+    navigate(`/dashboard/${user_id}`);
   };
 
   const authenticateUser = (userCredential) => {
@@ -45,7 +46,7 @@ const SignIn = () => {
       .post("/login", userCredential)
       .then((response) => {
         if (response.status === 200) {
-          getUserData(response.data._id,response.data.user_id);
+          getUserData(response.data._id, response.data.user_id);
         }
       })
       .catch((err) => console.log("Authentication Error", err));
@@ -54,9 +55,8 @@ const SignIn = () => {
   };
 
   //const userId= useSelector((state)=>state?.global);
-  //console.log("UserID",userId);
+
   // const {d̥ata} =useGetUserQuery(userId);
-  console.log("backendData:", backendData);
 
   // useEffect(()=>{
   //   fetch("/getUsers").then(
@@ -78,7 +78,6 @@ const SignIn = () => {
           // alert(JSON.stringify(values));
           setUserCredentials({ ...values });
           authenticateUser({ ...values });
-          console.log("My Credentials", userCredential);
         }}
       >
         {({

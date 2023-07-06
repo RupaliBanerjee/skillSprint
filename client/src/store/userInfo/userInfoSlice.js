@@ -3,8 +3,10 @@ import axios from "axios";
 
 const initialState = {
   loading: false,
+  logged_in_userId:'',
   userData: {},
   error: "",
+  account_type:''
 };
 
 //AsyncThunk generates pending fulfilled and rejected action types
@@ -18,6 +20,9 @@ export const fetchUserData = createAsyncThunk("user/fetchData", (id) => {
 const userInfoSlice = createSlice({
   name: "userInfo",
   initialState,
+  reducers:{
+    reset: () => initialState
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchUserData.pending, (state) => {
       state.loading = true;
@@ -25,11 +30,15 @@ const userInfoSlice = createSlice({
     builder.addCase(fetchUserData.fulfilled, (state, action) => {
       state.loading = false;
       state.userData = {...action.payload};
+      state.logged_in_userId=action.payload.user_id;
+      state.account_type=action.payload.role;
       state.error = "";
     });
     builder.addCase(fetchUserData.rejected, (state, action) => {
       state.loading = false;
       state.userData = {};
+      state.logged_in_userId='';
+      state.account_type='';
       state.error = action.error.message;
     });
   },
@@ -37,3 +46,4 @@ const userInfoSlice = createSlice({
 
 
 export default userInfoSlice.reducer;
+export const {reset}=userInfoSlice.actions
