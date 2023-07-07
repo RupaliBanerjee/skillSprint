@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
-import { tokens } from "../../theme";
-import { assignmentData } from "../../data/mockData";
+import { tokens } from "../../../theme";
+import { assignmentData } from "../../../data/mockData";
 import SendIcon from "@mui/icons-material/Send";
 import { useNavigate } from "react-router-dom";
-import styles from "../../styles/styles.css";
+import GlobalStyles from "styles/Global.styled";
 
 
 const TaskList = (props) => {

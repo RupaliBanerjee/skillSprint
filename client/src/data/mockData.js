@@ -1455,6 +1455,7 @@ export const student_data = [
           basic_functionality: 10,
           code_quality: 9,
           documentation: 3,
+          innovation:5,
         },
         scoreTotal: 27,
         type: "ASSIGNMENT",

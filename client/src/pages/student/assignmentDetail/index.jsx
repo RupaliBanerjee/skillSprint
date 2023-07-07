@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { Typography, Box, useTheme, Button } from "@mui/material";
-import { tokens } from "../../theme";
-import StatBox from "../../components/StatBox";
+import { tokens } from "../../../theme";
+import StatBox from "../../../components/StatBox";
 
-import ActivityTracker from "../../components/ActivityTracker";
+import ActivityTracker from "../../../components/ActivityTracker";
 
 const AssignmentDetail = (props) => {
   const { taskInfo } = props;

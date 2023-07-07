@@ -7,13 +7,13 @@ import {
   Backdrop,
   CircularProgress,
 } from "@mui/material";
-import { tokens } from "../../theme";
-import Header from "../../components/Header";
-import NotificationWidget from "../../components/NotificationWidget";
+import { tokens } from "../../../theme";
+import Header from "../../../components/Header";
+import NotificationWidget from "../../../components/NotificationWidget";
 import AssignmentDetail from "../assignmentDetail";
-import ScoreCard from "../../components/ScoreCard";
-import StatBox from "../../components/StatBox";
-import { assignmentData } from "../../data/mockData";
+import ScoreCard from "../../../components/ScoreCard";
+import StatBox from "../../../components/StatBox";
+import { assignmentData } from "../../../data/mockData";
 import SendIcon from "@mui/icons-material/Send";
 import React, { useEffect } from "react";
 import axios from "axios";

@@ -18,7 +18,8 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
 import { useSelector } from "react-redux";
-import profileImage from "../assets/images/profileIcon.png"
+import profileImage from "../assets/images/profileIcon.png";
+import { ACCOUNT_TYPES } from "constants";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -48,6 +49,7 @@ const Sidebar = () => {
 
   const user_id=useSelector((state)=>state?.userInfo?.logged_in_userId);
   const userInfo=useSelector((state)=>state.userInfo.userData);
+  const accountType = useSelector((state) => state?.userInfo.userData.role);
 
   const generateInitials=(fname,lname)=>{
     const firstName=fname.toUpperCase().split('')[0];
@@ -142,7 +144,7 @@ const Sidebar = () => {
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
             <Item
               title="Dashboard"
-              to={`/dashboard/${user_id}`}
+              to={accountType===ACCOUNT_TYPES.STUDENT ? `/dashboard/${user_id}` : `/lecturer/dashboard`}
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSlected}

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import TaskList from "../pages/taskList";
+import TaskList from "../pages/student/taskList";
 import {
   Box,
   Button,
@@ -11,8 +11,8 @@ import {
   Tab,
 } from "@mui/material";
 import { tokens } from "../theme";
-import TaskDetail from "../pages/taskDetail";
-import ShowHistory from "../pages/showHistory";
+import TaskDetail from "../pages/student/taskDetail";
+import ShowHistory from "../pages/student/showHistory";
 
 function TabPanel(props) {
   const theme = useTheme();

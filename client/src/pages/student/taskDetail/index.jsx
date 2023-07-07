@@ -9,13 +9,13 @@ import {
   Tabs,
   Tab,
 } from "@mui/material";
-import { tokens } from "../../theme";
+import { tokens } from "../../../theme";
 // import { createUseStyles } from "react-jss";
 import styles from "./styles.css";
 import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
-import PDF_FileUpload from "../../components/PDF_FileUpload";
+import PDF_FileUpload from "../../../components/PDF_FileUpload";
 import PictureAsPdfOutlinedIcon from "@mui/icons-material/PictureAsPdfOutlined";
-import PDFView from "../../components/PDFView";
+import PDFView from "../../../components/PDFView";
 import InputOutlinedIcon from "@mui/icons-material/InputOutlined";
 import Tooltip from "@mui/material/Tooltip";
 import ReviewsOutlinedIcon from "@mui/icons-material/ReviewsOutlined";

@@ -13,6 +13,7 @@ import "./signIn.css";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchUserData } from "store/userInfo/userInfoSlice";
 import { fetchUserTaskMap } from "store/userTaskMap/userTaskMapSlice";
+import { ACCOUNT_TYPES } from "constants";
 //import { addUserData } from "store";
 
 // Creating schema
@@ -30,6 +31,7 @@ const SignIn = () => {
   const colors = tokens(theme.palette.mode);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const accountType = useSelector((state) => state?.userInfo.userData.role);
   //const userData=useSelector((state)=>state?.userInfo?.userData.user_id)
 
   const [backendData, setBackendData] = useState([{}]);
@@ -38,7 +40,8 @@ const SignIn = () => {
   const getUserData = (id, user_id) => {
     dispatch(fetchUserData(id));
     dispatch(fetchUserTaskMap(user_id));
-    navigate(`/dashboard/${user_id}`);
+    const url = accountType===ACCOUNT_TYPES.STUDENT ? `/dashboard/${user_id}` : '/lecturer/dashboard';
+    navigate(url);
   };
 
   const authenticateUser = (userCredential) => {

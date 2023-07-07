@@ -1,14 +1,14 @@
 import { Box, IconButton, Typography, Button, Dialog } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-import { tokens } from "../../theme";
-import { student_data } from "../../data/mockData";
+import { tokens } from "../../../theme";
+import { student_data } from "../../../data/mockData";
 
 import { useTheme } from "@mui/material";
 import AssessmentOutlinedIcon from "@mui/icons-material/AssessmentOutlined";
 import React, { useState } from "react";
-import ScoreCard from "../../components/ScoreCard";
+import ScoreCard from "../../../components/ScoreCard";
 
-import DialogWithTitle from "../../common/DialogWithTitle";
+import DialogWithTitle from "../../../common/DialogWithTitle";
 const ShowHistory = (props) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);

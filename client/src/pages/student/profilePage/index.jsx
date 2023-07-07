@@ -2,7 +2,8 @@ import { Box, Button, TextField } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import Header from "../../components/Header"
+import Header from "../../../components/Header";
+import { useSelector } from "react-redux";
 
 const ProfilePage = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -11,13 +12,22 @@ const ProfilePage = () => {
     console.log(values);
   };
 
+  const userData = useSelector((state) => state.userInfo.userData);
+
   return (
     <Box m="20px">
       <Header title="USER DATA" subtitle="Profile Information" />
 
       <Formik
         onSubmit={handleFormSubmit}
-        initialValues={initialValues}
+        initialValues={{
+          firstName: userData.first_name,
+          lastName: userData.last_name,
+          email: userData.email,
+          contact: userData.contact_no,
+          address1:userData.address_1,
+          address2:userData.address_2
+        }}
         validationSchema={checkoutSchema}
       >
         {({

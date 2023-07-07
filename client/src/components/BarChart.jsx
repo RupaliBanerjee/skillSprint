@@ -15,7 +15,18 @@ const BarChart = ({ isDashboard = false }) => {
     const lightness = "50%";
     return `hsl(${hue}, ${saturation}, ${lightness})`;
   };
-  const recordCount= student_data[0]?.task_list.length>10 ? 10: (student_data[0]?.task_list.length)
+
+  const getRecordCount=()=>{
+    let recordCount=0
+    if(isDashboard){
+      recordCount=5
+    }else{
+      recordCount= student_data[0]?.task_list.length>10 ? 10: (student_data[0]?.task_list.length)
+    }
+    return recordCount;
+  }
+
+  const recordCount= getRecordCount();
   const taskData = student_data[0]?.task_list.slice(0, recordCount);
 
   const uniqueCriteria = [];
@@ -119,7 +130,7 @@ const BarChart = ({ isDashboard = false }) => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: "TASK IDS", // changed
+        legend: isDashboard ? undefined :"TASK IDS", // changed
         legendPosition: "middle",
         legendOffset: 32,
       }}
@@ -127,7 +138,7 @@ const BarChart = ({ isDashboard = false }) => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: "Score weightage", // changed
+        legend: isDashboard ? undefined :"Score weightage", // changed
         legendPosition: "middle",
         legendOffset: -40,
       }}

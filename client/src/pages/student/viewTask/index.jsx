@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
-import { tokens } from "../../theme";
-import Header from "../../components/Header";
-import BasicTabs from "../../components/BasicTabs";
-import { assignmentData, projectData } from "../../data/mockData";
+import { tokens } from "../../../theme";
+import Header from "../../../components/Header";
+import BasicTabs from "../../../components/BasicTabs";
+import { assignmentData, projectData } from "../../../data/mockData";
 import { useSelector } from "react-redux";
 import { TASK_TYPES } from "constants";
 
