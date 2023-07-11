@@ -23,9 +23,14 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
     padding: theme.spacing(2),
     margin: "10px 5px",
+    color: "#858585",
   },
   "& .MuiDialogActions-root": {
     padding: theme.spacing(1),
+  },
+  "& .MuiDialogTitle-root": {
+    fontSize: "18px",
+    color: "#858585",
   },
 }));
 
@@ -61,7 +66,8 @@ BootstrapDialogTitle.propTypes = {
 export default function DialogWithTitle(props) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const { oncloseDialog, openDialog, title, showActionButton, children } =props;
+  const { oncloseDialog, openDialog, title, showActionButton,saveScoreChanges, children } =
+    props;
   const [open, setOpen] = React.useState(openDialog);
 
   const handleClickOpen = () => {
@@ -76,12 +82,18 @@ export default function DialogWithTitle(props) {
     <Box
       sx={{
         width: "100%",
+        backgroundColor: colors.primary[400],
       }}
     >
       <BootstrapDialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={open}
+        sx={{
+          "& .MuiPaper-root": {
+            backgroundImage: "none",
+          },
+        }}
       >
         <BootstrapDialogTitle
           id="customized-dialog-title"
@@ -96,10 +108,10 @@ export default function DialogWithTitle(props) {
           <DialogActions>
             <Button
               autoFocus
-              onClick={handleClose}
+              onClick={()=>{saveScoreChanges();handleClose()}}
               sx={{
-                color: colors.grey[100],
-                backgroundColor: colors.blueAccent[500],
+                color: colors.grey[400],
+                backgroundColor: colors.blueAccent[900],
               }}
             >
               Save changes

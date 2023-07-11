@@ -90,7 +90,7 @@ const Dashboard = () => {
         let timeDiff = end_date.getTime() - current_date.getTime();
         diff_days = timeDiff / (1000 * 3600 * 24);
 
-        if (diff_days < difference_In_Days) {
+        if (diff_days < difference_In_Days && diff_days>0) {
           setDifference_In_Days(diff_days);
           latestDate = end_date;
           setCurrent_task({ ...task });

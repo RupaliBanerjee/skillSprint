@@ -17,6 +17,8 @@ import { useSelector } from "react-redux";
 import { ACCOUNT_TYPES } from "../src/constants";
 import ViewInactiveTask from "pages/student/viewInactiveTask";
 import Lecturer_Dashboard from "pages/lecturer/dashboard";
+import EvaluateMainPage from "./pages/lecturer/evaluate/EvaluateMainPage"
+import AssignProjectMainPage from "pages/lecturer/assign/AssignProjectMainPage";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -60,6 +62,10 @@ function App() {
               {accountType === ACCOUNT_TYPES.LECTURER && (
                 <Routes>
                   <Route path="/lecturer/dashboard" element={<Lecturer_Dashboard/>}/>
+                  <Route path="/profile" element={<ProfilePage />} />
+                  <Route path="/evaluate" element={<EvaluateMainPage />} />
+                  <Route path="/assign" element={<AssignProjectMainPage />} />
+                  
                 </Routes>
               )}
             </main>

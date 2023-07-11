@@ -32,24 +32,32 @@ const SignIn = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const accountType = useSelector((state) => state?.userInfo.userData.role);
-  //const userData=useSelector((state)=>state?.userInfo?.userData.user_id)
+  const userData=useSelector((state)=>state?.userInfo?.userData.user_id);
+  //const userTaskData=useSelector((state)=>state.userTaskMap.ac)
 
   const [backendData, setBackendData] = useState([{}]);
   const [userCredential, setUserCredentials] = useState();
 
-  const getUserData = (id, user_id) => {
+  const getUserData = async(id, user_id,account_type) => {
     dispatch(fetchUserData(id));
-    dispatch(fetchUserTaskMap(user_id));
-    const url = accountType===ACCOUNT_TYPES.STUDENT ? `/dashboard/${user_id}` : '/lecturer/dashboard';
+    if(account_type===ACCOUNT_TYPES.STUDENT){
+      dispatch(fetchUserTaskMap(user_id)).unwrap();
+    }  
+    const url =
+    account_type === ACCOUNT_TYPES.STUDENT
+        ? `/dashboard/${user_id}`
+        : "/lecturer/dashboard";
     navigate(url);
   };
+
+  
 
   const authenticateUser = (userCredential) => {
     axios
       .post("/login", userCredential)
       .then((response) => {
         if (response.status === 200) {
-          getUserData(response.data._id, response.data.user_id);
+          getUserData(response.data._id, response.data.user_id,response.data.accountType);
         }
       })
       .catch((err) => console.log("Authentication Error", err));

@@ -5,6 +5,8 @@ import { assignmentData } from "../../../data/mockData";
 import SendIcon from "@mui/icons-material/Send";
 import { useNavigate } from "react-router-dom";
 import GlobalStyles from "styles/Global.styled";
+import { useSelector } from "react-redux";
+import { ACCOUNT_TYPES } from "constants";
 
 
 const TaskList = (props) => {
@@ -12,6 +14,8 @@ const TaskList = (props) => {
   const taskData = props.data;
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  const account_Type=useSelector(state=>state.userInfo.account_type);
 
   //Truncate String
   const truncate = (str) => {
@@ -37,10 +41,10 @@ const TaskList = (props) => {
               fontWeight="600"
               marginBottom={"15px"}
             >
-              {assignment.task_detail.title}
+              {assignment.task_detail? assignment.task_detail.title : assignment.title}
             </Typography>
             <Typography color={colors.greenAccent[500]}>
-              {truncate(assignment.task_detail.summary)}
+              {truncate(assignment.task_detail? assignment.task_detail.summary :assignment.summary)}
             </Typography>
           </Box>
           <Box color={colors.grey[100]}>{assignment.startDate}</Box>
@@ -55,7 +59,7 @@ const TaskList = (props) => {
               }}
               endIcon={<SendIcon />}
             >
-              View
+             {account_Type===ACCOUNT_TYPES.STUDENT ? 'View':'Evaluate'}
             </Button>
           </Box>
         </Box>

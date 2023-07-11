@@ -13,20 +13,21 @@ import {
 import { tokens } from "../theme";
 import TaskDetail from "../pages/student/taskDetail";
 import ShowHistory from "../pages/student/showHistory";
+import EvaluationGrid from "pages/lecturer/evaluate/EvaluationGrid";
 
 function TabPanel(props) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const { children, value, index, data, name, ...other } = props;
+  const { children, value, index, data, name, task_type,updateTaskData, ...other } = props;
   const [taskData, setTaskData] = useState();
   const [showBackButton, setShowBackButton] = useState(false);
+  const isTaskTypeStudent = task_type === "Student Task";
 
   const viewTaskDetail = (task) => {
     setTaskData(task);
     setShowBackButton(true);
   };
 
-  
 
   return (
     <div
@@ -57,16 +58,37 @@ function TabPanel(props) {
               </Button>
             )}
           </Box>
+          {/* For Lecturer evaluation page */}
+          {!isTaskTypeStudent && taskData == undefined ? (
+            <EvaluationGrid
+              data={data}
+              tabName={name}
+              viewTaskDetail={viewTaskDetail}
+            />
+          ) : (
+            !isTaskTypeStudent &&
+            taskData && (
+              <TaskDetail
+                taskData={taskData}
+                activeTask={false}
+                updateTaskData={updateTaskData}
+              />
+            )
+          )}
           {/* ALL Three tabs have the same task list
                 on click of the of view task assignment and project will show the same page
                  and History will have different layout */}
-          {taskData == undefined && !showBackButton && name !== "HISTORY" ? (
-            <TaskList data={data} viewTaskDetail={viewTaskDetail} />
-          ) : name !== "HISTORY" ? (
-            <TaskDetail taskData={taskData} activeTask={true} />
-          ) : (
-            <ShowHistory data={data} />
-          )}
+          {isTaskTypeStudent &&
+            (taskData == undefined && !showBackButton && name !== "HISTORY" ? (
+              <TaskList data={data} viewTaskDetail={viewTaskDetail} />
+            ) : name !== "HISTORY" ? (
+              <TaskDetail
+                taskData={taskData}
+                activeTask={taskData.task_detail}
+              />
+            ) : (
+              <ShowHistory data={data} />
+            ))}
         </Box>
       )}
     </div>
@@ -78,6 +100,7 @@ TabPanel.propTypes = {
   index: PropTypes.number.isRequired,
   value: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
+  task_type: PropTypes.string,
 };
 
 function a11yProps(index) {
@@ -89,9 +112,7 @@ function a11yProps(index) {
 
 export default function BasicTabs(props) {
   //Tab Names from Parent Component
-  const tabInfo = props.tabInfo;
-
-  console.log("TAB INFO",tabInfo);
+  const {tabInfo,updateTaskData} = props;
 
   const [value, setValue] = React.useState(0);
   const [currentTab, setCurrentTab] = useState("ASSIGNMNENTS");
@@ -119,12 +140,27 @@ export default function BasicTabs(props) {
       </Box>
       {/* Display Tab Pages */}
       {tabInfo.map((tabItem, i) => {
+        if (tabItem.type === "Lecturer Task") {
+          return (
+            <TabPanel
+              value={value}
+              index={i}
+              data={tabItem.tabData}
+              name={currentTab}
+              task_type={tabItem.type}
+              updateTaskData={updateTaskData}
+            >
+              {` Previously Submitted ${tabItem.tabName}`}
+            </TabPanel>
+          );
+        }
         return (
           <TabPanel
             value={value}
             index={i}
             data={tabItem.tabData}
             name={currentTab}
+            task_type={tabItem.type}
           >
             {tabItem.tabName !== "History" && ` Active ${tabItem.tabName}`}
             {tabItem.tabName === "History" && "Previously Submitted Tasks"}

@@ -16,17 +16,19 @@ import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutl
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
-import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
+import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import { useSelector } from "react-redux";
 import profileImage from "../assets/images/profileIcon.png";
 import { ACCOUNT_TYPES } from "constants";
+import EditNoteOutlinedIcon from '@mui/icons-material/EditNoteOutlined';
+import InputOutlinedIcon from '@mui/icons-material/InputOutlined';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-  
-  
+  //const account_type=useSelector(state=>state?.userInfo.userData.role);
+
   return (
     <MenuItem
       active={selected === title}
@@ -46,22 +48,20 @@ const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSlected] = useState("Dashboard");
 
-
-  const user_id=useSelector((state)=>state?.userInfo?.logged_in_userId);
-  const userInfo=useSelector((state)=>state.userInfo.userData);
+  const user_id = useSelector((state) => state?.userInfo?.logged_in_userId);
+  const userInfo = useSelector((state) => state.userInfo.userData);
   const accountType = useSelector((state) => state?.userInfo.userData.role);
 
-  const generateInitials=(fname,lname)=>{
-    const firstName=fname.toUpperCase().split('')[0];
-    const lastName=lname.toUpperCase().split('')[0];
-    return (firstName+lastName)
-   
-  }
+  const generateInitials = (fname, lname) => {
+    const firstName = fname.toUpperCase().split("")[0];
+    const lastName = lname.toUpperCase().split("")[0];
+    return firstName + lastName;
+  };
 
+  const initials = userInfo
+    ? generateInitials(userInfo.first_name, userInfo.last_name)
+    : "";
 
-  const initials=userInfo ? generateInitials(userInfo.first_name,userInfo.last_name): '';
-  
- 
   return (
     <Box
       sx={{
@@ -84,8 +84,8 @@ const Sidebar = () => {
     >
       <ProSidebar collapsed={isCollapsed}>
         <Menu iconShape="square">
-            {/* LOGO AND MENU ICON */}
-            
+          {/* LOGO AND MENU ICON */}
+
           <MenuItem
             onClick={() => setIsCollapsed(!isCollapsed)}
             icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
@@ -101,7 +101,11 @@ const Sidebar = () => {
                 alignItems="center"
                 ml="15px"
               >
-                <Typography variant="h3" color={colors.grey[100]} sx={{textTransform:"capitalize"}}>
+                <Typography
+                  variant="h3"
+                  color={colors.grey[100]}
+                  sx={{ textTransform: "capitalize" }}
+                >
                   {userInfo.role}
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
@@ -135,7 +139,7 @@ const Sidebar = () => {
                   {initials}
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                 {userInfo?.first_name} {userInfo?.last_name}
+                  {userInfo?.first_name} {userInfo?.last_name}
                 </Typography>
               </Box>
             </Box>
@@ -144,7 +148,11 @@ const Sidebar = () => {
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
             <Item
               title="Dashboard"
-              to={accountType===ACCOUNT_TYPES.STUDENT ? `/dashboard/${user_id}` : `/lecturer/dashboard`}
+              to={
+                accountType === ACCOUNT_TYPES.STUDENT
+                  ? `/dashboard/${user_id}`
+                  : `/lecturer/dashboard`
+              }
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSlected}
@@ -184,62 +192,76 @@ const Sidebar = () => {
             >
               Pages
             </Typography>
-            <Item
-              title="View Task"
-              to="/viewTask"
-              icon={<AssignmentOutlinedIcon />}
-              selected={selected}
-              setSelected={setSlected}
-            />
-            <Item
-              title="Calendar"
-              to="/calendar"
-              icon={<CalendarTodayOutlinedIcon />}
-              selected={selected}
-              setSelected={setSlected}
-            />
-            <Item
-              title="Forum"
-              to="/forum"
-              icon={<HelpOutlinedIcon />}
-              selected={selected}
-              setSelected={setSlected}
-            />
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Charts
-            </Typography>
-            <Item
-              title="Score Card"
-              to="/score"
-              icon={<BarChartOutlinedIcon />}
-              selected={selected}
-              setSelected={setSlected}
-            />
-            {/* <Item
-              title="Pie Chart"
-              to="/pie"
-              icon={<PieChartOutlineOutlinedIcon />}
-              selected={selected}
-              setSelected={setSlected}
-            />
-            <Item
-              title="Line Chart"
-              to="/line"
-              icon={<TimelineOutlinedIcon />}
-              selected={selected}
-              setSelected={setSlected}
-            />
-            <Item
-              title="Geography Chart"
-              to="/geography"
-              icon={<MapOutlinedIcon />}
-              selected={selected}
-              setSelected={setSlected}
-            /> */}
+            {/* FOR STUDENT ACCOUNT */}
+            {accountType === ACCOUNT_TYPES.STUDENT && (
+              <>
+                <Item
+                  title="View Task"
+                  to="/viewTask"
+                  icon={<AssignmentOutlinedIcon />}
+                  selected={selected}
+                  setSelected={setSlected}
+                />
+                <Item
+                  title="Calendar"
+                  to="/calendar"
+                  icon={<CalendarTodayOutlinedIcon />}
+                  selected={selected}
+                  setSelected={setSlected}
+                />
+                <Item
+                  title="Forum"
+                  to="/forum"
+                  icon={<HelpOutlinedIcon />}
+                  selected={selected}
+                  setSelected={setSlected}
+                />
+              </>
+            )}
+            {/* FOR LECTURER ACCOUNT */}
+            {accountType === ACCOUNT_TYPES.LECTURER && (
+              <>
+                <Item
+                  title="Evaluate"
+                  to="/evaluate"
+                  icon={<EditNoteOutlinedIcon />}
+                  selected={selected}
+                  setSelected={setSlected}
+                />
+                <Item
+                  title="Assign"
+                  to="/assign"
+                  icon={<InputOutlinedIcon />}
+                  selected={selected}
+                  setSelected={setSlected}
+                />
+                <Item
+                  title="Publish"
+                  to="/forum"
+                  icon={<AssignmentOutlinedIcon />}
+                  selected={selected}
+                  setSelected={setSlected}
+                />
+              </>
+            )}
+            {accountType === ACCOUNT_TYPES.STUDENT && (
+              <>
+                <Typography
+                  variant="h6"
+                  color={colors.grey[300]}
+                  sx={{ m: "15px 0 5px 20px" }}
+                >
+                  Charts
+                </Typography>
+                <Item
+                  title="Score Card"
+                  to="/score"
+                  icon={<BarChartOutlinedIcon />}
+                  selected={selected}
+                  setSelected={setSlected}
+                />
+              </>
+            )}
           </Box>
         </Menu>
       </ProSidebar>
