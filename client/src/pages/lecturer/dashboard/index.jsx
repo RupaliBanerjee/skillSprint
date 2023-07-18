@@ -75,8 +75,14 @@ const Lecturer_Dashboard = () => {
       [...assignmentList.filter((t) => !t.active)],
       [...projectList.filter((t) => !t.active)]
     );
-    active_project_list = [...projectList.filter((t) => t.active)];
-    unAssigned_project_list = [...projectList.filter((t) => !t.active)];
+    active_project_list = [...projectList.filter((task) => task.active)];
+    unAssigned_project_list = [
+      ...projectList.filter((task) => {
+        if (!task.active && !dateInPast(task.end_date)) {
+          return {...task};
+        }
+      }),
+    ];
 
     dispatch(
       addTaskList({
@@ -166,7 +172,7 @@ const Lecturer_Dashboard = () => {
             count={
               pendingAssesmentList.assignment.length
                 ? pendingAssesmentList.assignment.length +
-                pendingAssesmentList.project.length
+                  pendingAssesmentList.project.length
                 : 0
             }
             icon={

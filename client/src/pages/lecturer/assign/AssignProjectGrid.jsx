@@ -37,6 +37,7 @@ const AssignProjectGrid = (props) => {
         // Show Task Detail on click of view button
         const onViewClick = (e) => {
           setAssignClicked(!assignClicked);
+
           viewProjectDetail(params?.row);
         };
 

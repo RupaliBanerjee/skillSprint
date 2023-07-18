@@ -7,6 +7,7 @@ const initialState = {
   active_project_list: [],
   pending_assesment_list: { assignment: [], project: [] },
   unAssigned_project_list: [],
+  student_taskMap: [],
   error: "",
 };
 
@@ -30,14 +31,22 @@ const lecturerTaskInfoSlice = createSlice({
       state.loading = false;
     },
     updateAssesmentData: (state, action) => {
-      state.pending_assesment_list=action.payload;
+      state.pending_assesment_list = action.payload;
     },
-    updateActiveTaskData:(state,action)=>{
-      state.active_assignment_list=action.payload.active_assignment_list;
-      state.active_project_list=action.payload.active_project_list;
-    }
+    updateActiveTaskData: (state, action) => {
+      state.active_assignment_list = action.payload.active_assignment_list;
+      state.active_project_list = action.payload.active_project_list;
+    },
+    addStudentTaskMap: (state, action) => {
+      state.student_taskMap = action.payload.student_taskMap;
+    },
   },
 });
 
 export default lecturerTaskInfoSlice.reducer;
-export const { addTaskList,updateAssesmentData,updateActiveTaskData} = lecturerTaskInfoSlice.actions;
+export const {
+  addTaskList,
+  updateAssesmentData,
+  updateActiveTaskData,
+  addStudentTaskMap,
+} = lecturerTaskInfoSlice.actions;

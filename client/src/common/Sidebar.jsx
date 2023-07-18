@@ -237,7 +237,7 @@ const Sidebar = () => {
                 />
                 <Item
                   title="Publish"
-                  to="/forum"
+                  to="/publish/assignment"
                   icon={<AssignmentOutlinedIcon />}
                   selected={selected}
                   setSelected={setSlected}

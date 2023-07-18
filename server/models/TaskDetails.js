@@ -23,7 +23,7 @@ const TaskDetailsSchema = new mongoose.Schema({
     assigner: String,
     student: String,
   },
-  pdf_file: Schema.Types.Mixed,
+  pdf_file: Buffer,
 
   start_date: String,
   end_date: String,
@@ -31,6 +31,13 @@ const TaskDetailsSchema = new mongoose.Schema({
     type: String,
     enum: ["ASSIGNMENT", "PROJECT"],
   },
+  subTaskInfo:[{
+    task_label:String,
+    task_detail:String,
+    task_complete:Boolean,
+    task_repo:String,
+    task_id:String
+  }],
   active: Boolean,
 });
 

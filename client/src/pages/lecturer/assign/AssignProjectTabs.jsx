@@ -11,11 +11,22 @@ import {
 } from "@mui/material";
 import { tokens } from "theme";
 import TaskDetail from "pages/student/taskDetail";
+import AssignTeam from "./AssignTeam";
 
 const TabPanel = (props) => {
-  const { value, index, taskData, ...other } = props;
+  const {
+    value,
+    index,
+    taskData,
+    studentSelection,
+    name,
+    numberOfSubTasks,
+    enableNext,
+    ...other
+  } = props;
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
   return (
     <div
       role="tabpanel"
@@ -25,9 +36,18 @@ const TabPanel = (props) => {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
+        <Box sx={{ p: 2 }}>
           <Box display="flex" justifyContent="space-between">
-            <TaskDetail taskData={taskData} activeTask={false} />
+            {name === "ASSIGN TASK" ? (
+              <AssignTeam
+                taskData={taskData}
+                enableNext={enableNext}
+                numberOfSubTasks={numberOfSubTasks}
+                studentSelection={studentSelection}
+              />
+            ) : (
+              <TaskDetail taskData={taskData} activeTask={false} />
+            )}
           </Box>
         </Box>
       )}
@@ -48,7 +68,7 @@ function a11yProps(index) {
 }
 
 const AssignProjectTabs = (props) => {
-  const { tabInfo } = props;
+  const { tabInfo, studentSelection, numberOfSubTasks, enableNext } = props;
   const [value, setValue] = React.useState(0);
   const [currentTab, setCurrentTab] = useState("Project Description");
 
@@ -81,6 +101,9 @@ const AssignProjectTabs = (props) => {
             taskData={tabItem.tabData}
             name={currentTab}
             task_type={tabItem.type}
+            studentSelection={studentSelection}
+            numberOfSubTasks={numberOfSubTasks}
+            enableNext={enableNext}
           />
         );
       })}

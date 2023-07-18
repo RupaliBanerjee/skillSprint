@@ -48,7 +48,7 @@ const ViewInactiveTask = () => {
                 Back
               </Button>
       </Box>
-      <Box flex="1 1 100%" height="75vh" backgroundColor={colors.primary[400]}>
+      <Box  height="75vh" backgroundColor={colors.primary[400]}>
         <TaskDetail taskData={taskData[0]} activeTask={false}/>
       </Box>
     </Box>

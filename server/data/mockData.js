@@ -166,23 +166,23 @@ export const student_taskMap = [
     score: [
       {
         name: "accuracy",
-        weightage: 0,
+        weightage: 5,
       },
       {
         name: "basic_functionality",
-        weightage: 0,
+        weightage: 5,
       },
       {
         name: "code_quality",
-        weightage: 0,
+        weightage: 4,
       },
       {
         name: "documentation",
-        weightage: 0,
+        weightage: 2,
       },
     ],
     solution_zip: "",
-    totalScore: 0,
+    totalScore: 16,
   },
   {
     user_id: "2117280005",
@@ -190,23 +190,23 @@ export const student_taskMap = [
     score: [
       {
         name: "accuracy",
-        weightage: 0,
+        weightage: 8,
       },
       {
         name: "basic_functionality",
-        weightage: 0,
+        weightage: 10,
       },
       {
         name: "code_quality",
-        weightage: 0,
+        weightage: 5,
       },
       {
         name: "documentation",
-        weightage: 0,
+        weightage: 5,
       },
     ],
     solution_zip: "",
-    totalScore: 0,
+    totalScore: 28,
   },
   {
     user_id: "2117280000",
@@ -234,7 +234,7 @@ export const student_taskMap = [
   },
   {
     user_id: "2117280000",
-    task_id: "HCI0010",
+    task_id: "HCI0016",
     score: [
       {
         name: "accuracy",
@@ -255,10 +255,12 @@ export const student_taskMap = [
     ],
     solution_zip: "",
     totalScore: 0,
+    subtask_id:["HCI0016_01"]
   },
   {
     user_id: "2117280000",
-    task_id: "HCI0016",
+    task_id: "HCI0017",
+
     score: [
       {
         name: "accuracy",
@@ -277,29 +279,6 @@ export const student_taskMap = [
         weightage: 3,
       },
     ],
-    solution_zip: "",
-    totalScore: 24,
-  },
-  {
-    user_id: "2117280000",
-    task_id: "HCI0017",
-
-    score: [{
-      name: "accuracy",
-      weightage: 6,
-    },
-    {
-      name: "basic_functionality",
-      weightage: 10,
-    },
-    {
-      name: "code_quality",
-      weightage: 5,
-    },
-    {
-      name: "documentation",
-      weightage: 3,
-    },],
     solution_zip: "",
     totalScore: 22,
   },
@@ -309,23 +288,24 @@ export const student_taskMap = [
     score: [
       {
         name: "accuracy",
-        weightage: 6,
+        weightage: 0,
       },
       {
         name: "basic_functionality",
-        weightage: 10,
+        weightage: 0,
       },
       {
         name: "code_quality",
-        weightage: 5,
+        weightage: 0,
       },
       {
         name: "documentation",
-        weightage: 3,
+        weightage: 0,
       },
     ],
     solution_zip: "",
-    totalScore: 24,
+    totalScore: 0,
+    subtask_id:["HCI0018_01"]
   },
   {
     user_id: "2117280008",
@@ -357,6 +337,31 @@ export const student_taskMap = [
     score: [
       {
         name: "accuracy",
+        weightage: 5,
+      },
+      {
+        name: "basic_functionality",
+        weightage: 10,
+      },
+      {
+        name: "code_quality",
+        weightage: 5,
+      },
+      {
+        name: "documentation",
+        weightage: 5,
+      },
+    ],
+    solution_zip: "",
+    totalScore: 25,
+    subtask_id:["HCI0020_01"]
+  },
+  {
+    user_id: "2117280008",
+    task_id: "HCI0021",
+    score: [
+      {
+        name: "accuracy",
         weightage: 0,
       },
       {
@@ -374,6 +379,32 @@ export const student_taskMap = [
     ],
     solution_zip: "",
     totalScore: 0,
+    subtask_id:["HCI0016_01"]
+  },
+  {
+    user_id: "2117280009",
+    task_id: "HCI0032",
+    score: [
+      {
+        name: "accuracy",
+        weightage: 0,
+      },
+      {
+        name: "basic_functionality",
+        weightage: 0,
+      },
+      {
+        name: "code_quality",
+        weightage: 0,
+      },
+      {
+        name: "documentation",
+        weightage: 0,
+      },
+    ],
+    solution_zip: "",
+    totalScore: 0,
+    subtask_id:["HCI0032_02"]
   },
 ];
 
@@ -391,10 +422,10 @@ export const taskDetails = [
       assigner: "",
       student: "",
     },
-    start_date: "2023/07/10",
-    end_date: "2023/07/30",
+    start_date: "2023/06/10",
+    end_date: "2023/07/03",
     task_type: "ASSIGNMENT",
-    active: true,
+    active: false,
   },
   {
     key: "HCI0002",
@@ -445,10 +476,34 @@ export const taskDetails = [
       assigner: "",
       student: "",
     },
-    start_date: "2023/06/10",
-    end_date: "2023/07/10",
+    start_date: "2023/07/20",
+    end_date: "2023/08/10",
     task_type: "PROJECT",
     active: false,
+    subTaskInfo: [
+      {
+        task_label: "User profile and goal setting",
+        task_completed: false,
+        task_detail: "Implement user goal setting functionality",
+        task_repo: "",
+        task_id: "HCI0035_01",
+      },
+      {
+        task_label: "Step counting",
+        task_completed: false,
+        task_detail: "Design and develop step tracking screens",
+        task_repo: "",
+        task_id: "HCI0035_02",
+      },
+      {
+        task_label: "Notifications and reminders",
+        task_completed: false,
+        task_detail:
+          "Design and develop reminder settings and scheduling functionality",
+        task_repo: "",
+        task_id: "HCI0035_03",
+      },
+    ],
   },
   {
     key: "HCI0023",
@@ -467,6 +522,30 @@ export const taskDetails = [
     end_date: "2023/12/05",
     task_type: "PROJECT",
     active: true,
+    subTaskInfo: [
+      {
+        task_label: "User profile ",
+        task_completed: false,
+        task_detail: "Implement user personal details edit page",
+        task_repo: "",
+        task_id: "HCI0023_01",
+      },
+      {
+        task_label: "Post Creation",
+        task_completed: false,
+        task_detail:
+          "Enable users to publish post and add images and videos to it",
+        task_repo: "",
+        task_id: "HCI0023_02",
+      },
+      {
+        task_label: "Notifications and reminders",
+        task_completed: false,
+        task_detail: "Implement real-time notifications for new messages",
+        task_repo: "",
+        task_id: "HCI0023_03",
+      },
+    ],
   },
   {
     key: "HCI0036",
@@ -485,6 +564,32 @@ export const taskDetails = [
     end_date: "2024/01/09",
     task_type: "PROJECT",
     active: true,
+    subTaskInfo: [
+      {
+        task_label: "Movie Listing Page ",
+        task_completed: false,
+        task_detail:
+          "Create a page that lists movies with relevant details, such as title, genre, and release year.",
+        task_repo: "",
+        task_id: "HCI0036_01",
+      },
+      {
+        task_label: "User Preferences Page",
+        task_completed: false,
+        task_detail:
+          "Design and develop a page where users can set their movie preferences, such as preferred genres or actors",
+        task_repo: "",
+        task_id: "HCI0036_02",
+      },
+      {
+        task_label: "User Feedback Collection",
+        task_completed: false,
+        task_detail:
+          "Create a feedback mechanism for users to provide ratings or feedback on recommended movies",
+        task_repo: "",
+        task_id: "HCI0036_03",
+      },
+    ],
   },
   {
     key: "HCI0033",
@@ -521,6 +626,32 @@ export const taskDetails = [
     end_date: "2023/06/21",
     task_type: "PROJECT",
     active: false,
+    subTaskInfo: [
+      {
+        task_label: "Destination Search and Suggestions",
+        task_completed: false,
+        task_detail:
+          "Implement a search feature that allows users to search for destinations ",
+        task_repo: "",
+        task_id: "HCI0020_01",
+      },
+      {
+        task_label: "Interactive Map",
+        task_completed: false,
+        task_detail:
+          "Integrate a map component that visualizes the trip itinerary, allowing users to view and interact with destinations",
+        task_repo: "",
+        task_id: "HCI0020_02",
+      },
+      {
+        task_label: "Budget and Expense Tracking",
+        task_completed: false,
+        task_detail:
+          "Implement functionality for users to set budgets and track expenses related to each trip",
+        task_repo: "",
+        task_id: "HCI0020_03",
+      },
+    ],
   },
   {
     key: "HCI0009",
@@ -553,9 +684,33 @@ export const taskDetails = [
       assigner: "",
       student: "",
     },
-    start_date: "2023/05/10",
-    end_date: "2023/05/30",
+    start_date: "2023/07/30",
+    end_date: "2023/08/30",
     task_type: "PROJECT",
+    subTaskInfo: [
+      {
+        task_label: "Product listing and management",
+        task_completed: false,
+        task_detail:
+          "Implement product creation, editing, and deletion functionality",
+        task_repo: "",
+        task_id: "HCI0010_01",
+      },
+      {
+        task_label: "Order management",
+        task_completed: false,
+        task_detail: "Implement order history and status updates",
+        task_repo: "",
+        task_id: "HCI0010_02",
+      },
+      {
+        task_label: "Shopping cart and checkout process",
+        task_completed: false,
+        task_detail: "Implement secure payment processing integration",
+        task_repo: "",
+        task_id: "HCI0010_03",
+      },
+    ],
     active: false,
   },
   {
@@ -607,10 +762,35 @@ export const taskDetails = [
       assigner: "",
       student: "",
     },
-    start_date: "2023/06/01",
-    end_date: "2023/07/21",
+    start_date: "2023/08/01",
+    end_date: "2023/09/21",
     task_type: "PROJECT",
     active: false,
+    subTaskInfo: [
+      {
+        task_label: "Communication and messaging",
+        task_completed: false,
+        task_detail:
+          "Implement messaging functionality for job seekers and employers",
+        task_repo: "",
+        task_id: "HCI0026_01",
+      },
+      {
+        task_label: "User registration and authentication",
+        task_completed: false,
+        task_detail:
+          "Implement secure authentication mechanisms (e.g., OAuth, JWT)",
+        task_repo: "",
+        task_id: "HCI0026_02",
+      },
+      {
+        task_label: "Application tracking",
+        task_completed: false,
+        task_detail: "Implement job application submission functionality",
+        task_repo: "",
+        task_id: "HCI0026_03",
+      },
+    ],
   },
   {
     key: "HCI0027",
@@ -629,6 +809,31 @@ export const taskDetails = [
     end_date: "2023/07/15",
     task_type: "PROJECT",
     active: false,
+    subTaskInfo: [
+      {
+        task_label: "Account Settings and Preferences",
+        task_completed: false,
+        task_detail:
+          "Create a page where users can manage their account settings, update personal information",
+        task_repo: "",
+        task_id: "HCI0027_01",
+      },
+      {
+        task_label: "Secure Messaging",
+        task_completed: false,
+        task_detail:
+          "Implement a secure messaging feature that enables users to communicate with the bank's customer support",
+        task_repo: "",
+        task_id: "HCI0027_02",
+      },
+      {
+        task_label: "Account Alerts and Notifications",
+        task_completed: false,
+        task_detail: "Develop a system for sending real-time alerts and notifications to users",
+        task_repo: "",
+        task_id: "HCI0027_03",
+      },
+    ],
   },
   {
     key: "HCI0029",
@@ -643,10 +848,10 @@ export const taskDetails = [
       assigner: "",
       student: "",
     },
-    start_date: "2023/09/25",
-    end_date: "2023/10/31",
+    start_date: "2023/06/25",
+    end_date: "2023/07/02",
     task_type: "ASSIGNMENT",
-    active: true,
+    active: false,
   },
   {
     key: "HCI0031",
@@ -679,10 +884,35 @@ export const taskDetails = [
       assigner: "",
       student: "",
     },
-    start_date: "2023/08/08",
-    end_date: "2023/08/30",
-    task_type: "ASSIGNMENT",
-    active: true,
+    start_date: "2023/06/08",
+    end_date: "2023/07/03",
+    task_type: "PROJECT",
+    active: false,
+    subTaskInfo: [
+      {
+        task_label: "Account Settings and Preferences",
+        task_completed: false,
+        task_detail:
+          "Create a page where users can manage their account settings, update personal information",
+        task_repo: "",
+        task_id: "HCI0032_01",
+      },
+      {
+        task_label: "Task Prioritization",
+        task_completed: false,
+        task_detail:
+          "Implement a feature that allows users to prioritize tasks",
+        task_repo: "",
+        task_id: "HCI0032_02",
+      },
+      {
+        task_label: "Task Details and Editing",
+        task_completed: false,
+        task_detail: "Implement task edit and update functionality",
+        task_repo: "",
+        task_id: "HCI0032_03",
+      },
+    ],
   },
   {
     key: "HCI0037",
@@ -697,11 +927,11 @@ export const taskDetails = [
     },
     publisher_id: "2117280001",
     assigner_id: "",
-    start_date: "2023/09/15",
-    end_date: "2023/10/05",
+    start_date: "2023/06/15",
+    end_date: "2023/07/05",
     pdf_file: {},
     task_type: "ASSIGNMENT",
-    active: true,
+    active: false,
   },
 
   {
@@ -719,8 +949,33 @@ export const taskDetails = [
     },
     start_date: "2023/06/12",
     end_date: "2023/06/31",
-    task_type: "ASSIGNMENT",
+    task_type: "PROJECT",
     active: false,
+    subTaskInfo: [
+      {
+        task_label: "Account Settings and Preferences",
+        task_completed: false,
+        task_detail:
+          "Create a page where users can manage their account settings, update personal information",
+        task_repo: "",
+        task_id: "HCI0021_01",
+      },
+      {
+        task_label: "Expense Categories",
+        task_completed: false,
+        task_detail:
+          "develop a feature that allows users to categorize their expenses",
+        task_repo: "",
+        task_id: "HCI0021_02",
+      },
+      {
+        task_label: "Expense Charts and Visualizations",
+        task_completed: false,
+        task_detail: "Implement visual representations, such as charts or graphs, to display expense trends",
+        task_repo: "",
+        task_id: "HCI0021_03",
+      },
+    ],
   },
 
   {
@@ -850,10 +1105,10 @@ export const taskDetails = [
       assigner: "",
       student: "",
     },
-    start_date: "2023/07/12",
-    end_date: "2023/08/07",
+    start_date: "2023/06/12",
+    end_date: "2023/07/07",
     task_type: "ASSIGNMENT",
-    active: true,
+    active: false,
   },
 
   {
@@ -949,6 +1204,31 @@ export const taskDetails = [
     end_date: "2023/08/12",
     task_type: "PROJECT",
     active: true,
+    subTaskInfo: [
+      {
+        task_label: "Account Settings and Preferences",
+        task_completed: false,
+        task_detail:
+          "Create a page where users can manage their account settings, update personal information",
+        task_repo: "",
+        task_id: "HCI0014_01",
+      },
+      {
+        task_label: "Collision Detection",
+        task_completed: false,
+        task_detail:
+          "Implement collision detection mechanisms to ensure accurate interaction between the player and the virtual objects",
+        task_repo: "",
+        task_id: "HCI0014_02",
+      },
+      {
+        task_label: "Game Progression and Levels",
+        task_completed: false,
+        task_detail: "Implement the current progress page",
+        task_repo: "",
+        task_id: "HCI0014_03",
+      },
+    ],
   },
 
   {
@@ -987,6 +1267,31 @@ export const taskDetails = [
     end_date: "2023/08/14",
     task_type: "PROJECT",
     active: true,
+    subTaskInfo: [
+      {
+        task_label: "Account Settings and Preferences",
+        task_completed: false,
+        task_detail:
+          "Create a page where users can manage their account settings, update personal information",
+        task_repo: "",
+        task_id: "HCI0016_01",
+      },
+      {
+        task_label: "Product Categories and Filtering",
+        task_completed: false,
+        task_detail:
+          "Implement product categorization and filtering",
+        task_repo: "",
+        task_id: "HCI0016_02",
+      },
+      {
+        task_label: "Wishlist and Favorites",
+        task_completed: false,
+        task_detail: " Create functionality that allows users to save their favorite fashion items to a wishlist",
+        task_repo: "",
+        task_id: "HCI0016_03",
+      },
+    ],
   },
 
   {
@@ -1002,8 +1307,8 @@ export const taskDetails = [
       assigner: "",
       student: "",
     },
-    start_date: "2023/07/12",
-    end_date: "2023/08/15",
+    start_date: "2023/06/12",
+    end_date: "2023/07/10",
     task_type: "ASSIGNMENT",
     active: true,
   },
@@ -1025,6 +1330,31 @@ export const taskDetails = [
     end_date: "2023/08/16",
     task_type: "PROJECT",
     active: true,
+    subTaskInfo: [
+      {
+        task_label: "Account Settings and Preferences",
+        task_completed: false,
+        task_detail:
+          "Create a page where users can manage their account settings, update personal information",
+        task_repo: "",
+        task_id: "HCI0018_01",
+      },
+      {
+        task_label: "Workout Library",
+        task_completed: false,
+        task_detail:
+          "develop a library of pre-defined workouts or exercise routines",
+        task_repo: "",
+        task_id: "HCI0018_02",
+      },
+      {
+        task_label: "Community Forums",
+        task_completed: false,
+        task_detail: "Create discussion forums for fitness-related conversations",
+        task_repo: "",
+        task_id: "HCI0018_03",
+      },
+    ],
   },
 
   {
@@ -1063,5 +1393,30 @@ export const taskDetails = [
     end_date: "2023/08/18",
     task_type: "PROJECT",
     active: true,
+    subTaskInfo: [
+      {
+        task_label: "Account Settings and Preferences",
+        task_completed: false,
+        task_detail:
+          "Create a page where users can manage their account settings, update personal information",
+        task_repo: "",
+        task_id: "HCI0038_01",
+      },
+      {
+        task_label: "Mindfulness Reminders",
+        task_completed: false,
+        task_detail:
+          "Implement a feature that sends periodic mindfulness reminders or notifications to users ",
+        task_repo: "",
+        task_id: "HCI0038_02",
+      },
+      {
+        task_label: "Community Forums",
+        task_completed: false,
+        task_detail: "Create discussion forums for fitness-related conversations",
+        task_repo: "",
+        task_id: "HCI0038_03",
+      },
+    ],
   },
 ];

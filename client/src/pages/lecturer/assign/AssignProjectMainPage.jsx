@@ -14,16 +14,16 @@ const AssignProjectMainPage = () => {
   const colors = tokens(theme.palette.mode);
 
   const [assignClicked, setAssignClicked] = useState(false);
-  const [projectDetail,setProjectDetail]=useState();
+  const [projectDetail, setProjectDetail] = useState();
 
   const projectList = useSelector(
     (state) => state.lecturer_Task_Info.unAssigned_project_list
   );
 
   /* Share project detail with AssignProjectDetail Component */
-  const viewProjectDetail=(taskData)=>{
+  const viewProjectDetail = (taskData) => {
     setProjectDetail(taskData);
-  }
+  };
 
   return (
     <Box m="10px 20px">
@@ -51,7 +51,7 @@ const AssignProjectMainPage = () => {
         )}
         {assignClicked && (
           <>
-            <Box
+            {/* <Box
               display={"flex"}
               justifyContent={"flex-end"}
               backgroundColor={colors.primary[500]}
@@ -70,8 +70,12 @@ const AssignProjectMainPage = () => {
               >
                 Back
               </Button>
-            </Box>
-            <AssignProjectDetail projectDetail={projectDetail} />
+            </Box> */}
+            <AssignProjectDetail
+              projectDetail={projectDetail}
+              assignClicked={assignClicked}
+              setAssignClicked={setAssignClicked}
+            />
           </>
         )}
       </Box>

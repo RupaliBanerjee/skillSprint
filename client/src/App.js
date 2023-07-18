@@ -19,6 +19,7 @@ import ViewInactiveTask from "pages/student/viewInactiveTask";
 import Lecturer_Dashboard from "pages/lecturer/dashboard";
 import EvaluateMainPage from "./pages/lecturer/evaluate/EvaluateMainPage"
 import AssignProjectMainPage from "pages/lecturer/assign/AssignProjectMainPage";
+import PublishAssignmentPage from "pages/lecturer/publish/PublishAssignmentPage";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -65,6 +66,7 @@ function App() {
                   <Route path="/profile" element={<ProfilePage />} />
                   <Route path="/evaluate" element={<EvaluateMainPage />} />
                   <Route path="/assign" element={<AssignProjectMainPage />} />
+                  <Route path="/publish/assignment" element={<PublishAssignmentPage />} />
                   
                 </Routes>
               )}

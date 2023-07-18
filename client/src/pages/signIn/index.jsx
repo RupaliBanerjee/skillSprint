@@ -39,7 +39,7 @@ const SignIn = () => {
   const [userCredential, setUserCredentials] = useState();
 
   const getUserData = async(id, user_id,account_type) => {
-    dispatch(fetchUserData(id));
+    dispatch(fetchUserData(user_id));
     if(account_type===ACCOUNT_TYPES.STUDENT){
       dispatch(fetchUserTaskMap(user_id)).unwrap();
     }  

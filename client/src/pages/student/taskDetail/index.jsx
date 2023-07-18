@@ -38,7 +38,7 @@ const TaskDetail = (props) => {
   const { taskData, activeTask ,updateTaskData} = props;
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  console.log("Check Task_detail for students", taskData);
+  
   const [showFileUpload_dialog, setShowFileUpload_dialog] = useState(false);
   const [showFilePreview_dialog, setShowFilePreview_dialog] = useState(false);
   const [showScoreDialog, setShowScoreDialog] = useState(false);

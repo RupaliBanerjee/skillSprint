@@ -117,6 +117,7 @@ const EvaluateMainPage = () => {
       type: "Lecturer Task",
     },
   ];
+  console.log("Check project",project)
   useEffect(() => {
     tabInfo = [
       {

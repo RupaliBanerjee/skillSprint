@@ -63,6 +63,7 @@ const BarChart = ({ isDashboard = false }) => {
 
   return (
     <ResponsiveBar
+    groupMode="grouped" 
       data={nivoData}
       theme={{
         // added
