@@ -27,7 +27,7 @@ function TabPanel(props) {
     setTaskData(task);
     setShowBackButton(true);
   };
-
+  
 
   return (
     <div
@@ -79,9 +79,9 @@ function TabPanel(props) {
                 on click of the of view task assignment and project will show the same page
                  and History will have different layout */}
           {isTaskTypeStudent &&
-            (taskData == undefined && !showBackButton && name !== "HISTORY" ? (
+            (taskData == undefined && !showBackButton && name !== "SUBMITTED TASK" ? (
               <TaskList data={data} viewTaskDetail={viewTaskDetail} />
-            ) : name !== "HISTORY" ? (
+            ) : name !== "SUBMITTED TASK" ? (
               <TaskDetail
                 taskData={taskData}
                 activeTask={taskData.task_detail}
@@ -162,8 +162,8 @@ export default function BasicTabs(props) {
             name={currentTab}
             task_type={tabItem.type}
           >
-            {tabItem.tabName !== "History" && ` Active ${tabItem.tabName}`}
-            {tabItem.tabName === "History" && "Previously Submitted Tasks"}
+            {tabItem.tabName !== "Submitted Task" && ` Active ${tabItem.tabName}`}
+            {tabItem.tabName === "Submitted Task" && "Previously Submitted Tasks"}
           </TabPanel>
         );
       })}

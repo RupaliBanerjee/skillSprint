@@ -121,11 +121,11 @@ export const student_taskMap = [
         weightage: 10,
       },
       {
-        name: "basic_functionality",
+        name: "basic functionality",
         weightage: 7,
       },
       {
-        name: "code_quality",
+        name: "code quality",
         weightage: 5,
       },
       {
@@ -145,11 +145,11 @@ export const student_taskMap = [
         weightage: 0,
       },
       {
-        name: "basic_functionality",
+        name: "basic functionality",
         weightage: 0,
       },
       {
-        name: "code_quality",
+        name: "code quality",
         weightage: 0,
       },
       {
@@ -169,11 +169,11 @@ export const student_taskMap = [
         weightage: 5,
       },
       {
-        name: "basic_functionality",
+        name: "basic functionality",
         weightage: 5,
       },
       {
-        name: "code_quality",
+        name: "code quality",
         weightage: 4,
       },
       {
@@ -193,11 +193,11 @@ export const student_taskMap = [
         weightage: 8,
       },
       {
-        name: "basic_functionality",
+        name: "basic functionality",
         weightage: 10,
       },
       {
-        name: "code_quality",
+        name: "code quality",
         weightage: 5,
       },
       {
@@ -217,11 +217,11 @@ export const student_taskMap = [
         weightage: 0,
       },
       {
-        name: "basic_functionality",
+        name: "basic functionality",
         weightage: 0,
       },
       {
-        name: "code_quality",
+        name: "code quality",
         weightage: 0,
       },
       {
@@ -241,11 +241,11 @@ export const student_taskMap = [
         weightage: 0,
       },
       {
-        name: "basic_functionality",
+        name: "basic functionality",
         weightage: 0,
       },
       {
-        name: "code_quality",
+        name: "code quality",
         weightage: 0,
       },
       {
@@ -267,11 +267,11 @@ export const student_taskMap = [
         weightage: 6,
       },
       {
-        name: "basic_functionality",
+        name: "basic functionality",
         weightage: 10,
       },
       {
-        name: "code_quality",
+        name: "code quality",
         weightage: 5,
       },
       {
@@ -291,11 +291,11 @@ export const student_taskMap = [
         weightage: 0,
       },
       {
-        name: "basic_functionality",
+        name: "basic functionality",
         weightage: 0,
       },
       {
-        name: "code_quality",
+        name: "code quality",
         weightage: 0,
       },
       {
@@ -316,11 +316,11 @@ export const student_taskMap = [
         weightage: 6,
       },
       {
-        name: "basic_functionality",
+        name: "basic functionality",
         weightage: 10,
       },
       {
-        name: "code_quality",
+        name: "code quality",
         weightage: 5,
       },
       {
@@ -340,11 +340,11 @@ export const student_taskMap = [
         weightage: 5,
       },
       {
-        name: "basic_functionality",
+        name: "basic functionality",
         weightage: 10,
       },
       {
-        name: "code_quality",
+        name: "code quality",
         weightage: 5,
       },
       {
@@ -365,11 +365,11 @@ export const student_taskMap = [
         weightage: 0,
       },
       {
-        name: "basic_functionality",
+        name: "basic functionality",
         weightage: 0,
       },
       {
-        name: "code_quality",
+        name: "code quality",
         weightage: 0,
       },
       {
@@ -390,11 +390,11 @@ export const student_taskMap = [
         weightage: 0,
       },
       {
-        name: "basic_functionality",
+        name: "basic functionality",
         weightage: 0,
       },
       {
-        name: "code_quality",
+        name: "code quality",
         weightage: 0,
       },
       {
@@ -414,11 +414,9 @@ export const taskDetails = [
     publisher_id: "2117280001",
     assigner_id: "",
     title: "Weather Report App",
-    summary:
-      "Develop a lightweight and intuitive weather application, named Vanilla Weather App, using vanilla JavaScript. The app should provide accurate and up-to-date weather information, including current conditions and detailed forecasts. Ensure the app is customizable, with a responsive design and user-friendly interface, offering a seamless and visually appealing experience for users to access weather data and plan their activities accordingly.",
+    summary:"Develop a lightweight and intuitive weather application, named Vanilla Weather App, using vanilla JavaScript. The app should provide accurate and up-to-date weather information, including current conditions and detailed forecasts. Ensure the app is customizable, with a responsive design and user-friendly interface, offering a seamless and visually appealing experience for users to access weather data and plan their activities accordingly.",
     comments: {
-      publisher:
-        "In our case, we’re going to use OpenWeatherMap, one of the most popular free choices. OpenWeather describes itself as a group of IT experts and data scientists that does deep weather data science since 2014. For each point on Earth, OpenWeather provides reliable historical, current and forecasted weather data via light-speed APIs. /n Plugins:/n elements.envanto,weather app template ",
+      publisher:"In our case, we are going to use OpenWeatherMap, one of the most popular free choices. OpenWeather describes itself as a group of IT experts and data scientists that does deep weather data science since 2014. For each point on Earth, OpenWeather provides reliable historical, current and forecasted weather data via light-speed APIs. /n Plugins:/n elements.envanto,weather app template ",
       assigner: "",
       student: "",
     },
@@ -432,11 +430,9 @@ export const taskDetails = [
     publisher_id: "2117280001",
     assigner_id: "",
     title: "Calendar App",
-    summary:
-      "Create a calendar application that allows users to manage their schedules, set reminders, and share events with others. The app should have an intuitive user interface and provide essential features such as creating, editing, and deleting events, as well as sending notifications for upcoming events. Ensure the calendar supports multiple views (day, week, month) and provides a seamless experience for users to organize their time effectively.",
+    summary:"Create a calendar application that allows users to manage their schedules, set reminders, and share events with others. The app should have an intuitive user interface and provide essential features such as creating, editing, and deleting events, as well as sending notifications for upcoming events. Ensure the calendar supports multiple views (day, week, month) and provides a seamless experience for users to organize their time effectively.",
     comments: {
-      publisher:
-        "For this task, you can utilize existing calendar libraries or build the calendar functionality from scratch. Make sure to consider the design and usability aspects to provide an excellent user experience. Feel free to explore different frameworks and technologies to implement the calendar app.",
+      publisher:"For this task, you can utilize existing calendar libraries or build the calendar functionality from scratch. Make sure to consider the design and usability aspects to provide an excellent user experience. Feel free to explore different frameworks and technologies to implement the calendar app.",
       assigner: "",
       student: "",
     },
@@ -444,17 +440,16 @@ export const taskDetails = [
     end_date: "2023/08/21",
     task_type: "ASSIGNMENT",
     active: true,
+    assesment_criteria:["accuracy","basic functionality","code quality","documentation"]
   },
   {
     key: "HCI0022",
     publisher_id: "2117280001",
     assigner_id: "",
     title: "E-commerce Website",
-    summary:
-      "Develop an e-commerce website for selling a variety of products. The website should provide features like product listing, searching, sorting, and filtering. Implement a shopping cart functionality to allow users to add products, proceed to checkout, and place orders. Ensure the website has an appealing design, is responsive, and provides a smooth shopping experience for users.",
+    summary:"Develop an e-commerce website for selling a variety of products. The website should provide features like product listing, searching, sorting, and filtering. Implement a shopping cart functionality to allow users to add products, proceed to checkout, and place orders. Ensure the website has an appealing design, is responsive, and provides a smooth shopping experience for users.",
     comments: {
-      publisher:
-        "Consider incorporating popular e-commerce platforms like Shopify or WooCommerce to streamline the development process. These platforms offer ready-to-use themes and plugins to enhance the functionality of your website. Remember to focus on user experience and make the website visually appealing.",
+      publisher:"Consider incorporating popular e-commerce platforms like Shopify or WooCommerce to streamline the development process. These platforms offer ready-to-use themes and plugins to enhance the functionality of your website. Remember to focus on user experience and make the website visually appealing.",
       assigner: "",
       student: "",
     },
@@ -462,17 +457,16 @@ export const taskDetails = [
     end_date: "2023/09/25",
     task_type: "ASSIGNMENT",
     active: true,
+    assesment_criteria:["accuracy","basic functionality","code quality","documentation"]
   },
   {
     key: "HCI0035",
     publisher_id: "2117280004",
     assigner_id: "2117280001",
     title: "Fitness Tracking App",
-    summary:
-      "Design and develop a fitness tracking application that helps users monitor their exercise and wellness activities. The app should include features like tracking workouts, counting steps, recording heart rate, and providing personalized recommendations based on user goals. Ensure the app has an intuitive and visually appealing interface to motivate users in achieving their fitness targets.",
+    summary:"Design and develop a fitness tracking application that helps users monitor their exercise and wellness activities. The app should include features like tracking workouts, counting steps, recording heart rate, and providing personalized recommendations based on user goals. Ensure the app has an intuitive and visually appealing interface to motivate users in achieving their fitness targets.",
     comments: {
-      publisher:
-        "There are several fitness tracking APIs and libraries available that you can integrate into your application. Explore options like Google Fit, Apple HealthKit, or Fitbit API to access fitness-related data and provide accurate tracking features. Focus on creating an engaging user experience to keep users motivated and engaged with the app.",
+      publisher:"There are several fitness tracking APIs and libraries available that you can integrate into your application. Explore options like Google Fit, Apple HealthKit, or Fitbit API to access fitness-related data and provide accurate tracking features. Focus on creating an engaging user experience to keep users motivated and engaged with the app.",
       assigner: "",
       student: "",
     },
@@ -498,8 +492,7 @@ export const taskDetails = [
       {
         task_label: "Notifications and reminders",
         task_completed: false,
-        task_detail:
-          "Design and develop reminder settings and scheduling functionality",
+        task_detail:"Design and develop reminder settings and scheduling functionality",
         task_repo: "",
         task_id: "HCI0035_03",
       },
@@ -510,11 +503,9 @@ export const taskDetails = [
     publisher_id: "2117280004",
     assigner_id: "2117280001",
     title: "Social Media App",
-    summary:
-      "Create a social media application that allows users to connect, share content, and interact with each other. The app should include features like creating user profiles, posting updates, following other users, commenting on posts, and direct messaging. Implement a responsive design and ensure the app provides a seamless experience for users to connect and engage with the community.",
+    summary:"Create a social media application that allows users to connect, share content, and interact with each other. The app should include features like creating user profiles, posting updates, following other users, commenting on posts, and direct messaging. Implement a responsive design and ensure the app provides a seamless experience for users to connect and engage with the community.",
     comments: {
-      publisher:
-        "Consider popular social media platforms like Facebook, Twitter, or Instagram as inspiration for designing and implementing your social media app. Pay attention to user privacy and security while implementing features like user authentication and data protection. Create an engaging and user-friendly interface to attract and retain users.",
+      publisher:"Consider popular social media platforms like Facebook, Twitter, or Instagram as inspiration for designing and implementing your social media app. Pay attention to user privacy and security while implementing features like user authentication and data protection. Create an engaging and user-friendly interface to attract and retain users.",
       assigner: "",
       student: "",
     },
@@ -522,6 +513,7 @@ export const taskDetails = [
     end_date: "2023/12/05",
     task_type: "PROJECT",
     active: true,
+    assesment_criteria:["accuracy","basic functionality","code quality","documentation"],
     subTaskInfo: [
       {
         task_label: "User profile ",
@@ -552,11 +544,9 @@ export const taskDetails = [
     publisher_id: "2117280004",
     assigner_id: "2117280001",
     title: "Movie Recommendation System",
-    summary:
-      "Build a movie recommendation system that suggests movies to users based on their preferences and viewing history. The system should analyze user data, such as movie ratings, genres, and watch history, to generate personalized movie recommendations. Implement a user-friendly interface to display movie recommendations and allow users to explore and discover new movies.",
+    summary:"Build a movie recommendation system that suggests movies to users based on their preferences and viewing history. The system should analyze user data, such as movie ratings, genres, and watch history, to generate personalized movie recommendations. Implement a user-friendly interface to display movie recommendations and allow users to explore and discover new movies.",
     comments: {
-      publisher:
-        "Consider utilizing machine learning algorithms like collaborative filtering or content-based filtering to create an effective movie recommendation system. Use movie datasets and libraries like IMDb or MovieLens to gather movie information and ratings. Focus on providing accurate recommendations and enhancing the user experience.",
+      publisher:"Consider utilizing machine learning algorithms like collaborative filtering or content-based filtering to create an effective movie recommendation system. Use movie datasets and libraries like IMDb or MovieLens to gather movie information and ratings. Focus on providing accurate recommendations and enhancing the user experience.",
       assigner: "",
       student: "",
     },
@@ -564,28 +554,26 @@ export const taskDetails = [
     end_date: "2024/01/09",
     task_type: "PROJECT",
     active: true,
+    assesment_criteria:["accuracy","basic functionality","code quality","documentation"],
     subTaskInfo: [
       {
         task_label: "Movie Listing Page ",
         task_completed: false,
-        task_detail:
-          "Create a page that lists movies with relevant details, such as title, genre, and release year.",
+        task_detail:"Create a page that lists movies with relevant details, such as title, genre, and release year.",
         task_repo: "",
         task_id: "HCI0036_01",
       },
       {
         task_label: "User Preferences Page",
         task_completed: false,
-        task_detail:
-          "Design and develop a page where users can set their movie preferences, such as preferred genres or actors",
+        task_detail:"Design and develop a page where users can set their movie preferences, such as preferred genres or actors",
         task_repo: "",
         task_id: "HCI0036_02",
       },
       {
         task_label: "User Feedback Collection",
         task_completed: false,
-        task_detail:
-          "Create a feedback mechanism for users to provide ratings or feedback on recommended movies",
+        task_detail:"Create a feedback mechanism for users to provide ratings or feedback on recommended movies",
         task_repo: "",
         task_id: "HCI0036_03",
       },
@@ -596,11 +584,9 @@ export const taskDetails = [
     publisher_id: "2117280001",
     assigner_id: "",
     title: "Recipe App",
-    summary:
-      "Develop a recipe application that allows users to search, save, and explore various recipes. The app should include features like recipe search by ingredients, favorite recipes, and step-by-step instructions with images. Implement a visually appealing design and ensure the app provides a smooth and enjoyable experience for users to discover and try new recipes.",
+    summary:"Develop a recipe application that allows users to search, save, and explore various recipes. The app should include features like recipe search by ingredients, favorite recipes, and step-by-step instructions with images. Implement a visually appealing design and ensure the app provides a smooth and enjoyable experience for users to discover and try new recipes.",
     comments: {
-      publisher:
-        "You can utilize recipe APIs like Spoonacular or Edamam to fetch recipes and related information. Consider implementing features like meal planning, shopping list generation, or dietary restrictions to enhance the functionality of the recipe app. Pay attention to the presentation of recipes, including high-quality images and clear instructions.",
+    publisher:"You can utilize recipe APIs like Spoonacular or Edamam to fetch recipes and related information. Consider implementing features like meal planning, shopping list generation, or dietary restrictions to enhance the functionality of the recipe app. Pay attention to the presentation of recipes, including high-quality images and clear instructions.",
       assigner: "",
       student: "",
     },
@@ -608,17 +594,16 @@ export const taskDetails = [
     end_date: "2023/08/14",
     task_type: "ASSIGNMENT",
     active: true,
+    assesment_criteria:["accuracy","basic functionality","code quality","documentation"]
   },
   {
     key: "HCI0020",
     publisher_id: "2117280007",
     assigner_id: "2117280001",
     title: "Travel Planning App",
-    summary:
-      "Design and develop a travel planning application that helps users organize and plan their trips. The app should provide features like searching for destinations, creating itineraries, booking flights and accommodations, and providing travel recommendations. Ensure the app has an intuitive interface and offers a seamless experience for users to plan and manage their travel effectively.",
+    summary:"Design and develop a travel planning application that helps users organize and plan their trips. The app should provide features like searching for destinations, creating itineraries, booking flights and accommodations, and providing travel recommendations. Ensure the app has an intuitive interface and offers a seamless experience for users to plan and manage their travel effectively.",
     comments: {
-      publisher:
-        "Consider integrating travel APIs like Google Maps, TripAdvisor, or Skyscanner to fetch travel-related information and provide accurate recommendations. Implement features like interactive maps, reviews, and suggestions for local attractions to enhance the travel planning experience. Focus on creating a visually appealing and user-friendly interface.",
+      publisher:"Consider integrating travel APIs like Google Maps, TripAdvisor, or Skyscanner to fetch travel-related information and provide accurate recommendations. Implement features like interactive maps, reviews, and suggestions for local attractions to enhance the travel planning experience. Focus on creating a visually appealing and user-friendly interface.",
       assigner: "",
       student: "",
     },
@@ -630,24 +615,21 @@ export const taskDetails = [
       {
         task_label: "Destination Search and Suggestions",
         task_completed: false,
-        task_detail:
-          "Implement a search feature that allows users to search for destinations ",
+        task_detail:"Implement a search feature that allows users to search for destinations ",
         task_repo: "",
         task_id: "HCI0020_01",
       },
       {
         task_label: "Interactive Map",
         task_completed: false,
-        task_detail:
-          "Integrate a map component that visualizes the trip itinerary, allowing users to view and interact with destinations",
+        task_detail:"Integrate a map component that visualizes the trip itinerary, allowing users to view and interact with destinations",
         task_repo: "",
         task_id: "HCI0020_02",
       },
       {
         task_label: "Budget and Expense Tracking",
         task_completed: false,
-        task_detail:
-          "Implement functionality for users to set budgets and track expenses related to each trip",
+        task_detail:"Implement functionality for users to set budgets and track expenses related to each trip",
         task_repo: "",
         task_id: "HCI0020_03",
       },
@@ -658,11 +640,9 @@ export const taskDetails = [
     publisher_id: "2117280001",
     assigner_id: "",
     title: "Language Learning App",
-    summary:
-      "Create a language learning application that helps users learn new languages through interactive lessons and exercises. The app should provide features like vocabulary building, grammar lessons, speaking practice, and progress tracking. Implement a visually appealing design and ensure the app offers a personalized learning experience for users.",
+    summary:"Create a language learning application that helps users learn new languages through interactive lessons and exercises. The app should provide features like vocabulary building, grammar lessons, speaking practice, and progress tracking. Implement a visually appealing design and ensure the app offers a personalized learning experience for users.",
     comments: {
-      publisher:
-        "Consider incorporating language learning APIs like Duolingo or Babbel to access language courses and learning materials. Implement features like quizzes, flashcards, and audio exercises to make language learning engaging and effective. Focus on creating a user-friendly interface and providing feedback to users to improve their language skills.",
+      publisher:"Consider incorporating language learning APIs like Duolingo or Babbel to access language courses and learning materials. Implement features like quizzes, flashcards, and audio exercises to make language learning engaging and effective. Focus on creating a user-friendly interface and providing feedback to users to improve their language skills.",
       assigner: "",
       student: "",
     },
@@ -676,11 +656,9 @@ export const taskDetails = [
     publisher_id: "2117280004",
     assigner_id: "2117280001",
     title: "Online Marketplace",
-    summary:
-      "Develop an online marketplace platform that allows users to buy and sell various products and services. The platform should include features like product listings, search and filter options, user ratings and reviews, secure payment processing, and order management. Implement a responsive design and ensure the platform provides a safe and seamless experience for buyers and sellers.",
+    summary:"Develop an online marketplace platform that allows users to buy and sell various products and services. The platform should include features like product listings, search and filter options, user ratings and reviews, secure payment processing, and order management. Implement a responsive design and ensure the platform provides a safe and seamless experience for buyers and sellers.",
     comments: {
-      publisher:
-        "Consider popular online marketplaces like Amazon, eBay, or Etsy as inspiration for designing and implementing your online marketplace. Implement features like seller verification, buyer protection, and messaging systems to facilitate smooth transactions. Focus on creating a visually appealing and user-friendly interface to attract and retain users.",
+      publisher:"Consider popular online marketplaces like Amazon, eBay, or Etsy as inspiration for designing and implementing your online marketplace. Implement features like seller verification, buyer protection, and messaging systems to facilitate smooth transactions. Focus on creating a visually appealing and user-friendly interface to attract and retain users.",
       assigner: "",
       student: "",
     },
@@ -718,11 +696,9 @@ export const taskDetails = [
     publisher_id: "2117280001",
     assigner_id: "",
     title: "News Aggregator App",
-    summary:
-      "Create a news aggregator application that collects and displays news articles from various sources. The app should include features like personalized news recommendations, topic-based filtering, bookmarking, and offline reading. Implement an appealing and user-friendly interface to keep users informed and engaged.",
+    summary:"Create a news aggregator application that collects and displays news articles from various sources. The app should include features like personalized news recommendations, topic-based filtering, bookmarking, and offline reading. Implement an appealing and user-friendly interface to keep users informed and engaged.",
     comments: {
-      publisher:
-        "Consider integrating news APIs like NewsAPI, RSS feeds, or social media APIs to fetch news articles and related information. Focus on providing reliable news sources, improving news personalization, and incorporating features like article sharing or comments.",
+      publisher:"Consider integrating news APIs like NewsAPI, RSS feeds, or social media APIs to fetch news articles and related information. Focus on providing reliable news sources, improving news personalization, and incorporating features like article sharing or comments.",
       assigner: "",
       student: "",
     },
@@ -730,17 +706,16 @@ export const taskDetails = [
     end_date: "2023/10/05",
     task_type: "ASSIGNMENT",
     active: true,
+    assesment_criteria:["accuracy","basic functionality","code quality","documentation"]
   },
   {
     key: "HCI0025",
     publisher_id: "2117280001",
     assigner_id: "",
     title: "Food Delivery App",
-    summary:
-      "Develop a food delivery application that allows users to order food from nearby restaurants. The app should include features like restaurant listings, menu browsing, online ordering, order tracking, and payment integration. Implement an intuitive and visually appealing interface to provide a seamless food ordering experience.",
+    summary:"Develop a food delivery application that allows users to order food from nearby restaurants. The app should include features like restaurant listings, menu browsing, online ordering, order tracking, and payment integration. Implement an intuitive and visually appealing interface to provide a seamless food ordering experience.",
     comments: {
-      publisher:
-        "Consider integrating popular food delivery APIs like Uber Eats, DoorDash, or Grubhub to access restaurant listings and streamline the ordering process. Focus on optimizing the app for fast and secure food deliveries and incorporating user reviews and ratings for restaurants.",
+      publisher:"Consider integrating popular food delivery APIs like Uber Eats, DoorDash, or Grubhub to access restaurant listings and streamline the ordering process. Focus on optimizing the app for fast and secure food deliveries and incorporating user reviews and ratings for restaurants.",
       assigner: "",
       student: "",
     },
@@ -748,17 +723,16 @@ export const taskDetails = [
     end_date: "2023/09/30",
     task_type: "ASSIGNMENT",
     active: true,
+    assesment_criteria:["accuracy","basic functionality","code quality","documentation"]
   },
   {
     key: "HCI0026",
     publisher_id: "2117280015",
     assigner_id: "2117280001",
     title: "Job Search Platform",
-    summary:
-      "Build a job search platform that helps users find employment opportunities. The platform should include features like job listings, resume uploading, application tracking, and personalized job recommendations. Implement a user-friendly interface and provide effective tools for job seekers and employers.",
+    summary:"Build a job search platform that helps users find employment opportunities. The platform should include features like job listings, resume uploading, application tracking, and personalized job recommendations. Implement a user-friendly interface and provide effective tools for job seekers and employers.",
     comments: {
-      publisher:
-        "Consider integrating job search APIs like Indeed, LinkedIn, or Glassdoor to access job listings and related information. Focus on creating advanced search filters, incorporating user profiles, and providing resources for resume building and interview preparation.",
+      publisher:"Consider integrating job search APIs like Indeed, LinkedIn, or Glassdoor to access job listings and related information. Focus on creating advanced search filters, incorporating user profiles, and providing resources for resume building and interview preparation.",
       assigner: "",
       student: "",
     },
@@ -770,16 +744,14 @@ export const taskDetails = [
       {
         task_label: "Communication and messaging",
         task_completed: false,
-        task_detail:
-          "Implement messaging functionality for job seekers and employers",
+        task_detail:"Implement messaging functionality for job seekers and employers",
         task_repo: "",
         task_id: "HCI0026_01",
       },
       {
         task_label: "User registration and authentication",
         task_completed: false,
-        task_detail:
-          "Implement secure authentication mechanisms (e.g., OAuth, JWT)",
+        task_detail:"Implement secure authentication mechanisms (e.g., OAuth, JWT)",
         task_repo: "",
         task_id: "HCI0026_02",
       },
@@ -797,11 +769,9 @@ export const taskDetails = [
     publisher_id: "2117280015",
     assigner_id: "2117280001",
     title: "Online Banking App",
-    summary:
-      "Design and develop an online banking application that allows users to manage their finances and perform banking transactions. The app should include features like account balance checking, fund transfers, bill payments, and transaction history. Implement a secure and intuitive interface to ensure a smooth banking experience for users.",
+    summary:"Design and develop an online banking application that allows users to manage their finances and perform banking transactions. The app should include features like account balance checking, fund transfers, bill payments, and transaction history. Implement a secure and intuitive interface to ensure a smooth banking experience for users.",
     comments: {
-      publisher:
-        "Consider incorporating banking APIs or partnering with financial institutions to access banking services and ensure secure transactions. Focus on implementing multi-factor authentication, transaction encryption, and real-time balance updates.",
+      publisher:"Consider incorporating banking APIs or partnering with financial institutions to access banking services and ensure secure transactions. Focus on implementing multi-factor authentication, transaction encryption, and real-time balance updates.",
       assigner: "",
       student: "",
     },
@@ -813,16 +783,14 @@ export const taskDetails = [
       {
         task_label: "Account Settings and Preferences",
         task_completed: false,
-        task_detail:
-          "Create a page where users can manage their account settings, update personal information",
+        task_detail:"Create a page where users can manage their account settings, update personal information",
         task_repo: "",
         task_id: "HCI0027_01",
       },
       {
         task_label: "Secure Messaging",
         task_completed: false,
-        task_detail:
-          "Implement a secure messaging feature that enables users to communicate with the bank's customer support",
+        task_detail:"Implement a secure messaging feature that enables users to communicate with the bank's customer support",
         task_repo: "",
         task_id: "HCI0027_02",
       },
@@ -840,11 +808,9 @@ export const taskDetails = [
     publisher_id: "2117280001",
     assigner_id: "",
     title: "Music Streaming App",
-    summary:
-      "Develop a music streaming application that allows users to listen to and discover music from various genres and artists. The app should include features like playlist creation, personalized recommendations, offline playback, and social sharing. Implement an immersive and user-friendly interface to enhance the music listening experience.",
+    summary:"Develop a music streaming application that allows users to listen to and discover music from various genres and artists. The app should include features like playlist creation, personalized recommendations, offline playback, and social sharing. Implement an immersive and user-friendly interface to enhance the music listening experience.",
     comments: {
-      publisher:
-        "Consider integrating music streaming APIs like Spotify, Apple Music, or SoundCloud to access music catalogs and playback functionalities. Focus on creating seamless transitions between songs, incorporating artist information, and implementing social features like following and sharing playlists.",
+      publisher:"Consider integrating music streaming APIs like Spotify, Apple Music, or SoundCloud to access music catalogs and playback functionalities. Focus on creating seamless transitions between songs, incorporating artist information, and implementing social features like following and sharing playlists.",
       assigner: "",
       student: "",
     },
@@ -858,11 +824,9 @@ export const taskDetails = [
     publisher_id: "2117280001",
     assigner_id: "",
     title: "Recipe Sharing Platform",
-    summary:
-      "Create a recipe sharing platform that allows users to share and discover recipes. The platform should include features like recipe uploads, search and filter options, user ratings and reviews, and social interactions. Implement a visually appealing design and provide a seamless experience for recipe enthusiasts.",
+    summary:"Create a recipe sharing platform that allows users to share and discover recipes. The platform should include features like recipe uploads, search and filter options, user ratings and reviews, and social interactions. Implement a visually appealing design and provide a seamless experience for recipe enthusiasts.",
     comments: {
-      publisher:
-        "Consider popular recipe sharing platforms like Allrecipes, Food Network, or Tasty as inspiration for designing and implementing your platform. Implement features like recipe categorization, ingredient substitution suggestions, and social sharing options.",
+      publisher:"Consider popular recipe sharing platforms like Allrecipes, Food Network, or Tasty as inspiration for designing and implementing your platform. Implement features like recipe categorization, ingredient substitution suggestions, and social sharing options.",
       assigner: "",
       student: "",
     },
@@ -870,17 +834,16 @@ export const taskDetails = [
     end_date: "2023/08/24",
     task_type: "ASSIGNMENT",
     active: true,
+    assesment_criteria:["accuracy","basic functionality","code quality","documentation"]
   },
   {
     key: "HCI0032",
     publisher_id: "2117280001",
     assigner_id: "",
     title: "Task Management App",
-    summary:
-      "Design and develop a task management application that helps users organize their tasks and track progress. The app should include features like task creation, assignment, due dates, reminders, and progress tracking. Implement an intuitive and visually appealing interface to enhance productivity and task management.",
+    summary:"Design and develop a task management application that helps users organize their tasks and track progress. The app should include features like task creation, assignment, due dates, reminders, and progress tracking. Implement an intuitive and visually appealing interface to enhance productivity and task management.",
     comments: {
-      publisher:
-        "Consider integrating task management libraries or frameworks like Trello, Asana, or Jira to access task management functionalities and best practices. Focus on creating user-friendly task organization, providing collaboration options, and implementing task prioritization.",
+      publisher:"Consider integrating task management libraries or frameworks like Trello, Asana, or Jira to access task management functionalities and best practices. Focus on creating user-friendly task organization, providing collaboration options, and implementing task prioritization.",
       assigner: "",
       student: "",
     },
@@ -892,8 +855,7 @@ export const taskDetails = [
       {
         task_label: "Account Settings and Preferences",
         task_completed: false,
-        task_detail:
-          "Create a page where users can manage their account settings, update personal information",
+        task_detail:"Create a page where users can manage their account settings, update personal information",
         task_repo: "",
         task_id: "HCI0032_01",
       },
@@ -917,11 +879,9 @@ export const taskDetails = [
   {
     key: "HCI0037",
     title: "Fitness Challenge App",
-    summary:
-      "Create a fitness challenge application that allows users to participate in various fitness challenges and track their progress. The app should include features like challenge selection, workout tracking, leaderboards, and achievement badges. Implement a visually appealing design and provide motivational features to encourage users to stay active and achieve their fitness goals.",
+    summary:"Create a fitness challenge application that allows users to participate in various fitness challenges and track their progress. The app should include features like challenge selection, workout tracking, leaderboards, and achievement badges. Implement a visually appealing design and provide motivational features to encourage users to stay active and achieve their fitness goals.",
     comments: {
-      publisher:
-        "Consider integrating fitness tracking APIs like Fitbit, Google Fit, or Apple HealthKit to access fitness data and provide accurate tracking features. Implement features like personalized workout plans, progress visualizations, and social sharing to enhance the user experience and foster a sense of community.",
+      publisher:"Consider integrating fitness tracking APIs like Fitbit, Google Fit, or Apple HealthKit to access fitness data and provide accurate tracking features. Implement features like personalized workout plans, progress visualizations, and social sharing to enhance the user experience and foster a sense of community.",
       assigner: "",
       student: "",
     },
@@ -929,7 +889,7 @@ export const taskDetails = [
     assigner_id: "",
     start_date: "2023/06/15",
     end_date: "2023/07/05",
-    pdf_file: {},
+    pdf_file: "",
     task_type: "ASSIGNMENT",
     active: false,
   },
@@ -939,11 +899,9 @@ export const taskDetails = [
     publisher_id: "2117280001",
     assigner_id: "",
     title: "Expense Tracking App",
-    summary:
-      "Create an expense tracking application that allows users to easily track and manage their expenses. The app should provide features such as expense categorization, budget setting, and reporting. Design an intuitive user interface that enables users to add, edit, and delete expenses effortlessly.",
+    summary:"Create an expense tracking application that allows users to easily track and manage their expenses. The app should provide features such as expense categorization, budget setting, and reporting. Design an intuitive user interface that enables users to add, edit, and delete expenses effortlessly.",
     comments: {
-      publisher:
-        "Consider using popular libraries such as React or Angular for building the frontend of the app. Use a database system like MySQL or MongoDB to store and retrieve expense data.",
+      publisher:"Consider using popular libraries such as React or Angular for building the frontend of the app. Use a database system like MySQL or MongoDB to store and retrieve expense data.",
       assigner: "",
       student: "",
     },
@@ -955,16 +913,14 @@ export const taskDetails = [
       {
         task_label: "Account Settings and Preferences",
         task_completed: false,
-        task_detail:
-          "Create a page where users can manage their account settings, update personal information",
+        task_detail:"Create a page where users can manage their account settings, update personal information",
         task_repo: "",
         task_id: "HCI0021_01",
       },
       {
         task_label: "Expense Categories",
         task_completed: false,
-        task_detail:
-          "develop a feature that allows users to categorize their expenses",
+        task_detail:"develop a feature that allows users to categorize their expenses",
         task_repo: "",
         task_id: "HCI0021_02",
       },
@@ -983,11 +939,9 @@ export const taskDetails = [
     publisher_id: "2117280001",
     assigner_id: "",
     title: "Restaurant Review App",
-    summary:
-      "Develop a restaurant review application where users can search for restaurants, view their menus, and leave reviews. Implement features such as restaurant rating, user authentication, and search functionality. Create an attractive and user-friendly interface for the app.",
+    summary:"Develop a restaurant review application where users can search for restaurants, view their menus, and leave reviews. Implement features such as restaurant rating, user authentication, and search functionality. Create an attractive and user-friendly interface for the app.",
     comments: {
-      publisher:
-        "You can integrate with popular services like Google Maps and Yelp to fetch restaurant data and reviews. Use a modern frontend framework like React or Vue.js for building the app.",
+      publisher:"You can integrate with popular services like Google Maps and Yelp to fetch restaurant data and reviews. Use a modern frontend framework like React or Vue.js for building the app.",
       assigner: "",
       student: "",
     },
@@ -1002,11 +956,9 @@ export const taskDetails = [
     publisher_id: "2117280001",
     assigner_id: "",
     title: "Language Exchange Platform",
-    summary:
-      "Design and develop a language exchange platform that connects users who want to practice different languages. Implement features such as user profiles, messaging, and language preferences. Create a user-friendly interface that encourages language learning and interaction.",
+    summary:"Design and develop a language exchange platform that connects users who want to practice different languages. Implement features such as user profiles, messaging, and language preferences. Create a user-friendly interface that encourages language learning and interaction.",
     comments: {
-      publisher:
-        "Consider using a framework like Django or Ruby on Rails for building the backend of the platform. Use modern frontend technologies like React or Angular for the user interface.",
+      publisher:"Consider using a framework like Django or Ruby on Rails for building the backend of the platform. Use modern frontend technologies like React or Angular for the user interface.",
       assigner: "",
       student: "",
     },
@@ -1021,11 +973,9 @@ export const taskDetails = [
     publisher_id: "2117280001",
     assigner_id: "",
     title: "Event Planning App",
-    summary:
-      "Create an event planning application that allows users to create and manage events. The app should include features such as event registration, ticketing, and event notifications. Design an intuitive and visually appealing interface for event organizers and attendees.",
+    summary:"Create an event planning application that allows users to create and manage events. The app should include features such as event registration, ticketing, and event notifications. Design an intuitive and visually appealing interface for event organizers and attendees.",
     comments: {
-      publisher:
-        "Consider using a combination of frontend and backend technologies such as React, Node.js, and MongoDB to build the app. Integration with popular payment gateways like Stripe can be beneficial for ticketing functionality.",
+      publisher:"Consider using a combination of frontend and backend technologies such as React, Node.js, and MongoDB to build the app. Integration with popular payment gateways like Stripe can be beneficial for ticketing functionality.",
       assigner: "",
       student: "",
     },
@@ -1040,11 +990,9 @@ export const taskDetails = [
     publisher_id: "2117280001",
     assigner_id: "",
     title: "Home Automation System",
-    summary:
-      "Develop a home automation system that allows users to control various aspects of their home, such as lighting, temperature, and security, through a centralized interface. Implement features like scheduling, remote access, and integration with smart devices.",
+    summary:"Develop a home automation system that allows users to control various aspects of their home, such as lighting, temperature, and security, through a centralized interface. Implement features like scheduling, remote access, and integration with smart devices.",
     comments: {
-      publisher:
-        "Consider using IoT technologies and protocols such as MQTT or Zigbee for communication between the home automation system and smart devices. Use a responsive web application or a mobile app for the control interface.",
+      publisher:"Consider using IoT technologies and protocols such as MQTT or Zigbee for communication between the home automation system and smart devices. Use a responsive web application or a mobile app for the control interface.",
       assigner: "",
       student: "",
     },
@@ -1052,6 +1000,7 @@ export const taskDetails = [
     end_date: "2023/08/04",
     task_type: "ASSIGNMENT",
     active: true,
+    assesment_criteria:["accuracy","basic functionality","code quality","documentation"]
   },
 
   {
@@ -1071,6 +1020,7 @@ export const taskDetails = [
     end_date: "2023/08/05",
     task_type: "ASSIGNMENT",
     active: true,
+    assesment_criteria:["accuracy","basic functionality","code quality","documentation"]
   },
 
   {
@@ -1090,6 +1040,7 @@ export const taskDetails = [
     end_date: "2023/08/06",
     task_type: "ASSIGNMENT",
     active: true,
+    assesment_criteria:["accuracy","basic functionality","code quality","documentation"]
   },
 
   {
@@ -1128,6 +1079,7 @@ export const taskDetails = [
     end_date: "2023/08/08",
     task_type: "ASSIGNMENT",
     active: true,
+    assesment_criteria:["accuracy","basic functionality","code quality","documentation"]
   },
 
   {
@@ -1147,6 +1099,7 @@ export const taskDetails = [
     end_date: "2023/08/09",
     task_type: "ASSIGNMENT",
     active: true,
+    assesment_criteria:["accuracy","basic functionality","code quality","documentation"]
   },
 
   {
@@ -1166,6 +1119,7 @@ export const taskDetails = [
     end_date: "2023/08/10",
     task_type: "ASSIGNMENT",
     active: true,
+    assesment_criteria:["accuracy","basic functionality","code quality","documentation"]
   },
 
   {
@@ -1185,6 +1139,7 @@ export const taskDetails = [
     end_date: "2023/08/11",
     task_type: "ASSIGNMENT",
     active: true,
+    assesment_criteria:["accuracy","basic functionality","code quality","documentation"]
   },
 
   {
@@ -1204,6 +1159,7 @@ export const taskDetails = [
     end_date: "2023/08/12",
     task_type: "PROJECT",
     active: true,
+    assesment_criteria:["accuracy","basic functionality","code quality","documentation"],
     subTaskInfo: [
       {
         task_label: "Account Settings and Preferences",
@@ -1248,6 +1204,7 @@ export const taskDetails = [
     end_date: "2023/08/13",
     task_type: "ASSIGNMENT",
     active: true,
+    assesment_criteria:["accuracy","basic functionality","code quality","documentation"]
   },
 
   {
@@ -1267,6 +1224,7 @@ export const taskDetails = [
     end_date: "2023/08/14",
     task_type: "PROJECT",
     active: true,
+    assesment_criteria:["accuracy","basic functionality","code quality","documentation"],
     subTaskInfo: [
       {
         task_label: "Account Settings and Preferences",
@@ -1311,6 +1269,7 @@ export const taskDetails = [
     end_date: "2023/07/10",
     task_type: "ASSIGNMENT",
     active: true,
+    assesment_criteria:["accuracy","basic functionality","code quality","documentation"]
   },
 
   {
@@ -1330,6 +1289,7 @@ export const taskDetails = [
     end_date: "2023/08/16",
     task_type: "PROJECT",
     active: true,
+    assesment_criteria:["accuracy","basic functionality","code quality","documentation"],
     subTaskInfo: [
       {
         task_label: "Account Settings and Preferences",
@@ -1374,6 +1334,7 @@ export const taskDetails = [
     end_date: "2023/08/17",
     task_type: "ASSIGNMENT",
     active: true,
+    assesment_criteria:["accuracy","basic functionality","code quality","documentation"]
   },
 
   {
@@ -1393,6 +1354,7 @@ export const taskDetails = [
     end_date: "2023/08/18",
     task_type: "PROJECT",
     active: true,
+    assesment_criteria:["accuracy","basic functionality","code quality","documentation"],
     subTaskInfo: [
       {
         task_label: "Account Settings and Preferences",

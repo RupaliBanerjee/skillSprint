@@ -30,7 +30,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
   "& .MuiDialogTitle-root": {
     fontSize: "18px",
-    color: "#858585",
+    color: "#e0e0e0",
   },
 }));
 
@@ -48,7 +48,7 @@ function BootstrapDialogTitle(props) {
             position: "absolute",
             right: 8,
             top: 8,
-            color: (theme) => theme.palette.grey[500],
+            color: (theme) => theme.palette.grey[100],
           }}
         >
           <CloseIcon />
@@ -66,8 +66,14 @@ BootstrapDialogTitle.propTypes = {
 export default function DialogWithTitle(props) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const { oncloseDialog, openDialog, title, showActionButton,saveScoreChanges, children } =
-    props;
+  const {
+    oncloseDialog,
+    openDialog,
+    title,
+    showActionButton,
+    saveScoreChanges,
+    children,
+  } = props;
   const [open, setOpen] = React.useState(openDialog);
 
   const handleClickOpen = () => {
@@ -83,35 +89,46 @@ export default function DialogWithTitle(props) {
       sx={{
         width: "100%",
         backgroundColor: colors.primary[400],
+        color: colors.grey[100],
       }}
     >
       <BootstrapDialog
         onClose={handleClose}
-        aria-labelledby="customized-dialog-title"
         open={open}
         sx={{
           "& .MuiPaper-root": {
             backgroundImage: "none",
+            boxShadow: "1px 1px 12px #292828",
           },
         }}
       >
         <BootstrapDialogTitle
-          id="customized-dialog-title"
           onClose={handleClose}
+          sx={{ color: colors.grey[100] }}
         >
           {title}
         </BootstrapDialogTitle>
-        <DialogContent dividers sx={{ minWidth: "50vh", overflowX: "hidden" }}>
+        <DialogContent
+          dividers
+          sx={{
+            minWidth: "50vh",
+            overflowX: "hidden",
+            color: colors.grey[100],
+          }}
+        >
           {children}
         </DialogContent>
         {showActionButton && (
           <DialogActions>
             <Button
               autoFocus
-              onClick={()=>{saveScoreChanges();handleClose()}}
+              onClick={() => {
+                saveScoreChanges();
+                handleClose();
+              }}
               sx={{
-                color: colors.grey[400],
-                backgroundColor: colors.blueAccent[900],
+                color: colors.grey[100],
+                backgroundColor: colors.blueAccent[700],
               }}
             >
               Save changes

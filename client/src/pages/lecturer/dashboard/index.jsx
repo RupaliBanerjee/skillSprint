@@ -79,7 +79,7 @@ const Lecturer_Dashboard = () => {
     unAssigned_project_list = [
       ...projectList.filter((task) => {
         if (!task.active && !dateInPast(task.end_date)) {
-          return {...task};
+          return { ...task };
         }
       }),
     ];
@@ -168,7 +168,7 @@ const Lecturer_Dashboard = () => {
           justifyContent="center"
         >
           <TaskCountWidget
-            title="Pending Assesments"
+            title="Pending Evaluation"
             count={
               pendingAssesmentList.assignment.length
                 ? pendingAssesmentList.assignment.length +
@@ -190,10 +190,15 @@ const Lecturer_Dashboard = () => {
           gridRow="span 3"
           backgroundColor={colors.primary[400]}
           display="flex"
-          alignItems="center"
-          justifyContent="center"
+          justifyContent={"center"}
+          alignItems={"center"}
+          flexDirection={"column"}
+          pt={"20px"}
           //   maxHeight="70vh"
         >
+          <Typography alignSelf={"flex-start"} ml={2} variant="h3">
+            Average Score
+          </Typography>
           <BarChart isDashboard={true} />
         </Box>
         {/* <Box gridColumn="span 4" backgroundColor={colors.primary[400]}>

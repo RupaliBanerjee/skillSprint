@@ -220,7 +220,7 @@ const Dashboard = () => {
                   variant="h4"
                   fontWeight="600"
                 >
-                  Latest Assignments
+                  Published Assignments
                 </Typography>
               </Box>
               <Box maxHeight={"70vh"} overflow={"auto"}>

@@ -26,9 +26,9 @@ const app = express();
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
-app.use(bodyParser.urlencoded({ limit:'50mb',extended: true }));
-app.use(bodyParser.json({limit:'50mb'}));
-app.use(express.json({ limit: "50mb" }))
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
+app.use(bodyParser.json({ limit: "50mb" }));
+app.use(express.json({ limit: "50mb" }));
 //bodyParser.json({ limit: "50mb" })
 
 app.use(cors());
@@ -125,6 +125,7 @@ mongoose
           /* For Active Task */
           activeTask.forEach((task) => {
             const result = taskDetails.filter((t) => t.key === task.task_id)[0];
+            console.log("Check Results",result);
             const {
               summary,
               title,
@@ -202,6 +203,21 @@ mongoose
         });
     });
 
+    /* update student task Map after enroll */
+    app.post("/updateTaskMap", (req, res) => {
+      const taskData = req.body;
+      TaskMap.insertMany({...taskData})
+        .then((response) => res.send(response))
+        .catch((err) => console.log("TaskMap Update error", err));
+    });
+
+    /* Change the active boolean flag for Task Details after enroll  */
+    app.post("/updateTaskDetail/status",(req,res)=>{
+      const task_id=req.body.task_id;
+      TaskDetail.updateOne({key: task_id}, {$set:{active:true}}).then((response) => res.send(response))
+      .catch((err) => console.log("TaskDetail Update error", err));
+    })
+
     ///////////////////////// LECTURER API CALLS /////////////////////////
 
     /* Get Task Detail for all the tasks published or assigned by the professor */
@@ -273,11 +289,11 @@ mongoose
     });
 
     /* Update task Detail for the project assigned by the professor and make the active boolean value true */
-    app.post("/updateTaskDetail",(req,res)=>{
-      const taskIdList=[...req.body];
+    app.post("/updateTaskDetail", (req, res) => {
+      const taskIdList = [...req.body];
       TaskDetail.updateMany(
-        {key: { $in: taskIdList } },
-        { $set: { active:true } }
+        { key: { $in: taskIdList } },
+        { $set: { active: true } }
       )
         .then((taskDetail) => {
           res.send(taskDetail);
@@ -285,7 +301,7 @@ mongoose
         .catch((err) => {
           console.log("TaskDetail update error", err);
         });
-    })
+    });
 
     /* Get all task Details for Student Grid in assign page */
     app.post("/getAllTaskDetail", (req, res) => {
@@ -310,22 +326,28 @@ mongoose
     });
 
     /* Get all taskIds for validation of new taskid publish */
-    app.get("/getAllTaskId",(req,res)=>{
-      TaskDetail.find().then(taskData=>{
-        const taskIdList=taskData.map((task)=>task.key)
-        res.send(taskIdList);
-      }).catch(err=>{
-        console.log("get all task Ids error",err)
-      })
-    })
+    app.get("/getAllTaskId", (req, res) => {
+      TaskDetail.find()
+        .then((taskData) => {
+          const taskIdList = taskData.map((task) => task.key);
+          res.send(taskIdList);
+        })
+        .catch((err) => {
+          console.log("get all task Ids error", err);
+        });
+    });
 
     /* publish new assignment */
-    app.post("/addNewTask/assignment",(req,res)=>{
-      const taskDetailEntry=req.body.taskDetail;
-      TaskDetail.create(taskDetailEntry).then(response=>{res.send(response)}).catch((error)=>{
-        console.log("task publish error",error)
-      })
-    })
+    app.post("/addNewTask/assignment", (req, res) => {
+      const taskDetailEntry = req.body.taskDetail;
+      TaskDetail.create(taskDetailEntry)
+        .then((response) => {
+          res.send(response);
+        })
+        .catch((error) => {
+          console.log("task publish error", error);
+        });
+    });
 
     app.listen(PORT, () => console.log(`Current Port ${PORT}`));
 

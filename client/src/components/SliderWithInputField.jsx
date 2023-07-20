@@ -39,7 +39,7 @@ const SliderWithInputField = (props) => {
           return item;
         }
       });
-      console.log("Check newArray",newArray);
+      //console.log("Check newArray",newArray);
       setNewScoreDetail([...newArray])
   };
 
@@ -71,7 +71,7 @@ const SliderWithInputField = (props) => {
                 <Typography
                   variant="h5"
                   sx={{
-                    color: colors.grey[400],
+                    color: colors.grey[100],
                   }}
                   gutterBottom
                 >

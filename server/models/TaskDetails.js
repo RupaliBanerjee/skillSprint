@@ -23,7 +23,7 @@ const TaskDetailsSchema = new mongoose.Schema({
     assigner: String,
     student: String,
   },
-  pdf_file: Buffer,
+  pdf_file: String,
 
   start_date: String,
   end_date: String,
@@ -39,6 +39,7 @@ const TaskDetailsSchema = new mongoose.Schema({
     task_id:String
   }],
   active: Boolean,
+  assesment_criteria:[{type:String}]
 });
 
 const TaskDetail = mongoose.model("taskDetail", TaskDetailsSchema);

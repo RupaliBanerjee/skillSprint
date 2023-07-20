@@ -78,7 +78,6 @@ const EvaluateMainPage = () => {
 
   /* After score changes update the redux store and the db with new scores */
   const updateTaskData = (taskData) => {
-    console.log("Check if the data is correct", taskData);
     axios
       .post("/updateTaskMap/score", { taskData: taskData })
       .then((response) => {
@@ -117,7 +116,7 @@ const EvaluateMainPage = () => {
       type: "Lecturer Task",
     },
   ];
-  console.log("Check project",project)
+
   useEffect(() => {
     tabInfo = [
       {

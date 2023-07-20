@@ -6,7 +6,7 @@ import LinearProgressWithLabel from "./LinearProgressWithLabel";
 import { scoreData } from "../data/mockData";
 
 const ScoreCard = (props) => {
-  const { scoreDetail,showLablel} = props;
+  const { scoreDetail, showLablel } = props;
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   //const scoreDataSet={};
@@ -26,17 +26,16 @@ const ScoreCard = (props) => {
       <Box
         display={"flex"}
         flexDirection={"column"}
-        marginLeft={!showLablel ? undefined :"20px"}
+        marginLeft={!showLablel ? undefined : "20px"}
         width={"100%"}
+        sx={{ color: colors.grey[100] }}
       >
         {scoreDetail
           ? scoreDetail.map((score) => {
               return (
                 <Box width={"100%"}>
-                  <Typography>{score.name}</Typography>
-                  <LinearProgressWithLabel
-                    value={parseInt(score.weightage) * 10}
-                  />
+                  <Typography sx={{ color: colors.grey[100] }}>{score.name}</Typography>
+                  <LinearProgressWithLabel value={parseInt(score.weightage)} />
                 </Box>
               );
             })
@@ -44,8 +43,8 @@ const ScoreCard = (props) => {
               while (i < 4) {
                 return (
                   <Box width={"100%"}>
-                    <Typography>{category.criteria}</Typography>
-                    <LinearProgressWithLabel value={category.marks * 10} />
+                    <Typography sx={{ color: colors.grey[100] }}>{category.criteria}</Typography>
+                    <LinearProgressWithLabel value={category.marks} />
                   </Box>
                 );
               }

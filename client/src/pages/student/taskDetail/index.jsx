@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import {
   Box,
@@ -35,22 +35,25 @@ import { useDispatch } from "react-redux";
 
 const TaskDetail = (props) => {
   //const classses = useStyles({ ...props });
-  const { taskData, activeTask ,updateTaskData} = props;
+  const { taskData, activeTask, updateTaskData } = props;
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  
+
   const [showFileUpload_dialog, setShowFileUpload_dialog] = useState(false);
   const [showFilePreview_dialog, setShowFilePreview_dialog] = useState(false);
   const [showScoreDialog, setShowScoreDialog] = useState(false);
   const [newScoreDetail, setNewScoreDetail] = useState([]);
+  const [pdfFileData, setPdfFileData] = useState(null);
 
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if(taskData?.score?.length){
+    if (taskData?.score?.length) {
       setNewScoreDetail([...taskData?.score]);
     }
-    
+    if (taskData?.pdf_file) {
+      setPdfFileData(taskData.pdf_file);
+    }
   }, [taskData]);
 
   const showDialog = (type) => {
@@ -65,71 +68,26 @@ const TaskDetail = (props) => {
     setShowScoreDialog(false);
   };
 
-  
-  const saveScoreChanges=()=>{
-    let totalScoreValue=0
-    newScoreDetail.forEach((score)=>{
-      totalScoreValue+=score["weightage"]
-    })
-    const newTaskData={...taskData,["score"]:newScoreDetail,["totalScore"]:totalScoreValue};
+  const saveScoreChanges = () => {
+    let totalScoreValue = 0;
+    newScoreDetail.forEach((score) => {
+      totalScoreValue += score["weightage"];
+    });
+    const newTaskData = {
+      ...taskData,
+      ["score"]: newScoreDetail,
+      ["totalScore"]: totalScoreValue,
+    };
     updateTaskData(newTaskData);
-  }
+  };
 
   return (
     <>
-      {!showFilePreview_dialog && (
-        <Box border={`4px solid ${colors.primary[500]}`} marginTop="20px">
+      <Box border={`4px solid ${colors.primary[500]}`} marginTop="20px">
+        {!showFilePreview_dialog && (
           <Box width="100%" p="10px">
-            <Box display={"flex"} justifyContent={"space-between"}>
-              <Box display="flex" flexDirection={"column"}>
-                <Box display="flex" justifyContent="space-between">
-                  <Typography
-                    variant="h4"
-                    margin={"10px 0 10px 0"}
-                    paddingBottom="10px"
-                    borderBottom={`2px solid ${colors.grey[200]}`}
-                    sx={{ color: colors.grey[200] }}
-                    className={styles.label}
-                  >
-                    {activeTask ? taskData.task_detail.title : taskData.title}
-                  </Typography>
-                  {/* Show top bar actions */}
-                  <Box display="flex" justifyContent="flex-end">
-                    <Tooltip title="Upload Solution">
-                      <IconButton
-                        type="button"
-                        onClick={() => showDialog("upload")}
-                      >
-                        <FileUploadOutlinedIcon />
-                      </IconButton>
-                    </Tooltip>
-                    <Tooltip title="preview PDF">
-                      <IconButton
-                        type="button"
-                        onClick={() => showDialog("preview")}
-                      >
-                        <PictureAsPdfOutlinedIcon />
-                      </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Enroll Now">
-                      <IconButton type="button">
-                        <InputOutlinedIcon />
-                      </IconButton>
-                    </Tooltip>
-                    <Tooltip title="View Score">
-                      <IconButton type="button">
-                        <ReviewsOutlinedIcon />
-                      </IconButton>
-                    </Tooltip>
-                  </Box>
-                </Box>
-
-                <Typography
-                  variant="h5"
-                  sx={{ color: colors.greenAccent[500] }}
-                >
-                  {activeTask ? taskData.task_detail.summary : taskData.summary}
-                </Typography>
+            <Box display="flex" flexDirection={"column"}>
+              <Box display="flex" justifyContent="space-between">
                 <Typography
                   variant="h4"
                   margin={"10px 0 10px 0"}
@@ -138,100 +96,149 @@ const TaskDetail = (props) => {
                   sx={{ color: colors.grey[200] }}
                   className={styles.label}
                 >
-                  Description
+                  {activeTask ? taskData.task_detail.title : taskData.title}
                 </Typography>
-                <Typography
-                  borderBottom={`1px solid ${colors.primary[500]}`}
-                  marginBottom={"10px"}
-                >
-                  Tech Stack
-                </Typography>
-                <Typography>
-                  {activeTask
-                    ? taskData.task_detail.comments.publisher
-                    : taskData.comments.publisher}
-                </Typography>
-                <Box display={"flex"} justifyContent={"space-between"}>
-                  <Box display={"flex"} gap={"2em"} marginTop={"20px"}>
-                    <Typography
-                      variant="h5"
-                      sx={{ color: colors.greenAccent[500] }}
+                {/* Show top bar actions */}
+                <Box display="flex" justifyContent="flex-end">
+                  <Tooltip title="Upload Solution">
+                    <IconButton
+                      type="button"
+                      onClick={() => showDialog("upload")}
                     >
-                      From :{" "}
-                      {activeTask
-                        ? taskData.task_detail.start_date
-                        : taskData.start_date}
-                    </Typography>
-                    <Typography
-                      variant="h5"
-                      sx={{ color: colors.greenAccent[500] }}
+                      <FileUploadOutlinedIcon />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip title="preview PDF">
+                    <IconButton
+                      type="button"
+                      onClick={() => showDialog("preview")}
                     >
-                      To:{" "}
-                      {activeTask
-                        ? taskData.task_detail.end_date
-                        : taskData.end_date}
-                    </Typography>
-                  </Box>
+                      <PictureAsPdfOutlinedIcon />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip title="Enroll Now">
+                    <IconButton type="button">
+                      <InputOutlinedIcon />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip title="View Score">
+                    <IconButton type="button">
+                      <ReviewsOutlinedIcon />
+                    </IconButton>
+                  </Tooltip>
                 </Box>
-                {/* Button Container Div  for solution and add score*/}
-                <Box display={"flex"} justifyContent={"flex-end"} >
-                    <Tooltip title="Download Solution Zip">
-                      <Box borderRadius="4px" mr={2}>
-                        <Button
-                          sx={{
-                            backgroundColor: colors.blueAccent[700],
-                            color: colors.grey[100],
-                          }}
-                          endIcon={<FileDownloadOutlinedIcon />}
-                        >
-                          Solution
-                        </Button>
-                      </Box>
-                    </Tooltip>
-                    <Tooltip title="Start Evaluation">
-                      <Box borderRadius="4px">
-                        <Button
-                          sx={{
-                            backgroundColor: colors.blueAccent[700],
-                            color: colors.grey[100],
-                          }}
-                          endIcon={<AppRegistrationOutlinedIcon />}
-                          onClick={() => {
-                            setShowScoreDialog(true);
-                          }}
-                        >
-                          Add Score
-                        </Button>
-                      </Box>
-                    </Tooltip>
+              </Box>
+
+              <Typography variant="h5" sx={{ color: colors.greenAccent[500] }}>
+                {activeTask ? taskData.task_detail.summary : taskData.summary}
+              </Typography>
+              <Typography
+                variant="h4"
+                margin={"10px 0 10px 0"}
+                paddingBottom="10px"
+                borderBottom={`2px solid ${colors.grey[200]}`}
+                sx={{ color: colors.grey[200] }}
+                className={styles.label}
+              >
+                Description
+              </Typography>
+              <Typography
+                borderBottom={`1px solid ${colors.primary[500]}`}
+                marginBottom={"10px"}
+              >
+                Tech Stack
+              </Typography>
+              <Typography>
+                {activeTask
+                  ? taskData.task_detail.comments.publisher
+                  : taskData.comments.publisher}
+              </Typography>
+              <Box display={"flex"} justifyContent={"space-between"}>
+                <Box display={"flex"} gap={"2em"} marginTop={"20px"}>
+                  <Typography
+                    variant="h5"
+                    sx={{ color: colors.greenAccent[500] }}
+                  >
+                    From :{" "}
+                    {activeTask
+                      ? taskData.task_detail.start_date
+                      : taskData.start_date}
+                  </Typography>
+                  <Typography
+                    variant="h5"
+                    sx={{ color: colors.greenAccent[500] }}
+                  >
+                    To:{" "}
+                    {activeTask
+                      ? taskData.task_detail.end_date
+                      : taskData.end_date}
+                  </Typography>
+                </Box>
+              </Box>
+              {/* Button Container Div  for solution and add score*/}
+              <Box display={"flex"} justifyContent={"flex-end"}>
+                <Tooltip title="Download Solution Zip">
+                  <Box borderRadius="4px" mr={2}>
+                    <Button
+                      sx={{
+                        backgroundColor: colors.blueAccent[700],
+                        color: colors.grey[100],
+                      }}
+                      endIcon={<FileDownloadOutlinedIcon />}
+                    >
+                      Solution
+                    </Button>
                   </Box>
+                </Tooltip>
+                <Tooltip title="Start Evaluation">
+                  <Box borderRadius="4px">
+                    <Button
+                      sx={{
+                        backgroundColor: colors.blueAccent[700],
+                        color: colors.grey[100],
+                      }}
+                      endIcon={<AppRegistrationOutlinedIcon />}
+                      onClick={() => {
+                        setShowScoreDialog(true);
+                      }}
+                    >
+                      Add Score
+                    </Button>
+                  </Box>
+                </Tooltip>
               </Box>
             </Box>
           </Box>
-          {showFileUpload_dialog && (
-            <PDF_FileUpload
-              open={showFileUpload_dialog}
-              closeDialog={closeDialog}
+        )}
+        {showFileUpload_dialog && (
+          <PDF_FileUpload
+            open={showFileUpload_dialog}
+            closeDialog={closeDialog}
+          />
+        )}
+        {showScoreDialog && (
+          // <AddScore_Dialogue open={showScoreDialog} scoreDetail={taskData.score} closeDialog={closeDialog}/>
+          <DialogWithTitle
+            oncloseDialog={closeDialog}
+            openDialog={showScoreDialog}
+            title="Add Score"
+            showActionButton={true}
+            saveScoreChanges={saveScoreChanges}
+          >
+            <SliderWithInputField
+              newScoreDetail={newScoreDetail}
+              setNewScoreDetail={setNewScoreDetail}
             />
-          )}
-          {showScoreDialog && (
-            // <AddScore_Dialogue open={showScoreDialog} scoreDetail={taskData.score} closeDialog={closeDialog}/>
-            <DialogWithTitle
-              oncloseDialog={closeDialog}
-              openDialog={showScoreDialog}
-              title="Add Score"
-              showActionButton={true}
-             saveScoreChanges={saveScoreChanges}
-            >
-              <SliderWithInputField newScoreDetail={newScoreDetail} setNewScoreDetail={setNewScoreDetail}/>
-            </DialogWithTitle>
-          )}
-        </Box>
-      )}
-
-      {showFilePreview_dialog && (
-        <PDFView open={showFilePreview_dialog} closeDialog={closeDialog} />
-      )}
+          </DialogWithTitle>
+        )}
+        {showFilePreview_dialog && (
+          <PDFView
+            open={showFilePreview_dialog}
+            closeDialog={closeDialog}
+            pdfFileData={pdfFileData}
+          />
+        )}
+      </Box>
     </>
   );
 };

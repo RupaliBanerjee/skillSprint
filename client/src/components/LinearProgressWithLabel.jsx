@@ -14,21 +14,22 @@ export default function LinearProgressWithLabel(props) {
         <Box sx={{ width: "80%", mr: 1 }}>
           <LinearProgress
             variant="determinate"
-            value={value}
+            value={value * 10}
             sx={{
               "& .MuiLinearProgress-root": {
-                backgroundColor: colors.blueAccent[500],
+                backgroundColor: colors.blueAccent[800],
               },
               "& .MuiLinearProgress-barColorPrimary": {
                 backgroundColor: colors.greenAccent[400],
+              },
+              "& .MuiTypography-root": {
+                color: colors.grey[400],
               },
             }}
           />
         </Box>
         <Box sx={{ minWidth: 35 }}>
-          <Typography variant="body2" color="text.secondary">{`${Math.round(
-            value
-          )}%`}</Typography>
+          <Typography variant="body2">{`${Math.round(value)}`}</Typography>
         </Box>
       </Box>
     </Box>
@@ -42,22 +43,3 @@ LinearProgressWithLabel.propTypes = {
    */
   value: PropTypes.number.isRequired,
 };
-
-// export default function LinearWithValueLabel() {
-//   const [progress, setProgress] = React.useState(10);
-
-//   React.useEffect(() => {
-//     const timer = setInterval(() => {
-//       setProgress((prevProgress) => (prevProgress >= 100 ? 10 : prevProgress + 10));
-//     }, 800);
-//     return () => {
-//       clearInterval(timer);
-//     };
-//   }, []);
-
-//   return (
-//     <Box sx={{ width: '100%' }}>
-//       <LinearProgressWithLabel value={progress} />
-//     </Box>
-//   );
-// }

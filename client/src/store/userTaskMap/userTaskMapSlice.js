@@ -3,10 +3,9 @@ import axios from "axios";
 
 const initialState = {
   loading: false,
-  active_task:[],
-  submitted_task:[],
+  active_task: [],
+  submitted_task: [],
   error: "",
-  
 };
 
 //AsyncThunk generates pending fulfilled and rejected action types
@@ -17,25 +16,30 @@ export const fetchUserTaskMap = createAsyncThunk("user/fetchTaskMap", (id) => {
   });
 });
 
-const getAllTask=(taskData)=>{
-    const activeTask=[];
-    const submittedTask=[];
-    taskData.map((task)=>{
-      if(task.totalScore===0){
-        activeTask.push(task)
-      }else{
-        submittedTask.push(task)
-      }
-    });
-    return {
-      'active_task': activeTask,
-      'submitted_task':submittedTask
+const getAllTask = (taskData) => {
+  const activeTask = [];
+  const submittedTask = [];
+  taskData.map((task) => {
+    if (task.totalScore === 0) {
+      activeTask.push(task);
+    } else {
+      submittedTask.push(task);
     }
-  }
+  });
+  return {
+    active_task: activeTask,
+    submitted_task: submittedTask,
+  };
+};
 
 const userTaskMapSlice = createSlice({
   name: "userTaskMap",
   initialState,
+  reducers: {
+    addTask: (state, action) => {
+      state.active_task.push(action.payload);
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchUserTaskMap.pending, (state) => {
       state.loading = true;
@@ -43,21 +47,21 @@ const userTaskMapSlice = createSlice({
     builder.addCase(fetchUserTaskMap.fulfilled, (state, action) => {
       state.loading = false;
       state.error = "";
-      if(action.payload.length){
-       const taskCategory=getAllTask(action.payload);
-       state.active_task=taskCategory.active_task;
-       state.submitted_task=taskCategory.submitted_task;
-       }
+      if (action.payload.length) {
+        const taskCategory = getAllTask(action.payload);
+        state.active_task = taskCategory.active_task;
+        state.submitted_task = taskCategory.submitted_task;
+      }
     });
     builder.addCase(fetchUserTaskMap.rejected, (state, action) => {
       state.loading = false;
       state.userData = {};
-      state.logged_in_userId='';
-      state.account_type='';
+      state.logged_in_userId = "";
+      state.account_type = "";
       state.error = action.error.message;
     });
   },
 });
 
-
 export default userTaskMapSlice.reducer;
+export const{addTask}=userTaskMapSlice.actions

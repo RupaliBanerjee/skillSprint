@@ -39,7 +39,7 @@ const ViewTask = () => {
       type: "Student Task",
     },
     {
-      tabName: "History",
+      tabName: "Submitted Task",
       tabData: submitted_Task,
       type: "Student Task",
     },

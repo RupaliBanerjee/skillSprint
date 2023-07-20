@@ -6,10 +6,13 @@ import {
   Typography,
   useTheme,
   TextField,
+  Stack,
+  Paper,
+  Chip,
 } from "@mui/material";
 import { tokens } from "theme";
 import Header from "components/Header";
-import { Formik } from "formik";
+import { Formik, Field, FieldArray } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { DatePicker } from "@mui/x-date-pickers";
@@ -20,57 +23,75 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Buffer } from "buffer";
+import DynamicList from "components/DynamicList";
+import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import { styled } from "@mui/material/styles";
+import { MuiChipsInput } from "mui-chips-input";
 
 const PublishAssignmentPage = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [pdfFile, setPdfFile] = useState(null);
+  /* Add and Delete assesment criteria */
+  const [criteriaList, setCriteriaList] = useState([
+    "accuracy",
+    "code quality",
+    "documentation",
+    "basic functionality",
+  ]);
   let oldTaskKeys = null;
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
-  const userID=useSelector((state)=>state?.userInfo?.userData.user_id);
+  const userID = useSelector((state) => state?.userInfo?.userData.user_id);
 
-  const updateTaskDetailDB=async(taskData)=>{
-    try{
-        const response=await axios.post("/addNewTask/assignment",{taskDetail:taskData});
-        console.log("Check response")
-        if(response.status==200){
-            navigate("/lecturer/dashboard")
-        }
-    }catch(error){
-        console.log("Check for Errors in taskDetail DB update",error)
+  const updateTaskDetailDB = async (taskData) => {
+    try {
+      const response = await axios.post("/addNewTask/assignment", {
+        taskDetail: taskData,
+      });
+      console.log("Check response");
+      if (response.status == 200) {
+        navigate("/lecturer/dashboard");
+      }
+    } catch (error) {
+      console.log("Check for Errors in taskDetail DB update", error);
     }
-    
-  }
-    
-  const handleFormSubmit = (values) => {
-    const allFormControlValues=values;
-    console.log("Check the form field Values",allFormControlValues)
-    const fileData=Buffer.from(pdfFile,'base64');
-    const TaskDetailNewRecord={
-        key:allFormControlValues.subject_key.concat(allFormControlValues.assignment_id),
-        publisher_id:userID,
-        assigner_id:"",
-        title:allFormControlValues.title,
-        summary:allFormControlValues.summary,
-        comments:{
-            publisher:allFormControlValues.comments,
-            assigner:"",
-            student:""
-        },
-        pdf_file:fileData,
-        start_date:startDate,
-        end_date:endDate,
-        task_type:"ASSIGNMENT",
-        active:false
-    }
-    updateTaskDetailDB(TaskDetailNewRecord)
   };
- 
+
+  const handleFormSubmit = (values) => {
+    const allFormControlValues = values;
+
+    //console.log("Check the file before typecasting",pdfFile)
+    //const fileData=Buffer.from(pdfFile,'base64');
+    //console.log("Check the file data",fileData)
+    const TaskDetailNewRecord = {
+      key: allFormControlValues.subject_key.concat(
+        allFormControlValues.assignment_id
+      ),
+      publisher_id: userID,
+      assigner_id: "",
+      title: allFormControlValues.title,
+      summary: allFormControlValues.summary,
+      comments: {
+        publisher: allFormControlValues.comments,
+        assigner: "",
+        student: "",
+      },
+      pdf_file: pdfFile,
+      start_date: startDate,
+      end_date: endDate,
+      task_type: "ASSIGNMENT",
+      active: false,
+      assesment_criteria: [...criteriaList],
+    };
+    updateTaskDetailDB(TaskDetailNewRecord);
+  };
+
   //   const [startDateTouched, setStartDateTouched] = useState(false);
   //   const [endDateTouched, setEndDateTouched] = useState(false);
 
@@ -90,7 +111,8 @@ const PublishAssignmentPage = () => {
     getAllTaskIds();
   }, []);
 
-  const duplicateIdCheck = (value) => oldTaskKeys? oldTaskKeys?.indexOf(value) === -1 :true;
+  const duplicateIdCheck = (value) =>
+    oldTaskKeys ? oldTaskKeys?.indexOf(value) === -1 : true;
 
   /* Validation for publisg Task */
   const publishTaskSchema = yup.object().shape({
@@ -105,15 +127,13 @@ const PublishAssignmentPage = () => {
       }),
     comments: yup.string().required("required"),
   });
-  const formatDate = (date) => {
-    return new Date(date).toLocaleDateString();
-  };
+
   const onFileUpload = (e) => {
     console.log("File Info", e);
     let reader = new FileReader();
     reader.readAsDataURL(e.target.files[0]);
     reader.onload = () => {
-      console.log("Check reader value", reader.result);
+     
       setPdfFile(reader.result);
     };
     reader.onerror = (error) => {
@@ -121,15 +141,21 @@ const PublishAssignmentPage = () => {
     };
   };
 
+  //const handleCriteriaChange = (chipValue, chipIndex) => {};
+  const handleAddChip = (chipValue, chipIndex) => {
+    setCriteriaList((prevState) => [...prevState, chipValue]);
+    //console.log("New chip add action" ,chipValue,chipIndex)
+  };
+  const deleteChip = (chipValue, chipIndex) => {
+    const newCriteriaList = criteriaList;
+    newCriteriaList.splice(chipIndex, 1);
+    setCriteriaList([...newCriteriaList]);
+  };
+
   return (
-    <Box m="5px 20px">
+    <Box m="0px 20px">
       {/* HEADER */}
-      <Box
-        display="flex"
-        mb={"10px"}
-        justifyContent="space-between"
-        alignItems="center"
-      >
+      <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header
           title="Publish New Assignment"
           subtitle="Add Assignment details"
@@ -147,6 +173,7 @@ const PublishAssignmentPage = () => {
             start_date: null,
             end_date: null,
             pdf_file: null,
+            friends: ["jared", "ian", "brent"],
           }}
           validationSchema={publishTaskSchema}
         >
@@ -159,6 +186,11 @@ const PublishAssignmentPage = () => {
             handleSubmit,
           }) => (
             <form onSubmit={handleSubmit}>
+              <Box display="flex" justifyContent="end" mb={2}>
+                <Button type="submit" color="secondary" variant="contained">
+                  Save
+                </Button>
+              </Box>
               <Box
                 display="grid"
                 gap="15px"
@@ -251,7 +283,6 @@ const PublishAssignmentPage = () => {
                         helperText: touched.start_date && errors.start_date,
                       },
                     }}
-                    sx={{ gridColumn: "span 2" }}
                   />
                 </LocalizationProvider>
 
@@ -267,7 +298,9 @@ const PublishAssignmentPage = () => {
                         : dayjs().add(1, "day")
                     }
                     maxDate={dayjs().add(50, "day")}
-                    onChange={(newValue) => setEndDate(newValue.format("YYYY/MM/DD"))}
+                    onChange={(newValue) =>
+                      setEndDate(newValue.format("YYYY/MM/DD"))
+                    }
                     slotProps={{
                       textField: {
                         variant: "filled",
@@ -275,7 +308,6 @@ const PublishAssignmentPage = () => {
                         helperText: touched.end_date && errors.end_date,
                       },
                     }}
-                    sx={{ gridColumn: "span 2" }}
                   />
                 </LocalizationProvider>
                 {/* <TextField
@@ -295,16 +327,32 @@ const PublishAssignmentPage = () => {
                   type="file"
                   fullWidth
                   variant="filled"
-                  label={!!touched.pdf_file ? "pdf file upload" :""}
+                  label={!!touched.pdf_file ? "pdf file upload" : ""}
                   name="pdf_file"
-                  sx={{ gridColumn: "span 4", gridRow: "span 2" }}
+                  sx={{ gridColumn: "span 2" }}
                   onChange={onFileUpload}
                 />
-              </Box>
-              <Box display="flex" justifyContent="end" mt="20px">
-                <Button type="submit" color="secondary" variant="contained">
-                  Save
-                </Button>
+                <Box sx={{ gridColumn: "span 4" }}>
+                  <Typography sx={{ display: "block", margin: "0.5rem 0" }}>
+                    Assesment Criteria
+                  </Typography>
+                  <FieldArray
+                    fullWidth
+                    variant="filled"
+                    name="friends"
+                    label="Assesment Criteria"
+                    render={(arrayHelpers) => (
+                      <>
+                        <MuiChipsInput
+                          value={criteriaList}
+                          onAddChip={handleAddChip}
+                          onDeleteChip={deleteChip}
+                        />
+                        {/* <input  label="Assesment Criteria"/> */}
+                      </>
+                    )}
+                  />
+                </Box>
               </Box>
             </form>
           )}
@@ -313,5 +361,9 @@ const PublishAssignmentPage = () => {
     </Box>
   );
 };
+
+const ListItem = styled("li")(({ theme }) => ({
+  margin: theme.spacing(0.5),
+}));
 
 export default PublishAssignmentPage;
