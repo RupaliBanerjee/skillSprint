@@ -51,7 +51,7 @@ const PublishAssignmentPage = () => {
 
   const updateTaskDetailDB = async (taskData) => {
     try {
-      const response = await axios.post("/addNewTask/assignment", {
+      const response = await axios.post("/lecturer/addNewTask/assignment", {
         taskDetail: taskData,
       });
       console.log("Check response");
@@ -97,7 +97,7 @@ const PublishAssignmentPage = () => {
 
   const getAllTaskIds = async () => {
     try {
-      const taskIdList = await axios.get("/getAllTaskId");
+      const taskIdList = await axios.get("/lecturer/getAllTaskId");
       oldTaskKeys = taskIdList.data.map((data) => {
         const idValues = data.split("").slice(3, data.length).join("");
         return idValues;

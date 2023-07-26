@@ -17,7 +17,7 @@ import { useSelector } from "react-redux";
 import { ACCOUNT_TYPES } from "../src/constants";
 import ViewInactiveTask from "pages/student/viewInactiveTask";
 import Lecturer_Dashboard from "pages/lecturer/dashboard";
-import EvaluateMainPage from "./pages/lecturer/evaluate/EvaluateMainPage"
+import EvaluateMainPage from "./pages/lecturer/evaluate/EvaluateMainPage";
 import AssignProjectMainPage from "pages/lecturer/assign/AssignProjectMainPage";
 import PublishAssignmentPage from "pages/lecturer/publish/PublishAssignmentPage";
 
@@ -48,7 +48,6 @@ function App() {
               {accountType === ACCOUNT_TYPES.STUDENT && (
                 <Routes>
                   <Route path="/dashboard/:id" element={<Dashboard />} />
-
                   <Route path="/calendar" element={<Calendar />} />
                   <Route path="/forum" element={<Forum />} />
                   <Route path="/viewTask" element={<ViewTask />} />
@@ -60,14 +59,19 @@ function App() {
                   />
                 </Routes>
               )}
-              {accountType === ACCOUNT_TYPES.LECTURER && (
+              {(accountType === ACCOUNT_TYPES.LECTURER || accountType === ACCOUNT_TYPES.MENTOR )&& (
                 <Routes>
-                  <Route path="/lecturer/dashboard" element={<Lecturer_Dashboard/>}/>
+                  <Route
+                    path="/lecturer/dashboard"
+                    element={<Lecturer_Dashboard />}
+                  />
                   <Route path="/profile" element={<ProfilePage />} />
                   <Route path="/evaluate" element={<EvaluateMainPage />} />
                   <Route path="/assign" element={<AssignProjectMainPage />} />
-                  <Route path="/publish/assignment" element={<PublishAssignmentPage />} />
-                  
+                  <Route
+                    path="/publish/assignment"
+                    element={<PublishAssignmentPage />}
+                  />
                 </Routes>
               )}
             </main>

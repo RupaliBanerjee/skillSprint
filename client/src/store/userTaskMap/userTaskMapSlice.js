@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { act } from "react-dom/test-utils";
 
 const initialState = {
   loading: false,
@@ -31,6 +32,9 @@ const getAllTask = (taskData) => {
     submitted_task: submittedTask,
   };
 };
+// const updateTaskSubmission=(taskData,sta)=>{
+//   const activeTask=
+// }
 
 const userTaskMapSlice = createSlice({
   name: "userTaskMap",
@@ -64,4 +68,4 @@ const userTaskMapSlice = createSlice({
 });
 
 export default userTaskMapSlice.reducer;
-export const{addTask}=userTaskMapSlice.actions
+export const { addTask, updateTask } = userTaskMapSlice.actions;

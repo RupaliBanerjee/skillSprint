@@ -70,7 +70,7 @@ const EvaluateMainPage = () => {
 
   useEffect(() => {
     axios
-      .post("/getStudentTaskMap", { taskId_List: taskId_List })
+      .post("/lecturer/getStudentTaskMap", { taskId_List: taskId_List })
       .then((response) => {
         create_student_detail_list(response.data.taskMapData);
       });
@@ -79,7 +79,7 @@ const EvaluateMainPage = () => {
   /* After score changes update the redux store and the db with new scores */
   const updateTaskData = (taskData) => {
     axios
-      .post("/updateTaskMap/score", { taskData: taskData })
+      .post("/lecturer/updateTaskMap/score", { taskData: taskData })
       .then((response) => {
         let changed_assignment_data = [];
         let changed_project_data = [];
@@ -131,7 +131,7 @@ const EvaluateMainPage = () => {
       },
     ];
   }, [assignment, project]);
-
+  
   return (
     <Box m="10px 20px">
       {/* HEADER */}

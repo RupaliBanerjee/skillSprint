@@ -95,7 +95,7 @@ const Lecturer_Dashboard = () => {
   };
 
   const createTaskList = () => {
-    axios.get(`/taskInfo/${userID}`).then((response) => {
+    axios.get(`/lecturer/taskInfo/${userID}`).then((response) => {
       let tasklist = response.data;
       getAllTask(tasklist);
 

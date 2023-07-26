@@ -18,7 +18,17 @@ import EvaluationGrid from "pages/lecturer/evaluate/EvaluationGrid";
 function TabPanel(props) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const { children, value, index, data, name, task_type,updateTaskData, ...other } = props;
+  const {
+    children,
+    value,
+    index,
+    data,
+    name,
+    task_type,
+    updateTaskData,
+    updateTaskDataStudent,
+    ...other
+  } = props;
   const [taskData, setTaskData] = useState();
   const [showBackButton, setShowBackButton] = useState(false);
   const isTaskTypeStudent = task_type === "Student Task";
@@ -27,7 +37,11 @@ function TabPanel(props) {
     setTaskData(task);
     setShowBackButton(true);
   };
-  
+
+  const navigateBack = () => {
+    setShowBackButton(false);
+    setTaskData(undefined);
+  };
 
   return (
     <div
@@ -50,8 +64,7 @@ function TabPanel(props) {
                   color: colors.grey[100],
                 }}
                 onClick={() => {
-                  setShowBackButton(false);
-                  setTaskData(undefined);
+                  navigateBack()
                 }}
               >
                 Back
@@ -72,6 +85,7 @@ function TabPanel(props) {
                 taskData={taskData}
                 activeTask={false}
                 updateTaskData={updateTaskData}
+               
               />
             )
           )}
@@ -79,12 +93,16 @@ function TabPanel(props) {
                 on click of the of view task assignment and project will show the same page
                  and History will have different layout */}
           {isTaskTypeStudent &&
-            (taskData == undefined && !showBackButton && name !== "SUBMITTED TASK" ? (
+            (taskData == undefined &&
+            !showBackButton &&
+            name !== "SUBMITTED TASK" ? (
               <TaskList data={data} viewTaskDetail={viewTaskDetail} />
             ) : name !== "SUBMITTED TASK" ? (
               <TaskDetail
                 taskData={taskData}
                 activeTask={taskData.task_detail}
+                updateTaskDataStudent={updateTaskDataStudent}
+                navigateBack={navigateBack}
               />
             ) : (
               <ShowHistory data={data} />
@@ -112,7 +130,7 @@ function a11yProps(index) {
 
 export default function BasicTabs(props) {
   //Tab Names from Parent Component
-  const {tabInfo,updateTaskData} = props;
+  const { tabInfo, updateTaskData, updateTaskDataStudent } = props;
 
   const [value, setValue] = React.useState(0);
   const [currentTab, setCurrentTab] = useState("ASSIGNMNENTS");
@@ -161,9 +179,12 @@ export default function BasicTabs(props) {
             data={tabItem.tabData}
             name={currentTab}
             task_type={tabItem.type}
+            updateTaskDataStudent={updateTaskDataStudent}
           >
-            {tabItem.tabName !== "Submitted Task" && ` Active ${tabItem.tabName}`}
-            {tabItem.tabName === "Submitted Task" && "Previously Submitted Tasks"}
+            {tabItem.tabName !== "Submitted Task" &&
+              ` Active ${tabItem.tabName}`}
+            {tabItem.tabName === "Submitted Task" &&
+              "Previously Submitted Tasks"}
           </TabPanel>
         );
       })}

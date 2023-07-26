@@ -1,10 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Box, Icon, Button, IconButton, useTheme } from "@mui/material";
+import {
+  Box,
+  Icon,
+  Button,
+  IconButton,
+  useTheme,
+  TextField,
+} from "@mui/material";
 import { useSelector } from "react-redux";
 import { connect } from "react-redux";
 //import fileUpload from "../store/action";
 import PropTypes from "prop-types";
 import { tokens } from "../theme";
+import { styled } from "@mui/material/styles";
 
 import Avatar from "@mui/material/Avatar";
 import List from "@mui/material/List";
@@ -23,12 +31,24 @@ import FileUpload from "react-material-file-upload";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import TextareaAutosize from "@mui/base/TextareaAutosize";
 
+import DropboxChooser from "react-dropbox-chooser";
+
 const emails = ["username@gmail.com", "user02@gmail.com"];
+const APP_KEY = "tfswtn37byg2azt";
+const accessToken =
+  "sl.BizCGl_QorgJig-_nOLge4jqiyh20UIVnY872WbAlQsL90qXjgp_vE7Kn3SesUE2xT92Oor5VdSi0dJU5EtGYWLKIixtA6GWeBRoV_3S5NQTuFbpA6MKAymS2lMcX5W3ibD-sdj9x8pJ";
 
 function SimpleDialog(props) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const { onClose, selectedValue, open, filesList, fileUpload } = props;
+  const {
+    onClose,
+    selectedValue,
+    open,
+    filesList,
+    fileUpload,
+    saveStudentSubmission,
+  } = props;
 
   const handleClose = () => {
     onClose(selectedValue);
@@ -38,61 +58,99 @@ function SimpleDialog(props) {
     onClose(value);
   };
   const [uploadfiles, setUploadFiles] = useState([]);
+  const [comment, setComment] = useState("");
+  const [repoLink, setRepoLink] = useState("");
   const filesJsonData = [];
 
   const saveFiles = () => {
-    filesJsonData.push(...uploadfiles);
+    //filesJsonData.push(...uploadfiles);
     //Add new files to the filesList prop from the redux data store
-    filesList.push(...uploadfiles);
-    fileUpload(filesList);
+    //filesList.push(...uploadfiles);
+    //fileUpload(filesList);
+    /* Send Data to Task link */
+    saveStudentSubmission(comment, repoLink);
+
     //Close Upload Dialog
     handleClose();
   };
 
   return (
-    <Dialog onClose={handleClose} open={open}>
-      <Box m={"20px"} sx={{ minWidth: "60vh" }}>
-        <DialogTitle
-          sx={{ display: "flex", justifyContent: "space-between", p: "0" }}
-        >
-          <Box display="flex" justifyContent="space-between" width={"100%"}>
-            <Typography
-              variant="h3"
-              sx={{ color: colors.grey[100], margin: "6px 0 10px 0" }}
-            >
-              Upload Repository
-            </Typography>
-            <IconButton onClick={handleClose}>
-              <CloseOutlinedIcon sx={{ color: colors.grey[100] }} />
-            </IconButton>
-          </Box>
-        </DialogTitle>
+    <Box
+      sx={{
+        width: "100%",
+        backgroundColor: colors.primary[400],
+        color: colors.grey[100],
+        "& .MuiPaper-root": {
+          backgroundColor: colors.primary[400],
+        },
+      }}
+    >
+      <BootstrapDialog onClose={handleClose} open={open}>
+        <Box m={"20px"} sx={{ minWidth: "80vh", height: "40vh" }}>
+          <DialogTitle
+            sx={{ display: "flex", justifyContent: "space-between", p: "0" }}
+          >
+            <Box display="flex" justifyContent="space-between" width={"100%"}>
+              <Typography
+                variant="h3"
+                sx={{ color: colors.grey[100], margin: "6px 0 10px 0" }}
+              >
+                Upload Repository
+              </Typography>
+              <IconButton onClick={handleClose}>
+                <CloseOutlinedIcon sx={{ color: colors.grey[100] }} />
+              </IconButton>
+            </Box>
+          </DialogTitle>
 
-        <Typography sx={{ color: colors.grey[100] }}>Comments:</Typography>
-        <TextareaAutosize
-          minRows={5}
-          style={{
-            width: "100%",
-            backgroundColor: colors.grey[700],
-            color: colors.greenAccent[500],
-          }}
-        />
+          <Typography sx={{ color: colors.grey[100] }}>Comments:</Typography>
+          <TextareaAutosize
+            minRows={5}
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+            style={{
+              width: "100%",
+              backgroundColor: colors.grey[700],
+              color: colors.greenAccent[500],
+            }}
+          />
+          <TextField
+            label="Add repository Link here"
+            value={repoLink}
+            onChange={(e) => {
+              setRepoLink(e.target.value);
+            }}
+            sx={{ width: "100%" }}
+            variant="outlined"
+          ></TextField>
 
-        <FileUpload value={uploadfiles} onChange={setUploadFiles} />
-        <Button
-          autoFocus
-          onClick={saveFiles}
-          sx={{
-            float: "right",
-            margin: "10px 0",
-            backgroundColor: colors.primary[500],
-            color: colors.grey[100],
-          }}
+          {/* <FileUpload value={uploadfiles} onChange={setUploadFiles} /> */}
+
+          {/* <DropboxChooser
+          appKey={APP_KEY}
+          accessToken={accessToken}
+          success={(files) => this.onSuccess(files)}
+          cancel={() => this.onCancel()}
+          multiselect={true}
+          extensions={[".mp4"]}
         >
-          Save changes
-        </Button>
-      </Box>
-    </Dialog>
+          <div className="dropbox-button">Click me!</div>
+        </DropboxChooser> */}
+          <Button
+            autoFocus
+            onClick={saveFiles}
+            sx={{
+              float: "right",
+              margin: "10px 0",
+              color: colors.grey[100],
+              backgroundColor: colors.blueAccent[700],
+            }}
+          >
+            Save changes
+          </Button>
+        </Box>
+      </BootstrapDialog>
+    </Box>
   );
 }
 
@@ -103,7 +161,7 @@ SimpleDialog.propTypes = {
 };
 
 function PDF_FileUpload(props) {
-  const { filesList, fileUpload } = props;
+  const { filesList, fileUpload, saveStudentSubmission } = props;
   const [open, setOpen] = React.useState(false);
   const openDialog = props.open;
 
@@ -131,6 +189,7 @@ function PDF_FileUpload(props) {
         onClose={handleClose}
         filesList={filesList}
         fileUpload={fileUpload}
+        saveStudentSubmission={saveStudentSubmission}
       />
     </div>
   );
@@ -143,5 +202,20 @@ const mapDispatchToProps = (dispatch) => {
     fileUpload: (filesList) => dispatch({ type: "UPLOAD", payload: filesList }),
   };
 };
+
+const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+  "& .MuiDialogContent-root": {
+    padding: theme.spacing(2),
+    margin: "10px 5px",
+    color: "#858585",
+  },
+  "& .MuiDialogActions-root": {
+    padding: theme.spacing(1),
+  },
+  "& .MuiDialogTitle-root": {
+    fontSize: "18px",
+    color: "#e0e0e0",
+  },
+}));
 
 export default connect(mapStateToProps, mapDispatchToProps)(PDF_FileUpload);

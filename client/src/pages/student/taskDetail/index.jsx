@@ -26,6 +26,7 @@ import DialogWithTitle from "common/DialogWithTitle";
 import ScoreCard from "components/ScoreCard";
 import SliderWithInputField from "components/SliderWithInputField";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 // const useStyles = createUseStyles({
 //   title: {
@@ -35,9 +36,16 @@ import { useDispatch } from "react-redux";
 
 const TaskDetail = (props) => {
   //const classses = useStyles({ ...props });
-  const { taskData, activeTask, updateTaskData } = props;
+  const {
+    taskData,
+    activeTask,
+    updateTaskData,
+    updateTaskDataStudent,
+    navigateBack,
+  } = props;
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const navigate = useNavigate();
 
   const [showFileUpload_dialog, setShowFileUpload_dialog] = useState(false);
   const [showFilePreview_dialog, setShowFilePreview_dialog] = useState(false);
@@ -79,6 +87,30 @@ const TaskDetail = (props) => {
       ["totalScore"]: totalScoreValue,
     };
     updateTaskData(newTaskData);
+  };
+
+  /* update solution zip and student comments */
+  const saveStudentSubmission = (student_comment, repo_link) => {
+    const newTaskData = {
+      ...taskData,
+      ["solution_zip"]: repo_link,
+      task_detail: {
+        ...taskData.task_detail,
+        comments: {
+          ...taskData.task_detail.comments,
+          student: student_comment,
+        },
+        active: false,
+      },
+    };
+    updateTaskDataStudent(newTaskData);
+    navigateBack();
+  };
+
+  /* Download Solution Zip for evaluation */
+  const downloadSolution = () => {
+    console.log("Check solution zip", taskData.studentTaskMap.solution_zip);
+    window.open(`${taskData.studentTaskMap.solution_zip}`);
   };
 
   return (
@@ -185,6 +217,7 @@ const TaskDetail = (props) => {
                         color: colors.grey[100],
                       }}
                       endIcon={<FileDownloadOutlinedIcon />}
+                      onClick={downloadSolution}
                     >
                       Solution
                     </Button>
@@ -214,6 +247,7 @@ const TaskDetail = (props) => {
           <PDF_FileUpload
             open={showFileUpload_dialog}
             closeDialog={closeDialog}
+            saveStudentSubmission={saveStudentSubmission}
           />
         )}
         {showScoreDialog && (

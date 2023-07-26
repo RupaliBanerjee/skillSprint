@@ -4,17 +4,20 @@ import { tokens } from "../../../theme";
 import Header from "../../../components/Header";
 import BasicTabs from "../../../components/BasicTabs";
 import { assignmentData, projectData } from "../../../data/mockData";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { TASK_TYPES } from "constants";
+import axios from "axios";
+import { updateTask } from "store/userTaskDetail/userTaskDetailSlice";
 
 const ViewTask = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const { active_Task, submitted_Task } = useSelector(
+  const { active_Task, submitted_Task,unAssigned_Task } = useSelector(
     (state) => state.userTaskDetail
   );
   const active_projects = [];
   const active_assignment = [];
+  const dispatch = useDispatch();
 
   /* Create seperate array for Project and Assignment */
   active_Task.forEach((task) => {
@@ -25,8 +28,57 @@ const ViewTask = () => {
     }
   });
 
-  
+  /* Update TaskMap in DB */
+  const updateTaskMapSolution = (task_id, solution) => {
+    try {
+      axios.post("/updateTaskMap/solution", {
+        task_id: task_id,
+        solution_zip: solution,
+      });
+    } catch (err) {
+      console.log("Check taskMapUpdate Error", err);
+    }
+  };
 
+  /* Update TaskDetail in DB */
+  const updateTaskDetailComments = (task_id, comments) => {
+    try {
+      axios.post("/updateTaskDetail/comments", {
+        task_id: task_id,
+        student_comments: comments,
+      });
+    } catch (err) {
+      console.log("Check taskDetailUpdate Error", err);
+    }
+  };
+
+  /* Update Redux store after DB changes for solution submission */
+  const updateReduxStoreTaskMap = (taskData) => {
+    const newActiveTaskList = active_Task.filter(
+      (task) => task.task_id !== taskData.task_id
+    );
+    const newSubmittedTaskList = [...submitted_Task];
+    newSubmittedTaskList.push(taskData);
+    
+    dispatch(
+      updateTask({
+        active_Task: newActiveTaskList,
+        submitted_Task: newSubmittedTaskList,
+        unAssigned_Task:unAssigned_Task
+      })
+    );
+  };
+
+  /* Update Student Submission Data for active task */
+  const updateTaskDataStudent = async (taskData) => {
+    
+    updateTaskMapSolution(taskData.task_id, taskData.solution_zip);
+    updateTaskDetailComments(
+      taskData.task_id,
+      taskData.task_detail.comments.student
+    );
+    updateReduxStoreTaskMap(taskData);
+  };
   const tabInfo = [
     {
       tabName: "Assignments",
@@ -57,7 +109,10 @@ const ViewTask = () => {
         <Header title="View All Task" subtitle="Welcome to your Task List" />
       </Box>
       <Box flex="1 1 100%" height="75vh" backgroundColor={colors.primary[400]}>
-        <BasicTabs tabInfo={tabInfo} />
+        <BasicTabs
+          tabInfo={tabInfo}
+          updateTaskDataStudent={updateTaskDataStudent}
+        />
       </Box>
     </Box>
   );

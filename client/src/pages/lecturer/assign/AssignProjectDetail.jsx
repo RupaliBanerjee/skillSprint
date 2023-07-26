@@ -97,7 +97,7 @@ const AssignProjectDetail = (props) => {
 
   const getTaskDetails = async (TaskIdList) => {
     try {
-      const response = await axios.post("/getAllTaskDetail", {
+      const response = await axios.post("/lecturer/getAllTaskDetail", {
         taskId: TaskIdList,
       });
       return response.data.taskDetailList;
@@ -160,7 +160,7 @@ const AssignProjectDetail = (props) => {
 
   const getTaskMap = async () => {
     try {
-      const response = await axios.get("/getAllTaskMap");
+      const response = await axios.get("/lecturer/getAllTaskMap");
       const taskMapData = response.data;
 
       updateStudentInfo(taskMapData);
@@ -194,8 +194,8 @@ const AssignProjectDetail = (props) => {
   const updateTaskMap = async (taskMapList) => {
     try {
       const getTaskIidList=taskMapList.map((task)=>(task.task_id))
-      const response = await axios.post("/setTaskMap", taskMapList);
-      const taskDetailUpdate=await axios.post("/updateTaskDetail",getTaskIidList)
+      const response = await axios.post("/lecturer/setTaskMap", taskMapList);
+      const taskDetailUpdate=await axios.post("/lecturer/updateTaskDetail",getTaskIidList)
       navigate("/lecturer/dashboard");
     } catch (err) {
       console.log("updateTaskMap client error", err);
