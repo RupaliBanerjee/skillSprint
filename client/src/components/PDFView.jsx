@@ -59,7 +59,7 @@ const PDFView = (props) => {
   // const fromDb= `${Buffer.from(pdfFileData)
   //   .toString("base64").split('base64,')[1]}`;
  // const fromDb=pdfFileData.split('base64,')[1]
-    console.log("Check fromDb 1:",pdfFileData.split('base64,')[1])
+ 
 
   // setPdfFile(
   //   `data:application/pdf;base64, ${Buffer.from(pdfFileData.data).toString(
@@ -69,28 +69,7 @@ const PDFView = (props) => {
 
   
   useEffect(() => {
-    //const strLength = Buffer.from(pdfFileData.data).toString("base64").length;
-    // const fromDb= `data:application/pdf;base64,${Buffer.from(pdfFileData.data)
-    //       .toString("base64")
-    //       .split("")
-    //       .slice(25, strLength)
-    //       .join("")}`;
-    //const fromUpload=pdfFile;
     
-    //console.log("Check fromUpload:",fromUpload)
-    // if(fromDb?.length===fromUpload?.length){
-    //   console.log("Its the same");
-    // }
-    
-    //setPdfFile(pdfFile)
-    //console.log(`Check pdfFileData: ${Buffer.from(pdfFileData.data).toString("base64")}`)
-    // setPdfFile(
-    //   `${Buffer.from(pdfFileData.data)
-    //     .toString("base64")
-    //     .split("")
-    //     .slice(25, strLength)
-    //     .join("")}`
-    // );
   }, [pdfFileData]);
   const getFile=(e)=>{
     const fileType = ["application/pdf"];
@@ -102,8 +81,7 @@ const PDFView = (props) => {
       console.log("Check the value for file",e.target.result)
       setPdfFile(e.target.result);
     };
-    //console.log("From DB VAlue",fromDb)
-    //setPdfFile(fromDb);
+    
   }
   // const fileType = ["application/pdf"];
   // if (!!filesList[0]) {

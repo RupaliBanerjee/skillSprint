@@ -19,9 +19,10 @@ import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import { useSelector } from "react-redux";
 import profileImage from "../assets/images/profileIcon.png";
+import pbl_logo from "../assets/images/pbl_logo.png";
 import { ACCOUNT_TYPES } from "constants";
-import EditNoteOutlinedIcon from '@mui/icons-material/EditNoteOutlined';
-import InputOutlinedIcon from '@mui/icons-material/InputOutlined';
+import EditNoteOutlinedIcon from "@mui/icons-material/EditNoteOutlined";
+import InputOutlinedIcon from "@mui/icons-material/InputOutlined";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -72,7 +73,10 @@ const Sidebar = () => {
           backgroundColor: "transparent !important",
         },
         "& .pro-inner-item": {
-          padding: "5px 35px 5px 20px !important",
+          padding: "0px 35px 5px 20px !important",
+        },
+        "& .pro-menu > ul >li:first-chid > .pro-inner-item": {
+          padding: " 0px 10px 10px 0px !important",
         },
         "& .pro-inner-item:hover": {
           color: "#868dfb !important",
@@ -101,13 +105,27 @@ const Sidebar = () => {
                 alignItems="center"
                 ml="15px"
               >
-                <Typography
-                  variant="h3"
-                  color={colors.grey[100]}
-                  sx={{ textTransform: "capitalize" }}
-                >
-                  {userInfo.role}
-                </Typography>
+                <Box>
+                  <img
+                    alt="profile-User"
+                    width="50px"
+                    height="50px"
+                    src={pbl_logo}
+                    style={{
+                      cursor: "pointer",
+                      float: "left",
+                      marginRight: "1rem",
+                    }}
+                  />
+                  <Typography
+                    variant="h3"
+                    color={colors.grey[100]}
+                    sx={{ textTransform: "capitalize", marginTop: "1rem" }}
+                  >
+                    {userInfo.role}
+                  </Typography>
+                </Box>
+
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
                 </IconButton>
@@ -151,7 +169,9 @@ const Sidebar = () => {
               to={
                 accountType === ACCOUNT_TYPES.STUDENT
                   ? `/dashboard/${user_id}`
-                  : `/lecturer/dashboard`
+                  : accountType === ACCOUNT_TYPES.LECTURER
+                  ? "/lecturer/dashboard"
+                  : "/mentor/dashboard"
               }
               icon={<HomeOutlinedIcon />}
               selected={selected}
@@ -243,6 +263,15 @@ const Sidebar = () => {
                   setSelected={setSlected}
                 />
               </>
+            )}
+            {accountType === ACCOUNT_TYPES.MENTOR && (
+              <Item
+                title="Publish"
+                to="/publish/assignment"
+                icon={<AssignmentOutlinedIcon />}
+                selected={selected}
+                setSelected={setSlected}
+              />
             )}
             {accountType === ACCOUNT_TYPES.STUDENT && (
               <>

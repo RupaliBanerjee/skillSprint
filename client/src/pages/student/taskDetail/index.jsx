@@ -25,8 +25,9 @@ import AddScore_Dialogue from "components/AddScore_Dialogue";
 import DialogWithTitle from "common/DialogWithTitle";
 import ScoreCard from "components/ScoreCard";
 import SliderWithInputField from "components/SliderWithInputField";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { ACCOUNT_TYPES } from "constants";
 
 // const useStyles = createUseStyles({
 //   title: {
@@ -42,10 +43,13 @@ const TaskDetail = (props) => {
     updateTaskData,
     updateTaskDataStudent,
     navigateBack,
+    setShowScoreDetail
   } = props;
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const navigate = useNavigate();
+
+  const accountType = useSelector((state) => state?.userInfo.userData.role);
 
   const [showFileUpload_dialog, setShowFileUpload_dialog] = useState(false);
   const [showFilePreview_dialog, setShowFilePreview_dialog] = useState(false);
@@ -53,14 +57,59 @@ const TaskDetail = (props) => {
   const [newScoreDetail, setNewScoreDetail] = useState([]);
   const [pdfFileData, setPdfFileData] = useState(null);
 
+  /* For all button show hide top bar */
+  const [showUploadBtn, setShowUploadBtn] = useState(false);
+  const [showPreviewBtn, setShowPreviewBtn] = useState(false);
+  const [showEnrollBtn, setShowEnrollBtn] = useState(false);
+  const [showScoreBtn, setShowScoreBtn] = useState(false);
+
+  /* For button showhide bottom bar */
+  const [showSolutionDownload, setShowSolutionDownload] = useState(false);
+  const [showAddScore, setShowAddScore] = useState(false);
+  const [showStudentSubmission, setShowStudentSubmissionBtn] = useState(false);
+
+ 
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (taskData?.score?.length) {
       setNewScoreDetail([...taskData?.score]);
     }
-    if (taskData?.pdf_file) {
-      setPdfFileData(taskData.pdf_file);
+    if (taskData?.pdf_file || taskData?.task_detail?.pdf_file) {
+      setPdfFileData(
+        taskData.pdf_file ? taskData.pdf_file : taskData?.task_detail.pdf_file
+      );
+    }
+    /* For Top bar button visibility */
+    if (
+      accountType === ACCOUNT_TYPES.STUDENT &&
+      (taskData?.task_detail?.active || activeTask)
+    ) {
+      setShowUploadBtn(true);
+    }
+    if (accountType === ACCOUNT_TYPES.STUDENT && !activeTask) {
+      setShowEnrollBtn(true);
+    }
+    if (taskData?.totalScore > 0 || taskData?.studentTaskMap?.totalScore > 0) {
+      setShowScoreBtn(true);
+    }
+    if (taskData?.pdf_file !== "") {
+      setShowPreviewBtn(true);
+    }
+
+    /* For Bottom bar button visibility */
+    if (
+      accountType === ACCOUNT_TYPES.LECTURER &&
+      taskData?.studentTaskMap?.totalScore === 0
+    ) {
+      setShowAddScore(true);
+    }
+    if (taskData?.studentTaskMap?.solution_zip !== "" && accountType!==ACCOUNT_TYPES.MENTOR) {
+      setShowSolutionDownload(true);
+    }
+    if (accountType === ACCOUNT_TYPES.MENTOR) {
+      setShowStudentSubmissionBtn(true);
     }
   }, [taskData]);
 
@@ -109,7 +158,6 @@ const TaskDetail = (props) => {
 
   /* Download Solution Zip for evaluation */
   const downloadSolution = () => {
-    console.log("Check solution zip", taskData.studentTaskMap.solution_zip);
     window.open(`${taskData.studentTaskMap.solution_zip}`);
   };
 
@@ -132,32 +180,40 @@ const TaskDetail = (props) => {
                 </Typography>
                 {/* Show top bar actions */}
                 <Box display="flex" justifyContent="flex-end">
-                  <Tooltip title="Upload Solution">
-                    <IconButton
-                      type="button"
-                      onClick={() => showDialog("upload")}
-                    >
-                      <FileUploadOutlinedIcon />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip title="preview PDF">
-                    <IconButton
-                      type="button"
-                      onClick={() => showDialog("preview")}
-                    >
-                      <PictureAsPdfOutlinedIcon />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip title="Enroll Now">
-                    <IconButton type="button">
-                      <InputOutlinedIcon />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip title="View Score">
-                    <IconButton type="button">
-                      <ReviewsOutlinedIcon />
-                    </IconButton>
-                  </Tooltip>
+                  {showUploadBtn && (
+                    <Tooltip title="Upload Solution">
+                      <IconButton
+                        type="button"
+                        onClick={() => showDialog("upload")}
+                      >
+                        <FileUploadOutlinedIcon />
+                      </IconButton>
+                    </Tooltip>
+                  )}
+                  {showPreviewBtn && (
+                    <Tooltip title="preview PDF">
+                      <IconButton
+                        type="button"
+                        onClick={() => showDialog("preview")}
+                      >
+                        <PictureAsPdfOutlinedIcon />
+                      </IconButton>
+                    </Tooltip>
+                  )}
+                  {showEnrollBtn && (
+                    <Tooltip title="Enroll Now">
+                      <IconButton type="button">
+                        <InputOutlinedIcon />
+                      </IconButton>
+                    </Tooltip>
+                  )}
+                  {showScoreBtn && (
+                    <Tooltip title="View Score">
+                      <IconButton type="button" onClick={setShowScoreDetail}>
+                        <ReviewsOutlinedIcon />
+                      </IconButton>
+                    </Tooltip>
+                  )}
                 </Box>
               </Box>
 
@@ -209,36 +265,59 @@ const TaskDetail = (props) => {
               </Box>
               {/* Button Container Div  for solution and add score*/}
               <Box display={"flex"} justifyContent={"flex-end"}>
-                <Tooltip title="Download Solution Zip">
-                  <Box borderRadius="4px" mr={2}>
-                    <Button
-                      sx={{
-                        backgroundColor: colors.blueAccent[700],
-                        color: colors.grey[100],
-                      }}
-                      endIcon={<FileDownloadOutlinedIcon />}
-                      onClick={downloadSolution}
-                    >
-                      Solution
-                    </Button>
-                  </Box>
-                </Tooltip>
-                <Tooltip title="Start Evaluation">
-                  <Box borderRadius="4px">
-                    <Button
-                      sx={{
-                        backgroundColor: colors.blueAccent[700],
-                        color: colors.grey[100],
-                      }}
-                      endIcon={<AppRegistrationOutlinedIcon />}
-                      onClick={() => {
-                        setShowScoreDialog(true);
-                      }}
-                    >
-                      Add Score
-                    </Button>
-                  </Box>
-                </Tooltip>
+                {showSolutionDownload && (
+                  <Tooltip title="Download Solution Zip">
+                    <Box borderRadius="4px" mr={2}>
+                      <Button
+                        sx={{
+                          backgroundColor: colors.blueAccent[700],
+                          color: colors.grey[100],
+                        }}
+                        endIcon={<FileDownloadOutlinedIcon />}
+                        onClick={downloadSolution}
+                      >
+                        Solution
+                      </Button>
+                    </Box>
+                  </Tooltip>
+                )}
+
+                {showAddScore && (
+                  <Tooltip title="Start Evaluation">
+                    <Box borderRadius="4px">
+                      <Button
+                        sx={{
+                          backgroundColor: colors.blueAccent[700],
+                          color: colors.grey[100],
+                        }}
+                        endIcon={<AppRegistrationOutlinedIcon />}
+                        onClick={() => {
+                          setShowScoreDialog(true);
+                        }}
+                      >
+                        Add Score
+                      </Button>
+                    </Box>
+                  </Tooltip>
+                )}
+                {showStudentSubmission && (
+                  <Tooltip title="Show submission details">
+                    <Box borderRadius="4px">
+                      <Button
+                        sx={{
+                          backgroundColor: colors.blueAccent[700],
+                          color: colors.grey[100],
+                        }}
+                        endIcon={<AppRegistrationOutlinedIcon />}
+                        onClick={() => {
+                          navigate(`/mentor/studentSubmission/${taskData?.key}`)
+                        }}
+                      >
+                        View Submission
+                      </Button>
+                    </Box>
+                  </Tooltip>
+                )}
               </Box>
             </Box>
           </Box>

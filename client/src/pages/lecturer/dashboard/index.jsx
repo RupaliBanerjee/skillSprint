@@ -18,7 +18,10 @@ import BarChart from "components/BarChart";
 import PieChart from "components/PieChart";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { addTaskList } from "store/lecturerTaskInfo/lecturerTaskInfoSlice";
+import {
+  addTaskList,
+  updateAssesmentData,
+} from "store/lecturerTaskInfo/lecturerTaskInfoSlice";
 
 const Lecturer_Dashboard = () => {
   const theme = useTheme();
@@ -32,12 +35,16 @@ const Lecturer_Dashboard = () => {
   const activeProjectList = useSelector(
     (state) => state.lecturer_Task_Info.active_project_list
   );
-  const pendingAssesmentList = useSelector(
+  const { assignment, project } = useSelector(
     (state) => state.lecturer_Task_Info.pending_assesment_list
   );
   const unAssignedProjectList = useSelector(
     (state) => state.lecturer_Task_Info.unAssigned_project_list
   );
+
+  /* Get taskIDs for all pending tasks */
+  const taskId_List = assignment.map((t) => t.key);
+  taskId_List.push(...project.map((t) => t.key));
 
   const viewMoreAction = () => {
     console.log("Clicked");
@@ -54,17 +61,74 @@ const Lecturer_Dashboard = () => {
 
   const getPendingList = (assignmentList, projectList) => {
     const today = new Date();
+    //console.log("Check the assignment ans project list for pending Assesment",assignmentList)
     const pending_assignment = [
-      ...assignmentList.filter((task) => dateInPast(task.end_date)),
+      ...assignmentList.filter(
+        (task) => dateInPast(task.end_date) || task.comments.student !== ""
+      ),
     ];
     const pending_project = [
-      ...projectList.filter((task) => dateInPast(task.end_date)),
+      ...projectList.filter(
+        (task) => dateInPast(task.end_date) || task.comments.student !== ""
+      ),
     ];
 
     return {
       assignment: pending_assignment,
       project: pending_project,
     };
+  };
+
+  /* add student detail to the pending assesment list */
+  const create_student_detail_list = (studentDetailList) => {
+    const updateted_assignment_list = [];
+    const updateted_project_list = [];
+    /* To add the details of Student Map to the assignment and project array in store */
+    assignment.forEach((task) => {
+      const studentData = {
+        ...studentDetailList.filter(
+          (t) => t.task_id === task.key && t.totalScore === 0
+        )[0],
+      };
+      const updated_assignment_data = {
+        ...task,
+        studentTaskMap: studentData,
+      };
+      /* Only if the student Map has a total score as 0 then add in pending taskList */
+      if (Object.keys(updated_assignment_data.studentTaskMap).length) {
+        updateted_assignment_list.push(updated_assignment_data);
+      }
+    });
+    project.forEach((task) => {
+      const studentData = {
+        ...studentDetailList.filter(
+          (t) => t.task_id === task.key && t.totalScore === 0
+        )[0],
+      };
+      const updated_project_data = {
+        ...task,
+        studentTaskMap: studentData,
+      };
+      if (Object.keys(updated_project_data.studentTaskMap).length) {
+        updateted_project_list.push(updated_project_data);
+      }
+    });
+    dispatch(
+      updateAssesmentData({
+        assignment: updateted_assignment_list,
+        project: updateted_project_list,
+      })
+    );
+    // console.log("Check New project List",updateted_assignment_list)
+  };
+
+  /* Update pending assesment list based on total score */
+  const updatePendingAssesmentList = () => {
+    axios
+      .post("/lecturer/getStudentTaskMap", { taskId_List: taskId_List })
+      .then((response) => {
+        create_student_detail_list(response.data.taskMapData);
+      });
   };
 
   // [...assignmentList.filter(t=>!t.active)]
@@ -92,14 +156,13 @@ const Lecturer_Dashboard = () => {
         unAssigned_project_list: unAssigned_project_list,
       })
     );
+    updatePendingAssesmentList();
   };
 
   const createTaskList = () => {
     axios.get(`/lecturer/taskInfo/${userID}`).then((response) => {
       let tasklist = response.data;
       getAllTask(tasklist);
-
-      //createTaskList(res);
     });
   };
 
@@ -169,12 +232,7 @@ const Lecturer_Dashboard = () => {
         >
           <TaskCountWidget
             title="Pending Evaluation"
-            count={
-              pendingAssesmentList.assignment.length
-                ? pendingAssesmentList.assignment.length +
-                  pendingAssesmentList.project.length
-                : 0
-            }
+            count={assignment.length + project.length}
             icon={
               <AppRegistrationOutlinedIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "40px" }}

@@ -19,64 +19,9 @@ const EvaluateMainPage = () => {
   const dispatch = useDispatch();
   const taskId_List = assignment.map((t) => t.key);
   taskId_List.push(...project.map((t) => t.key));
-
-  const assignmentData = [];
-
-  const createTaskDetail = (studentData) => {
-    // return {...assignment.map((t)=>t.key===studentData.task_id)}
-  };
-
-  const create_student_detail_list = (studentDetailList) => {
-    const updateted_assignment_list = [];
-    const updateted_project_list = [];
-    /* To add the details of Student Map to the assignment and project array in store */
-    assignment.forEach((task) => {
-      const studentData = {
-        ...studentDetailList.filter(
-          (t) => t.task_id === task.key && t.totalScore === 0
-        )[0],
-      };
-      const updated_assignment_data = {
-        ...task,
-        studentTaskMap: studentData,
-      };
-      /* Only if the student Map has a total score as 0 then add in pending taskList */
-      if (Object.keys(updated_assignment_data.studentTaskMap).length) {
-        updateted_assignment_list.push(updated_assignment_data);
-      }
-    });
-    project.forEach((task) => {
-      const studentData = {
-        ...studentDetailList.filter(
-          (t) => t.task_id === task.key && t.totalScore === 0
-        )[0],
-      };
-      const updated_project_data = {
-        ...task,
-        studentTaskMap: studentData,
-      };
-      if (Object.keys(updated_project_data.studentTaskMap).length) {
-        updateted_project_list.push(updated_project_data);
-      }
-    });
-    dispatch(
-      updateAssesmentData({
-        assignment: updateted_assignment_list,
-        project: updateted_project_list,
-      })
-    );
-    // console.log("Check New project List",updateted_assignment_list)
-  };
-
-  useEffect(() => {
-    axios
-      .post("/lecturer/getStudentTaskMap", { taskId_List: taskId_List })
-      .then((response) => {
-        create_student_detail_list(response.data.taskMapData);
-      });
-  }, []);
-
-  /* After score changes update the redux store and the db with new scores */
+  
+  
+ /* After score changes update the redux store and the db with new scores */
   const updateTaskData = (taskData) => {
     axios
       .post("/lecturer/updateTaskMap/score", { taskData: taskData })
@@ -116,22 +61,23 @@ const EvaluateMainPage = () => {
       type: "Lecturer Task",
     },
   ];
+  console.log("Check Assignment in Evaluate Page",assignment)
+  console.log("Check project in Evaluate Page",project)
+  // useEffect(() => {
+  //   tabInfo = [
+  //     {
+  //       tabName: "Assignments",
+  //       tabData: assignment,
+  //       type: "Lecturer Task",
+  //     },
+  //     {
+  //       tabName: "Projects",
+  //       tabData: project,
+  //       type: "Lecturer Task",
+  //     },
+  //   ];
+  // }, [assignment, project]);
 
-  useEffect(() => {
-    tabInfo = [
-      {
-        tabName: "Assignments",
-        tabData: assignment,
-        type: "Lecturer Task",
-      },
-      {
-        tabName: "Projects",
-        tabData: project,
-        type: "Lecturer Task",
-      },
-    ];
-  }, [assignment, project]);
-  
   return (
     <Box m="10px 20px">
       {/* HEADER */}

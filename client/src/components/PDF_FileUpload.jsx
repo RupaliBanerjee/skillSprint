@@ -111,7 +111,7 @@ function SimpleDialog(props) {
             style={{
               width: "100%",
               backgroundColor: colors.grey[700],
-              color: colors.greenAccent[500],
+              color: colors.grey[100],
             }}
           />
           <TextField
@@ -204,6 +204,9 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+  "& .MuiPaper-root":{
+    backgroundColor:"#010101"
+  },
   "& .MuiDialogContent-root": {
     padding: theme.spacing(2),
     margin: "10px 5px",

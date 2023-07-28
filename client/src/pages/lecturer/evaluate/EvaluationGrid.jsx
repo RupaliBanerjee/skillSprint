@@ -26,7 +26,7 @@ const EvaluationGrid = (props) => {
     taskData.push({ ...taskObj });
   });
   const columns = [
-    { field: "task_id", headerName: "KEY", flex: 0.5 },
+    { field: "key", headerName: "KEY", flex: 0.5 },
     {
       field: "title",
       headerName: "Title",

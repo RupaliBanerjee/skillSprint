@@ -125,7 +125,7 @@ mongoose
           /* For Active Task */
           activeTask.forEach((task) => {
             const result = taskDetails.filter((t) => t.key === task.task_id)[0];
-            console.log("Check Results", result);
+           
             const {
               summary,
               title,
@@ -134,6 +134,7 @@ mongoose
               end_date,
               active,
               task_type,
+              pdf_file
             } = result;
             const updated_task = {
               ...task,
@@ -145,6 +146,7 @@ mongoose
                 end_date,
                 active,
                 task_type,
+                pdf_file
               },
             };
             activeTaskWithDetail.push({ ...updated_task });
@@ -161,6 +163,7 @@ mongoose
               end_date,
               active,
               task_type,
+              pdf_file
             } = result;
             const updated_task = {
               ...task,
@@ -172,6 +175,7 @@ mongoose
                 end_date,
                 active,
                 task_type,
+                pdf_file
               },
             };
             submittedTaskWithDetail.push({ ...updated_task });
@@ -248,8 +252,8 @@ mongoose
 
     /* Add data only once */
     //User.insertMany(dataUser);
-    //TaskMap.insertMany(student_taskMap);
-    //TaskDetail.insertMany(taskDetails)
+    // TaskMap.insertMany(student_taskMap);
+    // TaskDetail.insertMany(taskDetails)
   })
   .catch((err) => {
     console.log(`Sorry cannot connect due to ${err}`);

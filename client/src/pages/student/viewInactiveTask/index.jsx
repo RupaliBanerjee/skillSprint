@@ -64,8 +64,8 @@ const ViewInactiveTask = () => {
       solution_zip:'',
       totalScore:0
     }
-    console.log("Check taskMapEntry for score criteria",taskMapEntry)
-   //updateTaskMap(taskMapEntry)
+    
+   updateTaskMap(taskMapEntry)
   }
   return (
     <Box m="10px 20px">

@@ -131,6 +131,7 @@ function a11yProps(index) {
 export default function BasicTabs(props) {
   //Tab Names from Parent Component
   const { tabInfo, updateTaskData, updateTaskDataStudent } = props;
+ 
 
   const [value, setValue] = React.useState(0);
   const [currentTab, setCurrentTab] = useState("ASSIGNMNENTS");

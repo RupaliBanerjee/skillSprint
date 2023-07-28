@@ -20,6 +20,9 @@ import Lecturer_Dashboard from "pages/lecturer/dashboard";
 import EvaluateMainPage from "./pages/lecturer/evaluate/EvaluateMainPage";
 import AssignProjectMainPage from "pages/lecturer/assign/AssignProjectMainPage";
 import PublishAssignmentPage from "pages/lecturer/publish/PublishAssignmentPage";
+import MentorDashboard from "pages/mentor/dashboard";
+import MentorTaskDetails from "pages/mentor/taskDetail";
+import SubmissionGrid from "pages/mentor/submissionGrid"
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -59,7 +62,7 @@ function App() {
                   />
                 </Routes>
               )}
-              {(accountType === ACCOUNT_TYPES.LECTURER || accountType === ACCOUNT_TYPES.MENTOR )&& (
+              {accountType === ACCOUNT_TYPES.LECTURER && (
                 <Routes>
                   <Route
                     path="/lecturer/dashboard"
@@ -68,6 +71,21 @@ function App() {
                   <Route path="/profile" element={<ProfilePage />} />
                   <Route path="/evaluate" element={<EvaluateMainPage />} />
                   <Route path="/assign" element={<AssignProjectMainPage />} />
+                  <Route
+                    path="/publish/assignment"
+                    element={<PublishAssignmentPage />}
+                  />
+                </Routes>
+              )}
+              {accountType === ACCOUNT_TYPES.MENTOR && (
+                <Routes>
+                  <Route
+                    path="/mentor/dashboard"
+                    element={<MentorDashboard />}
+                  />
+                  <Route path="/profile" element={<ProfilePage />} />
+                  <Route path="/mentor/taskDetails/:task_key" element={<MentorTaskDetails/>}/>
+                  <Route path="/mentor/studentSubmission/:task_key" element={<SubmissionGrid/>}/>
                   <Route
                     path="/publish/assignment"
                     element={<PublishAssignmentPage />}

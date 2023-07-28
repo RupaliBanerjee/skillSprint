@@ -37,7 +37,9 @@ const TaskCountWidget = (props) => {
           sx={{
             backgroundColor: colors.blueAccent[700],
             color: colors.grey[100],
-            fontSize: "10px",
+            fontSize: "12px",
+            p:"0.2rem",
+            m:"0.2rem"
           }}
           onClick={viewMoreAction}
         >

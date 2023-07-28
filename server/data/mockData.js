@@ -352,7 +352,7 @@ export const student_taskMap = [
         weightage: 5,
       },
     ],
-    solution_zip: "",
+    solution_zip: "https://dl.dropboxusercontent.com/s/xfl5mrmhi0zuo9q/getGroundAssignment.zip",
     totalScore: 25,
     subtask_id:["HCI0020_01"]
   },
@@ -362,24 +362,24 @@ export const student_taskMap = [
     score: [
       {
         name: "accuracy",
-        weightage: 0,
+        weightage: 5,
       },
       {
         name: "basic functionality",
-        weightage: 0,
+        weightage: 6,
       },
       {
         name: "code quality",
-        weightage: 0,
+        weightage: 4,
       },
       {
         name: "documentation",
-        weightage: 0,
+        weightage: 2,
       },
     ],
-    solution_zip: "",
-    totalScore: 0,
-    subtask_id:["HCI0016_01"]
+    solution_zip: "https://dl.dropboxusercontent.com/s/xfl5mrmhi0zuo9q/getGroundAssignment.zip",
+    totalScore: 17,
+    subtask_id:["HCI0021_01"]
   },
   {
     user_id: "2117280009",
@@ -387,24 +387,124 @@ export const student_taskMap = [
     score: [
       {
         name: "accuracy",
-        weightage: 0,
+        weightage: 5,
       },
       {
         name: "basic functionality",
-        weightage: 0,
+        weightage: 10,
       },
       {
         name: "code quality",
-        weightage: 0,
+        weightage: 5,
       },
       {
         name: "documentation",
-        weightage: 0,
+        weightage: 5,
       },
     ],
-    solution_zip: "",
-    totalScore: 0,
+    solution_zip: "https://dl.dropboxusercontent.com/s/xfl5mrmhi0zuo9q/getGroundAssignment.zip",
+    totalScore: 25,
     subtask_id:["HCI0032_02"]
+  },
+  {
+    user_id: "2117280010",
+    task_id: "HCI0020",
+    score: [
+      {
+        name: "accuracy",
+        weightage: 5,
+      },
+      {
+        name: "basic functionality",
+        weightage: 10,
+      },
+      {
+        name: "code quality",
+        weightage: 10,
+      },
+      {
+        name: "documentation",
+        weightage: 4,
+      },
+    ],
+    solution_zip: "https://dl.dropboxusercontent.com/s/xfl5mrmhi0zuo9q/getGroundAssignment.zip",
+    totalScore: 29,
+    subtask_id:["HCI0020_02"]
+  },
+  {
+    user_id: "2117280011",
+    task_id: "HCI0020",
+    score: [
+      {
+        name: "accuracy",
+        weightage: 5,
+      },
+      {
+        name: "basic functionality",
+        weightage: 5,
+      },
+      {
+        name: "code quality",
+        weightage: 5,
+      },
+      {
+        name: "documentation",
+        weightage: 5,
+      },
+    ],
+    solution_zip: "https://dl.dropboxusercontent.com/s/xfl5mrmhi0zuo9q/getGroundAssignment.zip",
+    totalScore: 20,
+    subtask_id:["HCI0020_03"]
+  },
+  {
+    user_id: "2117280011",
+    task_id: "HCI0032",
+    score: [
+      {
+        name: "accuracy",
+        weightage: 5,
+      },
+      {
+        name: "basic functionality",
+        weightage: 5,
+      },
+      {
+        name: "code quality",
+        weightage: 5,
+      },
+      {
+        name: "documentation",
+        weightage: 5,
+      },
+    ],
+    solution_zip: "https://dl.dropboxusercontent.com/s/xfl5mrmhi0zuo9q/getGroundAssignment.zip",
+    totalScore: 20,
+    subtask_id:["HCI0032_02"]
+  },
+  {
+    user_id: "2117280011",
+    task_id: "HCI0021",
+    score: [
+      {
+        name: "accuracy",
+        weightage: 5,
+      },
+      {
+        name: "basic functionality",
+        weightage: 5,
+      },
+      {
+        name: "code quality",
+        weightage: 5,
+      },
+      {
+        name: "documentation",
+        weightage: 5,
+      },
+    ],
+    solution_zip: "https://dl.dropboxusercontent.com/s/xfl5mrmhi0zuo9q/getGroundAssignment.zip",
+    totalScore: 20,
+    subtask_id:["HCI0021_02"]
   },
 ];
 
@@ -424,6 +524,7 @@ export const taskDetails = [
     end_date: "2023/07/03",
     task_type: "ASSIGNMENT",
     active: false,
+    pdf_file:"",
   },
   {
     key: "HCI0002",
@@ -461,7 +562,7 @@ export const taskDetails = [
   },
   {
     key: "HCI0035",
-    publisher_id: "2117280004",
+    publisher_id: "2117280002",
     assigner_id: "2117280001",
     title: "Fitness Tracking App",
     summary:"Design and develop a fitness tracking application that helps users monitor their exercise and wellness activities. The app should include features like tracking workouts, counting steps, recording heart rate, and providing personalized recommendations based on user goals. Ensure the app has an intuitive and visually appealing interface to motivate users in achieving their fitness targets.",
@@ -474,6 +575,7 @@ export const taskDetails = [
     end_date: "2023/08/10",
     task_type: "PROJECT",
     active: false,
+    pdf_file:"",
     subTaskInfo: [
       {
         task_label: "User profile and goal setting",
@@ -500,7 +602,7 @@ export const taskDetails = [
   },
   {
     key: "HCI0023",
-    publisher_id: "2117280004",
+    publisher_id: "2117280002",
     assigner_id: "2117280001",
     title: "Social Media App",
     summary:"Create a social media application that allows users to connect, share content, and interact with each other. The app should include features like creating user profiles, posting updates, following other users, commenting on posts, and direct messaging. Implement a responsive design and ensure the app provides a seamless experience for users to connect and engage with the community.",
@@ -514,6 +616,7 @@ export const taskDetails = [
     task_type: "PROJECT",
     active: true,
     assesment_criteria:["accuracy","basic functionality","code quality","documentation"],
+    pdf_file:"",
     subTaskInfo: [
       {
         task_label: "User profile ",
@@ -541,7 +644,7 @@ export const taskDetails = [
   },
   {
     key: "HCI0036",
-    publisher_id: "2117280004",
+    publisher_id: "2117280002",
     assigner_id: "2117280001",
     title: "Movie Recommendation System",
     summary:"Build a movie recommendation system that suggests movies to users based on their preferences and viewing history. The system should analyze user data, such as movie ratings, genres, and watch history, to generate personalized movie recommendations. Implement a user-friendly interface to display movie recommendations and allow users to explore and discover new movies.",
@@ -554,6 +657,7 @@ export const taskDetails = [
     end_date: "2024/01/09",
     task_type: "PROJECT",
     active: true,
+    pdf_file:"",
     assesment_criteria:["accuracy","basic functionality","code quality","documentation"],
     subTaskInfo: [
       {
@@ -594,11 +698,12 @@ export const taskDetails = [
     end_date: "2023/08/14",
     task_type: "ASSIGNMENT",
     active: true,
+    pdf_file:"",
     assesment_criteria:["accuracy","basic functionality","code quality","documentation"]
   },
   {
     key: "HCI0020",
-    publisher_id: "2117280007",
+    publisher_id: "2117280002",
     assigner_id: "2117280001",
     title: "Travel Planning App",
     summary:"Design and develop a travel planning application that helps users organize and plan their trips. The app should provide features like searching for destinations, creating itineraries, booking flights and accommodations, and providing travel recommendations. Ensure the app has an intuitive interface and offers a seamless experience for users to plan and manage their travel effectively.",
@@ -611,6 +716,7 @@ export const taskDetails = [
     end_date: "2023/06/21",
     task_type: "PROJECT",
     active: false,
+    pdf_file:"",
     subTaskInfo: [
       {
         task_label: "Destination Search and Suggestions",
@@ -650,10 +756,11 @@ export const taskDetails = [
     end_date: "2024/07/05",
     task_type: "ASSIGNMENT",
     active: false,
+    pdf_file:"",
   },
   {
     key: "HCI0010",
-    publisher_id: "2117280004",
+    publisher_id: "2117280002",
     assigner_id: "2117280001",
     title: "Online Marketplace",
     summary:"Develop an online marketplace platform that allows users to buy and sell various products and services. The platform should include features like product listings, search and filter options, user ratings and reviews, secure payment processing, and order management. Implement a responsive design and ensure the platform provides a safe and seamless experience for buyers and sellers.",
@@ -690,6 +797,7 @@ export const taskDetails = [
       },
     ],
     active: false,
+    pdf_file:"",
   },
   {
     key: "HCI0024",
@@ -706,6 +814,7 @@ export const taskDetails = [
     end_date: "2023/10/05",
     task_type: "ASSIGNMENT",
     active: true,
+    pdf_file:"",
     assesment_criteria:["accuracy","basic functionality","code quality","documentation"]
   },
   {
@@ -723,11 +832,12 @@ export const taskDetails = [
     end_date: "2023/09/30",
     task_type: "ASSIGNMENT",
     active: true,
+    pdf_file:"",
     assesment_criteria:["accuracy","basic functionality","code quality","documentation"]
   },
   {
     key: "HCI0026",
-    publisher_id: "2117280015",
+    publisher_id: "2117280002",
     assigner_id: "2117280001",
     title: "Job Search Platform",
     summary:"Build a job search platform that helps users find employment opportunities. The platform should include features like job listings, resume uploading, application tracking, and personalized job recommendations. Implement a user-friendly interface and provide effective tools for job seekers and employers.",
@@ -740,6 +850,7 @@ export const taskDetails = [
     end_date: "2023/09/21",
     task_type: "PROJECT",
     active: false,
+    pdf_file:"",
     subTaskInfo: [
       {
         task_label: "Communication and messaging",
@@ -766,7 +877,7 @@ export const taskDetails = [
   },
   {
     key: "HCI0027",
-    publisher_id: "2117280015",
+    publisher_id: "2117280002",
     assigner_id: "2117280001",
     title: "Online Banking App",
     summary:"Design and develop an online banking application that allows users to manage their finances and perform banking transactions. The app should include features like account balance checking, fund transfers, bill payments, and transaction history. Implement a secure and intuitive interface to ensure a smooth banking experience for users.",
@@ -779,6 +890,7 @@ export const taskDetails = [
     end_date: "2023/07/15",
     task_type: "PROJECT",
     active: false,
+    pdf_file:"",
     subTaskInfo: [
       {
         task_label: "Account Settings and Preferences",
@@ -818,6 +930,7 @@ export const taskDetails = [
     end_date: "2023/07/02",
     task_type: "ASSIGNMENT",
     active: false,
+    pdf_file:"",
   },
   {
     key: "HCI0031",
@@ -834,12 +947,13 @@ export const taskDetails = [
     end_date: "2023/08/24",
     task_type: "ASSIGNMENT",
     active: true,
+    pdf_file:"",
     assesment_criteria:["accuracy","basic functionality","code quality","documentation"]
   },
   {
     key: "HCI0032",
-    publisher_id: "2117280001",
-    assigner_id: "",
+    publisher_id: "2117280002",
+    assigner_id: "2117280001",
     title: "Task Management App",
     summary:"Design and develop a task management application that helps users organize their tasks and track progress. The app should include features like task creation, assignment, due dates, reminders, and progress tracking. Implement an intuitive and visually appealing interface to enhance productivity and task management.",
     comments: {
@@ -851,6 +965,7 @@ export const taskDetails = [
     end_date: "2023/07/03",
     task_type: "PROJECT",
     active: false,
+    pdf_file:"",
     subTaskInfo: [
       {
         task_label: "Account Settings and Preferences",
@@ -892,12 +1007,13 @@ export const taskDetails = [
     pdf_file: "",
     task_type: "ASSIGNMENT",
     active: false,
+    pdf_file:"",
   },
 
   {
     key: "HCI0021",
-    publisher_id: "2117280001",
-    assigner_id: "",
+    publisher_id: "2117280002",
+    assigner_id: "2117280001",
     title: "Expense Tracking App",
     summary:"Create an expense tracking application that allows users to easily track and manage their expenses. The app should provide features such as expense categorization, budget setting, and reporting. Design an intuitive user interface that enables users to add, edit, and delete expenses effortlessly.",
     comments: {
@@ -909,6 +1025,7 @@ export const taskDetails = [
     end_date: "2023/06/31",
     task_type: "PROJECT",
     active: false,
+    pdf_file:"",
     subTaskInfo: [
       {
         task_label: "Account Settings and Preferences",
@@ -949,6 +1066,7 @@ export const taskDetails = [
     end_date: "2023/07/01",
     task_type: "ASSIGNMENT",
     active: false,
+    pdf_file:"",
   },
 
   {
@@ -966,6 +1084,7 @@ export const taskDetails = [
     end_date: "2023/07/02",
     task_type: "ASSIGNMENT",
     active: false,
+    pdf_file:"",
   },
 
   {
@@ -983,6 +1102,7 @@ export const taskDetails = [
     end_date: "2023/07/03",
     task_type: "ASSIGNMENT",
     active: false,
+    pdf_file:"",
   },
 
   {
@@ -1000,6 +1120,7 @@ export const taskDetails = [
     end_date: "2023/08/04",
     task_type: "ASSIGNMENT",
     active: true,
+    pdf_file:"",
     assesment_criteria:["accuracy","basic functionality","code quality","documentation"]
   },
 
@@ -1020,6 +1141,7 @@ export const taskDetails = [
     end_date: "2023/08/05",
     task_type: "ASSIGNMENT",
     active: true,
+    pdf_file:"",
     assesment_criteria:["accuracy","basic functionality","code quality","documentation"]
   },
 
@@ -1040,6 +1162,7 @@ export const taskDetails = [
     end_date: "2023/08/06",
     task_type: "ASSIGNMENT",
     active: true,
+    pdf_file:"",
     assesment_criteria:["accuracy","basic functionality","code quality","documentation"]
   },
 
@@ -1060,6 +1183,7 @@ export const taskDetails = [
     end_date: "2023/07/07",
     task_type: "ASSIGNMENT",
     active: false,
+    pdf_file:"",
   },
 
   {
@@ -1079,6 +1203,7 @@ export const taskDetails = [
     end_date: "2023/08/08",
     task_type: "ASSIGNMENT",
     active: true,
+    pdf_file:"",
     assesment_criteria:["accuracy","basic functionality","code quality","documentation"]
   },
 
@@ -1099,6 +1224,7 @@ export const taskDetails = [
     end_date: "2023/08/09",
     task_type: "ASSIGNMENT",
     active: true,
+    pdf_file:"",
     assesment_criteria:["accuracy","basic functionality","code quality","documentation"]
   },
 
@@ -1119,6 +1245,7 @@ export const taskDetails = [
     end_date: "2023/08/10",
     task_type: "ASSIGNMENT",
     active: true,
+    pdf_file:"",
     assesment_criteria:["accuracy","basic functionality","code quality","documentation"]
   },
 
@@ -1139,12 +1266,13 @@ export const taskDetails = [
     end_date: "2023/08/11",
     task_type: "ASSIGNMENT",
     active: true,
+    pdf_file:"",
     assesment_criteria:["accuracy","basic functionality","code quality","documentation"]
   },
 
   {
     key: "HCI0014",
-    publisher_id: "",
+    publisher_id: "2117280002",
     assigner_id: "2117280001",
     title: "Virtual Reality Game",
     summary:
@@ -1159,6 +1287,7 @@ export const taskDetails = [
     end_date: "2023/08/12",
     task_type: "PROJECT",
     active: true,
+    pdf_file:"",
     assesment_criteria:["accuracy","basic functionality","code quality","documentation"],
     subTaskInfo: [
       {
@@ -1204,12 +1333,13 @@ export const taskDetails = [
     end_date: "2023/08/13",
     task_type: "ASSIGNMENT",
     active: true,
+    pdf_file:"",
     assesment_criteria:["accuracy","basic functionality","code quality","documentation"]
   },
 
   {
     key: "HCI0016",
-    publisher_id: "",
+    publisher_id: "2117280002",
     assigner_id: "2117280001",
     title: "Virtual Fashion Store",
     summary:
@@ -1224,6 +1354,7 @@ export const taskDetails = [
     end_date: "2023/08/14",
     task_type: "PROJECT",
     active: true,
+    pdf_file:"",
     assesment_criteria:["accuracy","basic functionality","code quality","documentation"],
     subTaskInfo: [
       {
@@ -1269,12 +1400,13 @@ export const taskDetails = [
     end_date: "2023/07/10",
     task_type: "ASSIGNMENT",
     active: true,
+    pdf_file:"",
     assesment_criteria:["accuracy","basic functionality","code quality","documentation"]
   },
 
   {
     key: "HCI0018",
-    publisher_id: "",
+    publisher_id: "2117280002",
     assigner_id: "2117280001",
     title: "Online Fitness Community",
     summary:
@@ -1289,6 +1421,7 @@ export const taskDetails = [
     end_date: "2023/08/16",
     task_type: "PROJECT",
     active: true,
+    pdf_file:"",
     assesment_criteria:["accuracy","basic functionality","code quality","documentation"],
     subTaskInfo: [
       {
@@ -1334,12 +1467,13 @@ export const taskDetails = [
     end_date: "2023/08/17",
     task_type: "ASSIGNMENT",
     active: true,
+    pdf_file:"",
     assesment_criteria:["accuracy","basic functionality","code quality","documentation"]
   },
 
   {
     key: "HCI0038",
-    publisher_id: "",
+    publisher_id: "2117280002",
     assigner_id: "2117280001",
     title: "Online Meditation Platform",
     summary:
@@ -1354,6 +1488,7 @@ export const taskDetails = [
     end_date: "2023/08/18",
     task_type: "PROJECT",
     active: true,
+    pdf_file:"",
     assesment_criteria:["accuracy","basic functionality","code quality","documentation"],
     subTaskInfo: [
       {

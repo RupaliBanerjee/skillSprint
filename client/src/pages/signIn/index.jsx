@@ -46,7 +46,7 @@ const SignIn = () => {
     const url =
     account_type === ACCOUNT_TYPES.STUDENT
         ? `/dashboard/${user_id}`
-        : "/lecturer/dashboard";
+        : account_type ===ACCOUNT_TYPES.LECTURER ? "/lecturer/dashboard":"/mentor/dashboard";
     navigate(url);
   };
 
