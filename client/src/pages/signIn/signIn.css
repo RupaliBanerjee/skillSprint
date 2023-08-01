@@ -10,7 +10,7 @@ body {
   font-family: "Source Sans 3", sans-serif;
 }
 
-.form {
+.form,.signup {
   position: relative;
   z-index: 1;
   background: #0f131e;
@@ -20,6 +20,19 @@ body {
   padding: 45px;
   text-align: center;
   box-shadow: rgb(0, 0, 0, 0.7) 5px 10px 50px, rgb(0, 0, 0, 0.7) -5px 0px 250px;
+}
+.signup input{
+  outline: 0;
+  background: #090d17;
+  width: 100%;
+  border: 0;
+  color:#e0e0e0;
+  border-radius: 5px;
+  margin: 0 0 10px;
+  padding: 10px;
+  box-sizing: border-box;
+  font-size: 14px;
+  font-family: "Source Sans 3", sans-serif;
 }
 
 .form input {
@@ -50,11 +63,11 @@ body {
   font-family: "Source Sans 3", sans-serif;
 }
 
-.form input:focus {
+.form input:focus, .signup input:focus {
   background: #1f2535;
 }
 
-.form button {
+.form button ,.signup button{
   font-family: "Source Sans 3", sans-serif;
   text-transform: uppercase;
   outline: 0;
@@ -70,7 +83,7 @@ body {
   cursor: pointer;
 }
 
-.form button:active {
+.form button:active,.signup button:active {
   background: #1f2535;
   color:#e0e0e0;
 }
@@ -82,7 +95,7 @@ body {
   display: block;
 }
 
-.form p.error {
+.form p.error,.signup p.error {
   margin: 0 0 10px 10px;
   text-align: left;
   font-size: 10px;

@@ -76,6 +76,23 @@ mongoose
           console.log(err);
         });
     });
+
+    /* Signup */
+    app.post("/createNewUser", (req, res) => {
+      const userInfo = req.body;
+      User.insertMany([{ ...userInfo }])
+        .then((response) => {
+          res.send({
+            message: "Authentication Successful!",
+            _id: "",
+            user_id: userInfo.user_id,
+            accountType: userInfo.role,
+          });
+        })
+        .catch((err) => {
+          console.log("Sign up error", err);
+        });
+    });
     ////////////////////////STUDENT API CALLS////////////////////////////////
 
     /* get userData to store in redux store */
@@ -125,7 +142,7 @@ mongoose
           /* For Active Task */
           activeTask.forEach((task) => {
             const result = taskDetails.filter((t) => t.key === task.task_id)[0];
-           
+
             const {
               summary,
               title,
@@ -134,7 +151,7 @@ mongoose
               end_date,
               active,
               task_type,
-              pdf_file
+              pdf_file,
             } = result;
             const updated_task = {
               ...task,
@@ -146,7 +163,7 @@ mongoose
                 end_date,
                 active,
                 task_type,
-                pdf_file
+                pdf_file,
               },
             };
             activeTaskWithDetail.push({ ...updated_task });
@@ -163,7 +180,7 @@ mongoose
               end_date,
               active,
               task_type,
-              pdf_file
+              pdf_file,
             } = result;
             const updated_task = {
               ...task,
@@ -175,7 +192,7 @@ mongoose
                 end_date,
                 active,
                 task_type,
-                pdf_file
+                pdf_file,
               },
             };
             submittedTaskWithDetail.push({ ...updated_task });
@@ -225,7 +242,6 @@ mongoose
 
     /* Update the solution zip for TAskMap after student submission */
     app.post("/updateTaskMap/solution", (req, res) => {
-      
       const { task_id, solution_zip } = req.body;
       TaskMap.updateOne(
         { task_id: task_id },
@@ -240,7 +256,7 @@ mongoose
       const { task_id, student_comments } = req.body;
       TaskDetail.updateOne(
         { key: task_id },
-        { $set: { "comments.student": student_comments,active:false } }
+        { $set: { "comments.student": student_comments, active: false } }
       )
         .then((response) => res.send(response))
         .catch((err) =>
@@ -252,7 +268,7 @@ mongoose
 
     /* Add data only once */
     //User.insertMany(dataUser);
-    // TaskMap.insertMany(student_taskMap);
+    //TaskMap.insertMany(student_taskMap);
     // TaskDetail.insertMany(taskDetails)
   })
   .catch((err) => {

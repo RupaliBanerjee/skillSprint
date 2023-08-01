@@ -67,10 +67,14 @@ const MentorDashboard = () => {
       const studentData = activeStudentList.filter(
         (data) => data.task_id === task.key
       );
-      if(studentData.length===0){
-        pendingTaskList.push({...task})
-      }
-      return { ...task, studentTaskMap: { ...studentData[0] } };
+      // if(studentData.length===0){
+      //   pendingTaskList.push({...task})
+      // }
+     
+        return { ...task, studentTaskMap: [ ...studentData ]};
+      
+      // return { ...task };
+    
     });
    
     /* filter out submitted array 
@@ -81,7 +85,9 @@ const MentorDashboard = () => {
       const taskMapData = studentInfoList.filter(
         (taskMap) => taskMap.task_id === task.key
       );
-
+      if(taskMapData.length===0){
+        pendingTaskList.push({...task})
+      }
       if (taskMapData.length > 0) {
         return { ...task };
       }
@@ -92,25 +98,20 @@ const MentorDashboard = () => {
       const studentData = submittedStudentList.filter(
         (data) => data.task_id === task.key && data.solution_zip !== ""
       );
-
+     
       return { ...task, studentTaskMap: [...studentData]  };
     });
 
     /* add student info to pendingTask list */
     const pending_list_with_student_data = pendingList.map((task) => {
-      const studentData = activeStudentList.filter(
+      const studentData = submittedStudentList.filter(
         (data) => data.task_id === task.key
       );
       
       return { ...task, studentTaskMap: { ...studentData[0] } };
     });
-    /* Filter out the tasks that are currently unassigned */
-    const final_activeTaskList=active_list_with_student_data.filter((task)=>{
-      const inPendingListId=pendingTaskList.map(task=>task.key);
-      if(inPendingListId.indexOf(task.key)===-1){
-        return {...task}
-      }
-    })
+    /* Filter out the active task that dont have studentTaskMap */
+    const final_activeTaskList=active_list_with_student_data.filter((task)=>task.studentTaskMap.length>0)
     
     const pendingTaskList_final=pending_list_with_student_data.filter((task)=> Object.keys(task.studentTaskMap).length==0)
     dispatch(updatePendingTaskData([...pendingTaskList_final]))
@@ -136,7 +137,7 @@ const MentorDashboard = () => {
     const { activeList, submittedList } = taskInfo;
     const allActiveTaskIds = activeList.map((task) => task.key);
     const allSubmittedTaskIds = submittedList.map((task) => task.key);
-    dispatch(updatePendingTaskData([...activeList]));
+    dispatch(updatePendingTaskData([...submittedList]));
    dispatch(updateActiveTaskData([...activeList]));
     dispatch(updateSubmittedTaskData([...submittedList]));
     getStudentTaskMap([...allActiveTaskIds, ...allSubmittedTaskIds]);

@@ -21,6 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   addTaskList,
   updateAssesmentData,
+  updateActiveTaskData,
 } from "store/lecturerTaskInfo/lecturerTaskInfoSlice";
 
 const Lecturer_Dashboard = () => {
@@ -42,10 +43,6 @@ const Lecturer_Dashboard = () => {
     (state) => state.lecturer_Task_Info.unAssigned_project_list
   );
 
-  /* Get taskIDs for all pending tasks */
-  const taskId_List = assignment.map((t) => t.key);
-  taskId_List.push(...project.map((t) => t.key));
-
   const viewMoreAction = () => {
     console.log("Clicked");
   };
@@ -54,6 +51,7 @@ const Lecturer_Dashboard = () => {
   let active_project_list = [];
   let pending_assesment_list = {};
   let unAssigned_project_list = [];
+  let completed_task_list = [];
 
   const dateInPast = (first_date) => {
     return new Date(first_date) < new Date(new Date());
@@ -79,61 +77,143 @@ const Lecturer_Dashboard = () => {
     };
   };
 
+  /* Get Completed Task List-for ScoreCard */
+  const getCompletedTaskList = (assignment, project) => {};
+
+  /* Add Student Detail to active Assignment */
+  const create_student_detail_list_activeAssignment = (
+    studentDetailList,
+    active_assignment_list,
+    active_project_list
+  ) => {
+    /* For Assignments */
+    let active_assignment_with_student_data = active_assignment_list.map(
+      (task) => {
+        const studentData = studentDetailList.filter(
+          (studentTask) =>
+            studentTask.task_id === task.key && studentTask.totalScore === 0
+        );
+
+        return { ...task, studentTaskMap: [...studentData] };
+      }
+    );
+    active_assignment_with_student_data =
+      active_assignment_with_student_data.filter(
+        (task) => task.studentTaskMap.length > 0
+      );
+    /* For Projects */
+    console.log("Check Active Project List", active_project_list);
+    let active_project_with_student_data = active_project_list.map((task) => {
+      const studentData = studentDetailList.filter(
+        (studentTask) =>
+          studentTask.task_id === task.key && studentTask.totalScore === 0
+      );
+
+      return { ...task, studentTaskMap: [...studentData] };
+    });
+
+    active_project_with_student_data = active_project_with_student_data.filter(
+      (task) => task.studentTaskMap.length > 0
+    );
+
+    dispatch(
+      updateActiveTaskData({
+        active_assignment_list: active_assignment_with_student_data,
+        active_project_list: active_project_with_student_data,
+      })
+    );
+  };
+
   /* add student detail to the pending assesment list */
-  const create_student_detail_list = (studentDetailList) => {
-    const updateted_assignment_list = [];
-    const updateted_project_list = [];
+  const create_student_detail_list = (
+    studentDetailList,
+    pending_assesment_list
+  ) => {
+    const { assignment, project } = pending_assesment_list;
+    let updateted_assignment_list = [];
+    let updateted_project_list = [];
     /* To add the details of Student Map to the assignment and project array in store */
-    assignment.forEach((task) => {
-      const studentData = {
-        ...studentDetailList.filter(
-          (t) => t.task_id === task.key && t.totalScore === 0
-        )[0],
-      };
-      const updated_assignment_data = {
+    updateted_assignment_list = assignment.map((task) => {
+      const studentData = studentDetailList.filter(
+        (studentTask) =>
+          studentTask.task_id === task.key && studentTask.totalScore === 0
+      );
+
+      return {
         ...task,
-        studentTaskMap: studentData,
+        studentTaskMap: [...studentData],
       };
-      /* Only if the student Map has a total score as 0 then add in pending taskList */
-      if (Object.keys(updated_assignment_data.studentTaskMap).length) {
-        updateted_assignment_list.push(updated_assignment_data);
-      }
     });
-    project.forEach((task) => {
-      const studentData = {
-        ...studentDetailList.filter(
-          (t) => t.task_id === task.key && t.totalScore === 0
-        )[0],
-      };
-      const updated_project_data = {
+    updateted_assignment_list = updateted_assignment_list.filter(
+      (task) => task.studentTaskMap.length > 0
+    );
+
+    /* Student TAsk map data for pending evaluation projects */
+    updateted_project_list = project.map((task) => {
+      const studentData = studentDetailList.filter(
+        (studentTask) =>
+          studentTask.task_id === task.key && studentTask.totalScore === 0
+      );
+
+      return {
         ...task,
-        studentTaskMap: studentData,
+        studentTaskMap: [...studentData],
       };
-      if (Object.keys(updated_project_data.studentTaskMap).length) {
-        updateted_project_list.push(updated_project_data);
-      }
     });
+    /* Filter out the projects that do not have any studentTaskMap */
+    updateted_project_list = updateted_project_list.filter(
+      (task) => task.studentTaskMap.length > 0
+    );
+
     dispatch(
       updateAssesmentData({
         assignment: updateted_assignment_list,
         project: updateted_project_list,
       })
     );
-    // console.log("Check New project List",updateted_assignment_list)
   };
 
   /* Update pending assesment list based on total score */
-  const updatePendingAssesmentList = () => {
+  const updatePendingAssesmentList = (pending_assesment_list) => {
+    const { assignment, project } = pending_assesment_list;
+    /* Get taskIDs for all pending tasks */
+    const taskId_List =
+      assignment.length > 0 ? assignment.map((t) => t.key) : [];
+    taskId_List.push(...project?.map((t) => t.key));
     axios
       .post("/lecturer/getStudentTaskMap", { taskId_List: taskId_List })
       .then((response) => {
-        create_student_detail_list(response.data.taskMapData);
+        create_student_detail_list(
+          response.data.taskMapData,
+          pending_assesment_list
+        );
+      });
+  };
+
+  /* update active Assignment List based on student TaskMap entry - If student Task Map exists */
+  const updateActiveTaskList = (
+    active_assignment_list,
+    active_project_list
+  ) => {
+    let taskList = active_assignment_list.map((task) => task.key);
+    let projectListIds = active_project_list.map((task) => task.key);
+    taskList = taskList.concat([...projectListIds]);
+
+    axios
+      .post("/lecturer/getStudentTaskMap", { taskId_List: taskList })
+      .then((response) => {
+        create_student_detail_list_activeAssignment(
+          response.data.taskMapData,
+          active_assignment_list,
+          active_project_list
+        );
       });
   };
 
   // [...assignmentList.filter(t=>!t.active)]
   const getAllTask = (taskList) => {
     const { assignmentList, projectList } = taskList;
+
     active_assignment_list = [...assignmentList.filter((t) => t.active)];
     pending_assesment_list = getPendingList(
       [...assignmentList.filter((t) => !t.active)],
@@ -147,6 +227,10 @@ const Lecturer_Dashboard = () => {
         }
       }),
     ];
+    // completed_task_list = getCompletedTaskList(
+    //   [...assignmentList.filter((t) => !t.active)],
+    //   [...projectList.filter((t) => !t.active)]
+    // );
 
     dispatch(
       addTaskList({
@@ -156,7 +240,8 @@ const Lecturer_Dashboard = () => {
         unAssigned_project_list: unAssigned_project_list,
       })
     );
-    updatePendingAssesmentList();
+    updatePendingAssesmentList(pending_assesment_list);
+    updateActiveTaskList(active_assignment_list, active_project_list);
   };
 
   const createTaskList = () => {
@@ -168,7 +253,7 @@ const Lecturer_Dashboard = () => {
 
   useEffect(() => {
     createTaskList();
-  }, []);
+  }, [userID]);
 
   return (
     <Box m="10px 10px" p="0 10px">

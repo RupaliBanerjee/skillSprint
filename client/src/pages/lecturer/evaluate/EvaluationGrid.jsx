@@ -11,6 +11,7 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../../theme";
 import { useSelector } from "react-redux";
 import AssessmentOutlinedIcon from "@mui/icons-material/AssessmentOutlined";
+import NoRecordsPage from "common/NoRecordsPage";
 
 const EvaluationGrid = (props) => {
   const { data, tabName, viewTaskDetail } = props;
@@ -115,11 +116,16 @@ const EvaluationGrid = (props) => {
         },
       }}
     >
-      <DataGrid
-        rows={taskData}
-        columns={columns}
-        getRowId={(row) => row._id}
-      />
+      {taskData.length > 0 ? (
+        <DataGrid
+          rows={taskData}
+          columns={columns}
+          getRowId={(row) => row._id}
+        />
+      ) : (
+        <NoRecordsPage />
+      )}
+
       {/* {showScoreDetail && (
         <DialogWithTitle
           oncloseDialog={oncloseDialog}

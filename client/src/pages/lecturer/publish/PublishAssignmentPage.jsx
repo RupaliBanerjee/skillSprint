@@ -28,6 +28,9 @@ import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOu
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { styled } from "@mui/material/styles";
 import { MuiChipsInput } from "mui-chips-input";
+import { ACCOUNT_TYPES } from "constants";
+import DialogWithTitle from "common/DialogWithTitle";
+import AddSubTask from "pages/mentor/addSubTask";
 
 const PublishAssignmentPage = () => {
   const theme = useTheme();
@@ -37,6 +40,10 @@ const PublishAssignmentPage = () => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [pdfFile, setPdfFile] = useState(null);
+  const [showSubTaskDialog, setShowSubTaskDialog] = useState(false);
+  const [taskId, setTaskId] = useState();
+  const [subTaskData, setSubTaskData] = useState([]);
+  const [formDetails, setFormDetails] = useState();
   /* Add and Delete assesment criteria */
   const [criteriaList, setCriteriaList] = useState([
     "accuracy",
@@ -48,48 +55,67 @@ const PublishAssignmentPage = () => {
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const userID = useSelector((state) => state?.userInfo?.userData.user_id);
+  const accountType = useSelector((state) => state?.userInfo.userData.role);
 
   const updateTaskDetailDB = async (taskData) => {
     try {
       const response = await axios.post("/lecturer/addNewTask/assignment", {
         taskDetail: taskData,
       });
-      console.log("Check response");
-      if (response.status == 200) {
-        navigate("/lecturer/dashboard");
+
+      if (response.status === 200) {
+        if (accountType === ACCOUNT_TYPES.LECTURER) {
+          navigate("/lecturer/dashboard");
+        } else {
+          navigate("/mentor/dashboard");
+        }
       }
     } catch (error) {
       console.log("Check for Errors in taskDetail DB update", error);
     }
   };
 
+  const oncloseDialog = () => {
+    setShowSubTaskDialog(false);
+  };
+
+  const setSubTaskInfo = (subTaskInfo) => {
+    setSubTaskData([...subTaskInfo]);
+  };
+
   const handleFormSubmit = (values) => {
     const allFormControlValues = values;
-
-    //console.log("Check the file before typecasting",pdfFile)
-    //const fileData=Buffer.from(pdfFile,'base64');
-    //console.log("Check the file data",fileData)
-    const TaskDetailNewRecord = {
-      key: allFormControlValues.subject_key.concat(
+    setTaskId(
+      allFormControlValues.subject_key.concat(
         allFormControlValues.assignment_id
-      ),
-      publisher_id: userID,
-      assigner_id: "",
-      title: allFormControlValues.title,
-      summary: allFormControlValues.summary,
-      comments: {
-        publisher: allFormControlValues.comments,
-        assigner: "",
-        student: "",
-      },
-      pdf_file: pdfFile,
-      start_date: startDate,
-      end_date: endDate,
-      task_type: "ASSIGNMENT",
-      active: false,
-      assesment_criteria: [...criteriaList],
-    };
-    updateTaskDetailDB(TaskDetailNewRecord);
+      )
+    );
+    if (accountType === ACCOUNT_TYPES.LECTURER) {
+      const TaskDetailNewRecord = {
+        key: allFormControlValues.subject_key.concat(
+          allFormControlValues.assignment_id
+        ),
+        publisher_id: userID,
+        assigner_id: "",
+        title: allFormControlValues.title,
+        summary: allFormControlValues.summary,
+        comments: {
+          publisher: allFormControlValues.comments,
+          assigner: "",
+          student: "",
+        },
+        pdf_file: pdfFile,
+        start_date: startDate,
+        end_date: endDate,
+        task_type: "ASSIGNMENT",
+        active: false,
+        assesment_criteria: [...criteriaList],
+      };
+      updateTaskDetailDB(TaskDetailNewRecord);
+    } else {
+      setShowSubTaskDialog(true);
+      setFormDetails({ ...allFormControlValues });
+    }
   };
 
   //   const [startDateTouched, setStartDateTouched] = useState(false);
@@ -111,10 +137,35 @@ const PublishAssignmentPage = () => {
     getAllTaskIds();
   }, []);
 
+  useEffect(() => {
+    if (subTaskData.length > 0) {
+      const TaskDetailNewRecord = {
+        key: formDetails.subject_key.concat(formDetails.assignment_id),
+        publisher_id: "2117280001",
+        assigner_id: userID,
+        title: formDetails.title,
+        summary: formDetails.summary,
+        comments: {
+          publisher: formDetails.comments,
+          assigner: "",
+          student: "",
+        },
+        pdf_file: pdfFile,
+        start_date: startDate,
+        end_date: endDate,
+        task_type: "ASSIGNMENT",
+        active: false,
+        assesment_criteria: [...criteriaList],
+        subTaskInfo: [...subTaskData],
+      };
+      updateTaskDetailDB(TaskDetailNewRecord);
+    }
+  }, [subTaskData]);
+
   const duplicateIdCheck = (value) =>
     oldTaskKeys ? oldTaskKeys?.indexOf(value) === -1 : true;
 
-  /* Validation for publisg Task */
+  /* Validation for publish Task */
   const publishTaskSchema = yup.object().shape({
     title: yup.string().required("required"),
     summary: yup.string().required("required"),
@@ -133,7 +184,6 @@ const PublishAssignmentPage = () => {
     let reader = new FileReader();
     reader.readAsDataURL(e.target.files[0]);
     reader.onload = () => {
-     
       setPdfFile(reader.result);
     };
     reader.onerror = (error) => {
@@ -157,8 +207,16 @@ const PublishAssignmentPage = () => {
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header
-          title="Publish New Assignment"
-          subtitle="Add Assignment details"
+          title={
+            accountType === ACCOUNT_TYPES.MENTOR
+              ? "Publish New Project"
+              : "Publish New Assignment"
+          }
+          subtitle={
+            accountType === ACCOUNT_TYPES.MENTOR
+              ? "Add Project details"
+              : "Add Assignment details"
+          }
         />
       </Box>
       <Box flex="1 1 100%" maxHeight="75vh" overflow={"auto"}>
@@ -173,7 +231,12 @@ const PublishAssignmentPage = () => {
             start_date: null,
             end_date: null,
             pdf_file: null,
-            friends: ["jared", "ian", "brent"],
+            criteria: [
+              "accuracy",
+              "code quality",
+              "documentation",
+              "basic functionality",
+            ],
           }}
           validationSchema={publishTaskSchema}
         >
@@ -242,7 +305,11 @@ const PublishAssignmentPage = () => {
                   fullWidth
                   variant="filled"
                   type="text"
-                  label="Assignment Id"
+                  label={
+                    accountType === ACCOUNT_TYPES.MENTOR
+                      ? "Project Id"
+                      : "Assignment Id"
+                  }
                   onBlur={handleBlur}
                   onChange={handleChange}
                   value={values.assignment_id}
@@ -339,7 +406,7 @@ const PublishAssignmentPage = () => {
                   <FieldArray
                     fullWidth
                     variant="filled"
-                    name="friends"
+                    name="criteria"
                     label="Assesment Criteria"
                     render={(arrayHelpers) => (
                       <>
@@ -357,6 +424,17 @@ const PublishAssignmentPage = () => {
             </form>
           )}
         </Formik>
+        {showSubTaskDialog && (
+          <DialogWithTitle
+            oncloseDialog={oncloseDialog}
+            openDialog={showSubTaskDialog}
+            title="Add Subtask Details"
+            showActionButton={false}
+            dialogWidth={"100vh"}
+          >
+            <AddSubTask setSubTaskInfo={setSubTaskInfo} task_id={taskId} />
+          </DialogWithTitle>
+        )}
       </Box>
     </Box>
   );

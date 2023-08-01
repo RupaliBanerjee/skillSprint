@@ -8,6 +8,7 @@ const initialState = {
   pending_assesment_list: { assignment: [], project: [] },
   unAssigned_project_list: [],
   student_taskMap: [],
+  completed_task_list:[],
   error: "",
 };
 

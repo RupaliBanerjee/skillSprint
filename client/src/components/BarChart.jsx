@@ -4,10 +4,43 @@ import { tokens } from "../theme";
 import { mockBarData as data } from "../data/mockData";
 
 import { student_data } from "../data/mockData";
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { ACCOUNT_TYPES } from "constants";
 
 const BarChart = ({ isDashboard = false }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  const accountType = useSelector((state) => state.userInfo.account_type);
+  const studentData_from_submitted_list = useSelector(
+    (state) => state?.userTaskMap?.submitted_task
+  );
+
+  const [studentData, setStudentData] = useState([]);
+
+  const createBarChartData = () => {
+    const barChartData = studentData.map((data) => {
+      let scoreData = data.score.map((scoreData) => {
+        return {
+          [scoreData.name]: scoreData.weightage,
+        };
+      });
+      scoreData = Object.assign({}, ...scoreData);
+      return {
+        ...data,
+        score: { ...scoreData },
+      };
+    });
+    console.log("Check Student barChartData", barChartData);
+    return barChartData;
+  };
+
+  useEffect(() => {
+    if (accountType === ACCOUNT_TYPES.STUDENT) {
+      setStudentData([...studentData_from_submitted_list]);
+    }
+  }, [accountType]);
 
   const generateHSLColor = (index, total) => {
     const hue = (index * (360 / total)) % 360;
@@ -16,54 +49,88 @@ const BarChart = ({ isDashboard = false }) => {
     return `hsl(${hue}, ${saturation}, ${lightness})`;
   };
 
-  const getRecordCount=()=>{
-    let recordCount=0
-    if(isDashboard){
-      recordCount=5
-    }else{
-      recordCount= student_data[0]?.task_list.length>10 ? 10: (student_data[0]?.task_list.length)
+  const getRecordCount = () => {
+    let recordCount = 0;
+    if (isDashboard) {
+      recordCount = 5;
+    } else {
+      recordCount =
+        student_data[0]?.task_list.length > 10
+          ? 10
+          : student_data[0]?.task_list.length;
     }
     return recordCount;
-  }
+  };
 
-  const recordCount= getRecordCount();
-  const taskData = student_data[0]?.task_list.slice(0, recordCount);
+  const recordCount = getRecordCount();
+  let taskData = student_data[0]?.task_list.slice(0, recordCount);
 
   const uniqueCriteria = [];
   const nivoData = [];
-  taskData?.map((task, task_index) => {
-    
-    const nivoDataObj = { taskKey: task.key };
-    let criteria = [];
-    Object.keys(task.score).map((key, score_index) => {
-      const color = () => {
-        return generateHSLColor(score_index, Object.keys(task.score).length);
-      };
-      if (uniqueCriteria.indexOf(key) === -1) {
-        uniqueCriteria.push(key);
-      }
-      const item = {
-        [key]: task.score[key],
-        [`${key}color`]: color(),
-      };
 
-      
+  if (accountType === ACCOUNT_TYPES.STUDENT) {
+    let studentData_with_score = [];
+    if (studentData.length > 0) {
+      studentData_with_score = createBarChartData();
+    }
+    studentData_with_score.map((task) => {
+      const nivoDataObj = { taskKey: task.task_id };
+      let criteria = [];
+      Object.keys(task.score).map((key, score_index) => {
+        const color = () => {
+          return generateHSLColor(score_index, Object.keys(task.score).length);
+        };
+        if (uniqueCriteria.indexOf(key) === -1) {
+          uniqueCriteria.push(key);
+        }
+        const item = {
+          [key]: task.score[key],
+          [`${key}color`]: color(),
+        };
 
-      criteria.push(item);
+        criteria.push(item);
+        return;
+      });
+      criteria.forEach((element) => {
+        Object.assign(nivoDataObj, element);
+      });
+
+      nivoData.push(nivoDataObj);
       return;
     });
-    criteria.forEach((element) => {
-      Object.assign(nivoDataObj, element);
+  } else {
+    taskData?.map((task, task_index) => {
+      const nivoDataObj = { taskKey: task.key };
+      let criteria = [];
+      Object.keys(task.score).map((key, score_index) => {
+        const color = () => {
+          return generateHSLColor(score_index, Object.keys(task.score).length);
+        };
+        if (uniqueCriteria.indexOf(key) === -1) {
+          uniqueCriteria.push(key);
+        }
+        const item = {
+          [key]: task.score[key],
+          [`${key}color`]: color(),
+        };
+
+        criteria.push(item);
+        return;
+      });
+      criteria.forEach((element) => {
+        Object.assign(nivoDataObj, element);
+      });
+
+      nivoData.push(nivoDataObj);
+      return;
     });
+  }
 
-    nivoData.push(nivoDataObj);
-    return;
-  });
-
+ 
 
   return (
     <ResponsiveBar
-    groupMode="grouped" 
+      groupMode="grouped"
       data={nivoData}
       theme={{
         // added
@@ -131,7 +198,7 @@ const BarChart = ({ isDashboard = false }) => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined :"TASK IDS", // changed
+        legend: isDashboard ? undefined : "TASK IDS", // changed
         legendPosition: "middle",
         legendOffset: 32,
       }}
@@ -139,7 +206,7 @@ const BarChart = ({ isDashboard = false }) => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined :"Score weightage", // changed
+        legend: isDashboard ? undefined : "Score weightage", // changed
         legendPosition: "middle",
         legendOffset: -40,
       }}
@@ -179,7 +246,7 @@ const BarChart = ({ isDashboard = false }) => {
           <div
             style={{
               padding: 12,
-              color:"#ffffff",
+              color: "#ffffff",
               background: "#222222",
             }}
           >
