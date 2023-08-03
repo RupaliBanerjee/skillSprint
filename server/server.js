@@ -268,7 +268,7 @@ mongoose
 
     /* Add data only once */
     //User.insertMany(dataUser);
-    //TaskMap.insertMany(student_taskMap);
+    // TaskMap.insertMany(student_taskMap);
     // TaskDetail.insertMany(taskDetails)
   })
   .catch((err) => {

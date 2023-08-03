@@ -139,6 +139,7 @@ const AssignProjectDetail = (props) => {
       //Duplicate exist
       const studentMap = {
         ...task,
+        solution_zip:"",
         ["overAllScore"]: getOverAllScore(task.user_id, taskMapData),
         ["task_id_list"]: getTaskId_list(task.user_id, taskMapData),
         ["task_data_list"]: getTaskDataList(
@@ -154,6 +155,7 @@ const AssignProjectDetail = (props) => {
       };
       return studentMap;
     });
+    
     dispatch(addStudentTaskMap({ student_taskMap: [...newStudentTaskMap] }));
     //console.log("Check New Task Map", newStudentTaskMap);
   };

@@ -125,7 +125,7 @@ const SignUp = () => {
             sx={{
               minWidth: "60vh",
               minHeight:"50vh",
-              marginBottom: "0",
+              marginBottom: "2rem",
             }}
           >
             {/* Passing handleSubmit parameter tohtml form onSubmit property */}

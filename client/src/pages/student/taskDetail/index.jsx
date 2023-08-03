@@ -43,7 +43,7 @@ const TaskDetail = (props) => {
     updateTaskData,
     updateTaskDataStudent,
     navigateBack,
-    setShowScoreDetail
+    setShowScoreDetail,
   } = props;
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -67,8 +67,6 @@ const TaskDetail = (props) => {
   const [showSolutionDownload, setShowSolutionDownload] = useState(false);
   const [showAddScore, setShowAddScore] = useState(false);
   const [showStudentSubmission, setShowStudentSubmissionBtn] = useState(false);
-
- 
 
   const dispatch = useDispatch();
 
@@ -99,13 +97,16 @@ const TaskDetail = (props) => {
     }
 
     /* For Bottom bar button visibility */
-    if (
-      accountType === ACCOUNT_TYPES.LECTURER &&
-      taskData?.studentTaskMap?.totalScore === 0
-    ) {
+    if (accountType === ACCOUNT_TYPES.LECTURER && taskData?.totalScore === 0) {
       setShowAddScore(true);
     }
-    if (taskData?.studentTaskMap?.solution_zip !== "" && accountType!==ACCOUNT_TYPES.MENTOR) {
+    console.log("Check TaskData", taskData);
+    if (
+      ((taskData?.studentTaskMap &&
+        taskData.studentTaskMap.solution_zip !== "") ||
+        (taskData?.solution_zip && taskData.solution_zip !== "")) &&
+      accountType === ACCOUNT_TYPES.LECTURER
+    ) {
       setShowSolutionDownload(true);
     }
     if (accountType === ACCOUNT_TYPES.MENTOR) {
@@ -158,7 +159,7 @@ const TaskDetail = (props) => {
 
   /* Download Solution Zip for evaluation */
   const downloadSolution = () => {
-    window.open(`${taskData.studentTaskMap.solution_zip}`);
+    window.open(`${taskData.solution_zip}`);
   };
 
   return (
@@ -310,7 +311,9 @@ const TaskDetail = (props) => {
                         }}
                         endIcon={<AppRegistrationOutlinedIcon />}
                         onClick={() => {
-                          navigate(`/mentor/studentSubmission/${taskData?.key}`)
+                          navigate(
+                            `/mentor/studentSubmission/${taskData?.key}`
+                          );
                         }}
                       >
                         View Submission

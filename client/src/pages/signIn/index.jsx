@@ -138,7 +138,7 @@ const SignIn = () => {
               </form>
               <br />
               <Typography sx={{ color: colors.grey[100] }}>Or</Typography>
-              <Link to="/signup" color={colors.grey[100]}>
+              <Link to="/signup" sx={{ color: 'success.main' }} color={colors.greenAccent[500]} >
                 Sign Up
               </Link>
             </div>

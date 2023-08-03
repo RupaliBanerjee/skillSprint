@@ -96,7 +96,7 @@ const MentorDashboard = () => {
     /* add student Info for the submitted Task */
     const submitted_list_with_student_data = submittedTaskList.map((task) => {
       const studentData = submittedStudentList.filter(
-        (data) => data.task_id === task.key && data.solution_zip !== ""
+        (data) => data.task_id === task.key && data.solution_zip !== "" && data.totalScore!==0
       );
      
       return { ...task, studentTaskMap: [...studentData]  };

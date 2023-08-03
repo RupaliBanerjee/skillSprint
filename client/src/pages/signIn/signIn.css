@@ -101,3 +101,7 @@ body {
   font-size: 10px;
   color: #f07f7f;
 }
+
+.form a, .signup a{
+  color:#4cceac !important
+}

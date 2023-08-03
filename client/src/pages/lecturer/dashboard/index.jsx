@@ -97,12 +97,13 @@ const Lecturer_Dashboard = () => {
         return { ...task, studentTaskMap: [...studentData] };
       }
     );
+    
     active_assignment_with_student_data =
       active_assignment_with_student_data.filter(
         (task) => task.studentTaskMap.length > 0
       );
     /* For Projects */
-    console.log("Check Active Project List", active_project_list);
+
     let active_project_with_student_data = active_project_list.map((task) => {
       const studentData = studentDetailList.filter(
         (studentTask) =>
@@ -227,6 +228,7 @@ const Lecturer_Dashboard = () => {
         }
       }),
     ];
+   
     // completed_task_list = getCompletedTaskList(
     //   [...assignmentList.filter((t) => !t.active)],
     //   [...projectList.filter((t) => !t.active)]

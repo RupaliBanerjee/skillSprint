@@ -137,7 +137,7 @@ export const student_taskMap = [
     totalScore: 25,
   },
   {
-    user_id: "2117280000",
+    user_id: "2117280009",
     task_id: "HCI0002",
     score: [
       {
@@ -157,7 +157,7 @@ export const student_taskMap = [
         weightage: 0,
       },
     ],
-    solution_zip: "",
+    solution_zip: "https://dl.dropboxusercontent.com/s/xfl5mrmhi0zuo9q/getGroundAssignment.zip",
     totalScore: 0,
   },
   {
@@ -229,7 +229,7 @@ export const student_taskMap = [
         weightage: 0,
       },
     ],
-    solution_zip: "",
+    solution_zip: "https://dl.dropboxusercontent.com/s/xfl5mrmhi0zuo9q/getGroundAssignment.zip",
     totalScore: 0,
   },
   {
@@ -313,23 +313,23 @@ export const student_taskMap = [
     score: [
       {
         name: "accuracy",
-        weightage: 6,
+        weightage: 0,
       },
       {
         name: "basic functionality",
-        weightage: 10,
+        weightage: 0,
       },
       {
         name: "code quality",
-        weightage: 5,
+        weightage: 0,
       },
       {
         name: "documentation",
-        weightage: 3,
+        weightage: 0,
       },
     ],
-    solution_zip: "",
-    totalScore: 22,
+    solution_zip: "https://dl.dropboxusercontent.com/s/xfl5mrmhi0zuo9q/getGroundAssignment.zip",
+    totalScore: 0,
   },
   {
     user_id: "2117280009",
@@ -379,7 +379,7 @@ export const student_taskMap = [
     ],
     solution_zip: "https://dl.dropboxusercontent.com/s/xfl5mrmhi0zuo9q/getGroundAssignment.zip",
     totalScore: 17,
-    subtask_id:["HCI0021_01"]
+    subtask_id:["HCI0021_01","HCI0021_03"]
   },
   {
     user_id: "2117280009",
@@ -404,7 +404,7 @@ export const student_taskMap = [
     ],
     solution_zip: "https://dl.dropboxusercontent.com/s/xfl5mrmhi0zuo9q/getGroundAssignment.zip",
     totalScore: 25,
-    subtask_id:["HCI0032_02"]
+    subtask_id:["HCI0032_01","HCI0032_03"]
   },
   {
     user_id: "2117280010",
@@ -507,7 +507,7 @@ export const student_taskMap = [
     subtask_id:["HCI0021_02"]
   },
   {
-    user_id: "2117280000",
+    user_id: "2117280009",
     task_id: "HCI0022",
     score: [
       {
@@ -531,7 +531,82 @@ export const student_taskMap = [
     totalScore: 0,
   },
   {
-    user_id: "2117280000",
+    user_id: "2117280011",
+    task_id: "HCI0023",
+    score: [
+      {
+        name: "accuracy",
+        weightage: 7,
+      },
+      {
+        name: "basic functionality",
+        weightage: 9,
+      },
+      {
+        name: "code quality",
+        weightage:4,
+      },
+      {
+        name: "documentation",
+        weightage: 2,
+      },
+    ],
+    solution_zip: "https://dl.dropboxusercontent.com/s/xfl5mrmhi0zuo9q/getGroundAssignment.zip",
+    totalScore: 22,
+    subtask_id:["HCI0023_02","HCI0023_03"]
+  },
+  {
+    user_id: "2117280009",
+    task_id: "HCI0023",
+    score: [
+      {
+        name: "accuracy",
+        weightage: 5,
+      },
+      {
+        name: "basic functionality",
+        weightage: 10,
+      },
+      {
+        name: "code quality",
+        weightage:6,
+      },
+      {
+        name: "documentation",
+        weightage: 5,
+      },
+    ],
+    solution_zip: "https://dl.dropboxusercontent.com/s/xfl5mrmhi0zuo9q/getGroundAssignment.zip",
+    totalScore: 26,
+    subtask_id:["HCI0023_01"]
+  },
+  {
+    user_id: "2117280009",
+    task_id: "HCI0027",
+    score: [
+      {
+        name: "accuracy",
+        weightage: 0,
+      },
+      {
+        name: "basic functionality",
+        weightage: 0,
+      },
+      {
+        name: "code quality",
+        weightage:0,
+      },
+      {
+        name: "documentation",
+        weightage: 0,
+      },
+    ],
+    solution_zip: "https://dl.dropboxusercontent.com/s/xfl5mrmhi0zuo9q/getGroundAssignment.zip",
+    totalScore: 0,
+    subtask_id:["HCI0027_01","HCI0027_02","HCI0027_03"]
+  },
+  {
+    user_id: "2117280009",
     task_id: "HCI0035",
     score: [
       {
@@ -656,7 +731,7 @@ export const student_taskMap = [
     
   },
   {
-    user_id: "2117280000",
+    user_id: "2117280009",
     task_id: "HCI0014",
     score: [
       {
@@ -736,10 +811,10 @@ export const taskDetails = [
       assigner: "",
       student: "",
     },
-    start_date: "2023/08/01",
-    end_date: "2023/08/21",
+    start_date: "2023/07/01",
+    end_date: "2023/08/01",
     task_type: "ASSIGNMENT",
-    active: true,
+    active: false,
     assesment_criteria:["accuracy","basic functionality","code quality","documentation"]
   },
   {
@@ -756,7 +831,7 @@ export const taskDetails = [
     start_date: "2023/09/05",
     end_date: "2023/09/25",
     task_type: "ASSIGNMENT",
-    active: true,
+    active: false,
     assesment_criteria:["accuracy","basic functionality","code quality","documentation"]
   },
   {
@@ -810,10 +885,10 @@ export const taskDetails = [
       assigner: "",
       student: "",
     },
-    start_date: "2023/11/15",
-    end_date: "2023/12/05",
+    start_date: "2023/07/15",
+    end_date: "2023/08/01",
     task_type: "PROJECT",
-    active: true,
+    active: false,
     assesment_criteria:["accuracy","basic functionality","code quality","documentation"],
     pdf_file:"",
     subTaskInfo: [
@@ -896,7 +971,7 @@ export const taskDetails = [
     start_date: "2023/07/25",
     end_date: "2023/08/14",
     task_type: "ASSIGNMENT",
-    active: true,
+    active: false,
     pdf_file:"",
     assesment_criteria:["accuracy","basic functionality","code quality","documentation"]
   },
@@ -1045,8 +1120,8 @@ export const taskDetails = [
       assigner: "",
       student: "",
     },
-    start_date: "2023/08/01",
-    end_date: "2023/09/21",
+    start_date: "2023/07/01",
+    end_date: "2023/08/21",
     task_type: "PROJECT",
     active: false,
     pdf_file:"",
