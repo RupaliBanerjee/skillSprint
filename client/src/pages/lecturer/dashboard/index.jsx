@@ -8,7 +8,7 @@ import {
   Backdrop,
   CircularProgress,
 } from "@mui/material";
-import Header from "components/Header";
+import Header from "common/Header";
 import { tokens } from "theme";
 import AddCardOutlinedIcon from "@mui/icons-material/AddCardOutlined";
 import BackupTableOutlinedIcon from "@mui/icons-material/BackupTableOutlined";

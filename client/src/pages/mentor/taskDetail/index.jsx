@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { tokens } from "theme";
 import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
 import TaskDetail from "pages/student/taskDetail";
-import Header from "components/Header";
+import Header from "common/Header";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import ScoreCard from "components/ScoreCard";
@@ -29,47 +29,45 @@ const MentorTaskDetails = () => {
   };
   return (
     <>
-    
-        <Box m="10px 20px">
-          {/* HEADER */}
-          <Box display={"flex"} justifyContent={"space-between"}>
-            <Box
-              display="flex"
-              mb={"10px"}
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <Header title="Details Page" subtitle="View submission details" />
-            </Box>
-            <Box>
-              <Button
-                sx={{
-                  backgroundColor: colors.blueAccent[700],
-                  color: colors.grey[100],
-                  marginTop: "2rem",
-                }}
-                onClick={() => {
-                  navigate(-1);
-                }}
-              >
-                Back
-              </Button>
-            </Box>
-          </Box>
-
+      <Box m="10px 20px">
+        <Box display={"flex"} justifyContent={"space-between"}>
           <Box
-            flex="1 1 100%"
-            height="75vh"
-            backgroundColor={colors.primary[400]}
+            display="flex"
+            mb={"10px"}
+            justifyContent="space-between"
+            alignItems="center"
           >
-            <TaskDetail
-              activeTask={false}
-              taskData={data}
-              setShowScoreDetail={setShowScoreDetail}
-            />
+            {/* HEADER */}
+            <Header title="Details Page" subtitle="View submission details" />
+          </Box>
+          <Box>
+            <Button
+              sx={{
+                backgroundColor: colors.blueAccent[700],
+                color: colors.grey[100],
+                marginTop: "2rem",
+              }}
+              onClick={() => {
+                navigate(-1);
+              }}
+            >
+              Back
+            </Button>
           </Box>
         </Box>
-    
+
+        <Box
+          flex="1 1 100%"
+          height="75vh"
+          backgroundColor={colors.primary[400]}
+        >
+          <TaskDetail
+            activeTask={false}
+            taskData={data}
+            setShowScoreDetail={setShowScoreDetail}
+          />
+        </Box>
+      </Box>
 
       {showScoreDetail && (
         <DialogWithTitle

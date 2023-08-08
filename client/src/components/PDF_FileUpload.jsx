@@ -27,7 +27,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import AddIcon from "@mui/icons-material/Add";
 import Typography from "@mui/material/Typography";
 import { blue } from "@mui/material/colors";
-import FileUpload from "react-material-file-upload";
+// import FileUpload from "react-material-file-upload";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import TextareaAutosize from "@mui/base/TextareaAutosize";
 

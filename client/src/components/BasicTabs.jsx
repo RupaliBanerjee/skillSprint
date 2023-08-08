@@ -153,7 +153,7 @@ export default function BasicTabs(props) {
           aria-label="basic tabs example"
         >
           {tabInfo.map((tabItem, i) => {
-            return <Tab label={tabItem.tabName} {...a11yProps(i)} />;
+            return <Tab label={tabItem.tabName} key={`${tabItem}-${i}`} {...a11yProps(i)} />;
           })}
         </Tabs>
       </Box>
@@ -181,6 +181,7 @@ export default function BasicTabs(props) {
             name={currentTab}
             task_type={tabItem.type}
             updateTaskDataStudent={updateTaskDataStudent}
+            key={`${tabItem}-${i}`}
           >
             {tabItem.tabName !== "Submitted Task" &&
               ` Active ${tabItem.tabName}`}

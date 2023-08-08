@@ -8,7 +8,7 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { tokens } from "../../../theme";
-import Header from "../../../components/Header";
+import Header from "../../../common/Header";
 import NotificationWidget from "../../../components/NotificationWidget";
 import AssignmentDetail from "../assignmentDetail";
 import ScoreCard from "../../../components/ScoreCard";
@@ -233,6 +233,7 @@ const Dashboard = () => {
                     alignItems="center"
                     borderBottom={`4px solid ${colors.primary[500]}`}
                     p="15px"
+                    data-testid="publish-assignment-list-item"
                   >
                     <Box>
                       <Typography

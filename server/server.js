@@ -40,10 +40,11 @@ app.use("/mentor", mentorRoutes);
 app.use("/admin", adminRoutes);
 
 /* Mongoose Setup */
-const PORT = process.env.PORT || 9000;
-
+//const PORT = process.env.PORT || 9000;
+const PORT=5000
+//process.env.MONGO_URL
 mongoose
-  .connect(process.env.MONGO_URL, {
+  .connect("mongodb+srv://rupalibanerjeesb:PBLk21172849@pblcluster.vgkwkrf.mongodb.net/", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

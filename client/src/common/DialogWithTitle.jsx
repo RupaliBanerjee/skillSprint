@@ -72,7 +72,7 @@ export default function DialogWithTitle(props) {
     title,
     showActionButton,
     saveScoreChanges,
-    dialogWidth,
+    dialogPadding,
     children,
   } = props;
   const [open, setOpen] = React.useState(openDialog);
@@ -113,8 +113,9 @@ export default function DialogWithTitle(props) {
         <DialogContent
           dividers
           sx={{
-            minWidth:dialogWidth ? dialogWidth : "50vh",
+            minWidth:"50vh",
             overflowX: "hidden",
+            padding:dialogPadding ? dialogPadding : undefined,
             color: colors.grey[100],
           }}
         >

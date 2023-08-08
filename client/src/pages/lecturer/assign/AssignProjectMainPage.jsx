@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
 import { tokens } from "theme";
 import { useSelector } from "react-redux";
-import Header from "components/Header";
+import Header from "common/Header";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 
 import AssignProjectGrid from "./AssignProjectGrid";

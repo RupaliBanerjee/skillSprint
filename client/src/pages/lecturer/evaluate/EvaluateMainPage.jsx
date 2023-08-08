@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { assignmentData, projectData } from "../../../data/mockData";
 import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
 import { tokens } from "theme";
-import Header from "components/Header";
+import Header from "common/Header";
 import BasicTabs from "../../../components/BasicTabs";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";

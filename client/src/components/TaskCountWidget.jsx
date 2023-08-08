@@ -10,11 +10,26 @@ import {
 } from "@mui/material";
 import { tokens } from "theme";
 import AddCardOutlinedIcon from "@mui/icons-material/AddCardOutlined";
+import { useSelector } from "react-redux";
+import { ACCOUNT_TYPES } from "constants";
 
 const TaskCountWidget = (props) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const { title, count, icon, viewMoreAction } = props;
+  const { title, count, icon, viewMoreAction, taskType } = props;
+
+  const account_Type = useSelector((state) => state.userInfo.account_type);
+
+  const viewTaskData = () => {
+    if (
+      account_Type === ACCOUNT_TYPES.MENTOR ||
+      account_Type === ACCOUNT_TYPES.LECTURER
+    ) {
+      viewMoreAction(taskType);
+    } else {
+      viewMoreAction();
+    }
+  };
   return (
     <>
       {count > 0 && (
@@ -43,7 +58,7 @@ const TaskCountWidget = (props) => {
                 p: "0.2rem",
                 m: "0.2rem",
               }}
-              onClick={viewMoreAction}
+              onClick={viewTaskData}
             >
               View More
             </Button>

@@ -11,7 +11,7 @@ import {
   Chip,
 } from "@mui/material";
 import { tokens } from "theme";
-import Header from "components/Header";
+import Header from "common/Header";
 import { Formik, Field, FieldArray } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -430,7 +430,7 @@ const PublishAssignmentPage = () => {
             openDialog={showSubTaskDialog}
             title="Add Subtask Details"
             showActionButton={false}
-            dialogWidth={"100vh"}
+            dialogPadding={"10px"}
           >
             <AddSubTask setSubTaskInfo={setSubTaskInfo} task_id={taskId} />
           </DialogWithTitle>

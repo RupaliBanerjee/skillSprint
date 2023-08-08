@@ -1,20 +1,18 @@
 import React, { useState } from "react";
 import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
-import { tokens } from "../../../theme";
-import { assignmentData } from "../../../data/mockData";
+import { tokens } from "theme";
 import SendIcon from "@mui/icons-material/Send";
 import { useNavigate } from "react-router-dom";
-
+import GlobalStyles from "styles/Global.styled";
 import { useSelector } from "react-redux";
-import { ACCOUNT_TYPES } from "constants";
+
 
 const TaskList = (props) => {
-  //let navigate = useNavigate();
-  const taskData = props.data;
+  const {taskData,viewTaskDetail}=props
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-  const account_Type = useSelector((state) => state.userInfo.account_type);
+  
 
   //Truncate String
   const truncate = (str) => {
@@ -22,21 +20,16 @@ const TaskList = (props) => {
   };
 
   return (
-    <Box overflow="auto" height={"55vh"}>
-      {taskData.map((assignment, i) => (
+    <Box overflow="auto" height={"60vh"}>
+      {taskData.map((project, i) => (
         <Box
-          key={`${assignment.id}-${i}`}
+          key={`${project.id}-${i}`}
           display="grid"
           gridTemplateColumns={"2fr 0.5fr 0.5fr"}
           flex={1}
           alignItems="center"
           borderBottom={`4px solid ${colors.primary[500]}`}
           p="15px"
-          data-testid={`${
-            assignment.type
-              ? assignment.task_type
-              : assignment.task_detail.task_type
-          }-${assignment.task_id ? assignment.task_id : assignment.key}`}
         >
           <Box>
             <Typography
@@ -45,19 +38,19 @@ const TaskList = (props) => {
               fontWeight="600"
               marginBottom={"15px"}
             >
-              {assignment.task_detail
-                ? assignment.task_detail.title
-                : assignment.title}
+              {project.task_detail
+                ? project.task_detail.title
+                : project.title}
             </Typography>
             <Typography color={colors.greenAccent[500]}>
               {truncate(
-                assignment.task_detail
-                  ? assignment.task_detail.summary
-                  : assignment.summary
+                project.task_detail
+                  ? project.task_detail.summary
+                  : project.summary
               )}
             </Typography>
           </Box>
-          <Box color={colors.grey[100]}>{assignment.startDate}</Box>
+          <Box color={colors.grey[100]}>{project.startDate}</Box>
           <Box borderRadius="4px">
             <Button
               sx={{
@@ -65,11 +58,11 @@ const TaskList = (props) => {
                 color: colors.grey[100],
               }}
               onClick={() => {
-                props.viewTaskDetail(assignment);
+                viewTaskDetail(project);
               }}
               endIcon={<SendIcon />}
             >
-              {account_Type === ACCOUNT_TYPES.STUDENT ? "View" : "Evaluate"}
+             View
             </Button>
           </Box>
         </Box>

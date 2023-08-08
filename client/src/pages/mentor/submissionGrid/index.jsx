@@ -11,7 +11,7 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "theme";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import Header from "components/Header";
+import Header from "common/Header";
 import AssessmentOutlinedIcon from "@mui/icons-material/AssessmentOutlined";
 import DialogWithTitle from "common/DialogWithTitle";
 import ScoreCard from "components/ScoreCard";

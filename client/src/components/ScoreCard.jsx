@@ -16,14 +16,15 @@ const ScoreCard = (props) => {
       {showLablel && (
         <Typography
           variant="h4"
+          key={"score_title"}
           fontWeight="bold"
           sx={{ color: colors.grey[100], margin: "10px 0 10px 20px" }}
         >
           Latest Score
         </Typography>
       )}
-
       <Box
+        key={"score_card_container"}
         display={"flex"}
         flexDirection={"column"}
         marginLeft={!showLablel ? undefined : "20px"}
@@ -31,10 +32,12 @@ const ScoreCard = (props) => {
         sx={{ color: colors.grey[100] }}
       >
         {scoreDetail
-          ? scoreDetail.map((score) => {
+          ? scoreDetail.map((score, index) => {
               return (
-                <Box width={"100%"}>
-                  <Typography sx={{ color: colors.grey[100] }}>{score.name}</Typography>
+                <Box width={"100%"} key={`${score.name}-${index}`}>
+                  <Typography sx={{ color: colors.grey[100] }}>
+                    {score.name}
+                  </Typography>
                   <LinearProgressWithLabel value={parseInt(score.weightage)} />
                 </Box>
               );
@@ -42,9 +45,11 @@ const ScoreCard = (props) => {
           : scoreData.map((category, i) => {
               while (i < 4) {
                 return (
-                  <Box width={"100%"}>
-                    <Typography sx={{ color: colors.grey[100] }}>{category.criteria}</Typography>
-                    <LinearProgressWithLabel value={category.marks} />
+                  <Box width={"100%"} key={`${category.criteria}-${i}`}>
+                    <Typography sx={{ color: colors.grey[100] }}>
+                      {category.criteria}
+                    </Typography>
+                    <LinearProgressWithLabel value={parseInt(category.marks)} />
                   </Box>
                 );
               }

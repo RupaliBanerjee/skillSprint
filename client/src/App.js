@@ -23,6 +23,7 @@ import PublishAssignmentPage from "pages/lecturer/publish/PublishAssignmentPage"
 import MentorDashboard from "pages/mentor/dashboard";
 import MentorTaskDetails from "pages/mentor/taskDetail";
 import SubmissionGrid from "pages/mentor/submissionGrid"
+import TaskListMainPage from "pages/mentor/taskList";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -87,9 +88,10 @@ function App() {
                   <Route path="/mentor/taskDetails/:task_key" element={<MentorTaskDetails/>}/>
                   <Route path="/mentor/studentSubmission/:task_key" element={<SubmissionGrid/>}/>
                   <Route
-                    path="/publish/assignment"
+                    path="/publish/project"
                     element={<PublishAssignmentPage />}
                   />
+                  <Route path="/mentor/project/:project_type" element={<TaskListMainPage/>}/>
                 </Routes>
               )}
             </main>

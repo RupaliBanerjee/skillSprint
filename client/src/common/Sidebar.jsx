@@ -150,6 +150,7 @@ const Sidebar = () => {
               <Box textAlign="center">
                 <Typography
                   variant="h2"
+                  title="userInitials"
                   color={colors.grey[100]}
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}

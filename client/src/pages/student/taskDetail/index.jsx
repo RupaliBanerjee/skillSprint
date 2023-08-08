@@ -69,6 +69,7 @@ const TaskDetail = (props) => {
   const [showStudentSubmission, setShowStudentSubmissionBtn] = useState(false);
 
   const dispatch = useDispatch();
+  const currentURL = window.location.href.split("http://localhost:3006")[1];
 
   useEffect(() => {
     if (taskData?.score?.length) {
@@ -100,7 +101,7 @@ const TaskDetail = (props) => {
     if (accountType === ACCOUNT_TYPES.LECTURER && taskData?.totalScore === 0) {
       setShowAddScore(true);
     }
-    console.log("Check TaskData", taskData);
+
     if (
       ((taskData?.studentTaskMap &&
         taskData.studentTaskMap.solution_zip !== "") ||
@@ -311,9 +312,11 @@ const TaskDetail = (props) => {
                         }}
                         endIcon={<AppRegistrationOutlinedIcon />}
                         onClick={() => {
-                          navigate(
-                            `/mentor/studentSubmission/${taskData?.key}`
-                          );
+                          if (currentURL !== " /mentor/dashboard") {
+                            navigate(
+                              `/mentor/studentSubmission/${taskData?.key}`
+                            );
+                          }
                         }}
                       >
                         View Submission

@@ -8,7 +8,7 @@ import {
   Backdrop,
   CircularProgress,
 } from "@mui/material";
-import Header from "components/Header";
+import Header from "common/Header";
 import { tokens } from "theme";
 import BarChart from "components/BarChart";
 import AddCardOutlinedIcon from "@mui/icons-material/AddCardOutlined";
@@ -23,6 +23,7 @@ import {
   updateSubmittedTaskData,
 } from "store/mentorTaskInfo/mentorTaskInfoSlice";
 import { useNavigate } from "react-router-dom";
+import TaskListMainPage from "../taskList";
 
 const MentorDashboard = () => {
   const theme = useTheme();
@@ -32,22 +33,22 @@ const MentorDashboard = () => {
   const navigate = useNavigate();
 
   const [studentCount, setStudentCount] = useState(0);
-  const [studentTaskMap,setStudentTaskMap]=useState([]);
-  // const [pendingAllocation,setPendingAllocation]=useState([]);
-  // const [pendingCount,setPendingCount]=useState(0);
+  const [studentTaskMap, setStudentTaskMap] = useState([]);
+  const [viewTaskType, setViewTaskType] = useState("");
+  
 
   const userID = useSelector((state) => state.userInfo.logged_in_userId);
   const activeList = useSelector((state) => state.mentorTaskInfo.active_list);
   const submittedList = useSelector(
     (state) => state.mentorTaskInfo.submitted_list
   );
-  const pendingList=useSelector((state)=>state.mentorTaskInfo.pending_list)
+  const pendingList = useSelector((state) => state.mentorTaskInfo.pending_list);
 
   /* update store with student Info */
   const updateStudentInfoStore = (studentInfoList) => {
     const activeStudentList = [];
     const submittedStudentList = [];
-    const pendingTaskList=[];
+    const pendingTaskList = [];
     /* get student count */
     const uniqueStudentIds = [
       ...new Set(studentInfoList.map((student) => student.user_id)),
@@ -55,10 +56,10 @@ const MentorDashboard = () => {
     setStudentCount(uniqueStudentIds.length);
     /* Create seperate student Info list for active and submitted Task */
     studentInfoList.forEach((studentData) => {
-      if (studentData.totalScore == 0 && studentData.solution_zip=="") {
-        activeStudentList.push({...studentData});
+      if (studentData.totalScore == 0 && studentData.solution_zip == "") {
+        activeStudentList.push({ ...studentData });
       } else {
-        submittedStudentList.push({...studentData});
+        submittedStudentList.push({ ...studentData });
       }
     });
 
@@ -70,13 +71,12 @@ const MentorDashboard = () => {
       // if(studentData.length===0){
       //   pendingTaskList.push({...task})
       // }
-     
-        return { ...task, studentTaskMap: [ ...studentData ]};
-      
+
+      return { ...task, studentTaskMap: [...studentData] };
+
       // return { ...task };
-    
     });
-   
+
     /* filter out submitted array 
     -the submitted list will only include projects 
     for which student task map entry exists */
@@ -85,8 +85,8 @@ const MentorDashboard = () => {
       const taskMapData = studentInfoList.filter(
         (taskMap) => taskMap.task_id === task.key
       );
-      if(taskMapData.length===0){
-        pendingTaskList.push({...task})
+      if (taskMapData.length === 0) {
+        pendingTaskList.push({ ...task });
       }
       if (taskMapData.length > 0) {
         return { ...task };
@@ -96,10 +96,13 @@ const MentorDashboard = () => {
     /* add student Info for the submitted Task */
     const submitted_list_with_student_data = submittedTaskList.map((task) => {
       const studentData = submittedStudentList.filter(
-        (data) => data.task_id === task.key && data.solution_zip !== "" && data.totalScore!==0
+        (data) =>
+          data.task_id === task.key &&
+          data.solution_zip !== "" &&
+          data.totalScore !== 0
       );
-     
-      return { ...task, studentTaskMap: [...studentData]  };
+
+      return { ...task, studentTaskMap: [...studentData] };
     });
 
     /* add student info to pendingTask list */
@@ -107,17 +110,20 @@ const MentorDashboard = () => {
       const studentData = submittedStudentList.filter(
         (data) => data.task_id === task.key
       );
-      
+
       return { ...task, studentTaskMap: { ...studentData[0] } };
     });
     /* Filter out the active task that dont have studentTaskMap */
-    const final_activeTaskList=active_list_with_student_data.filter((task)=>task.studentTaskMap.length>0)
-    
-    const pendingTaskList_final=pending_list_with_student_data.filter((task)=> Object.keys(task.studentTaskMap).length==0)
-    dispatch(updatePendingTaskData([...pendingTaskList_final]))
+    const final_activeTaskList = active_list_with_student_data.filter(
+      (task) => task.studentTaskMap.length > 0
+    );
+
+    const pendingTaskList_final = pending_list_with_student_data.filter(
+      (task) => Object.keys(task.studentTaskMap).length == 0
+    );
+    dispatch(updatePendingTaskData([...pendingTaskList_final]));
     dispatch(updateActiveTaskData([...final_activeTaskList]));
     dispatch(updateSubmittedTaskData([...submitted_list_with_student_data]));
-    
   };
 
   /* Api call to get the student task maps for all active and submitted projects */
@@ -125,8 +131,8 @@ const MentorDashboard = () => {
     try {
       const response = await axios.post("/mentor/getStudentInfo", taskIdList);
       /* Store the student taskmap list in useState and then call update Student Info only when the active and submitted value change */
-     // updateStudentInfoStore(response.data.taskMapList);
-     setStudentTaskMap(response.data.taskMapList)
+      // updateStudentInfoStore(response.data.taskMapList);
+      setStudentTaskMap(response.data.taskMapList);
     } catch (err) {
       console.log("get Student taskMap error", err);
     }
@@ -138,7 +144,7 @@ const MentorDashboard = () => {
     const allActiveTaskIds = activeList.map((task) => task.key);
     const allSubmittedTaskIds = submittedList.map((task) => task.key);
     dispatch(updatePendingTaskData([...submittedList]));
-   dispatch(updateActiveTaskData([...activeList]));
+    dispatch(updateActiveTaskData([...activeList]));
     dispatch(updateSubmittedTaskData([...submittedList]));
     getStudentTaskMap([...allActiveTaskIds, ...allSubmittedTaskIds]);
   };
@@ -158,24 +164,25 @@ const MentorDashboard = () => {
 
   useEffect(() => {
     createMentorTaskList();
-    
   }, [userID]);
 
-  const viewMoreAction = () => {
-    console.log("Clicked");
+  const viewMoreAction = (taskType) => {
+    navigate(`/mentor/project/${taskType}`);
   };
 
   /* To add student Info to all tasks in store */
-  useEffect(()=>{
-    if(studentTaskMap.length>0){
-      updateStudentInfoStore(studentTaskMap)
+  useEffect(() => {
+    if (studentTaskMap.length > 0) {
+      updateStudentInfoStore(studentTaskMap);
     }
-  },[studentTaskMap])
+  }, [studentTaskMap]);
 
   /* View Task Details */
   const viewDetails = (taskData) => {
     navigate(`/mentor/taskDetails/${taskData.key}`);
   };
+
+  
   return (
     <Box m="10px 10px" p="0 10px">
       {/* HEADER */}
@@ -207,6 +214,7 @@ const MentorDashboard = () => {
               />
             }
             viewMoreAction={viewMoreAction}
+            taskType={"ACTIVE"}
           />
         </Box>
         <Box
@@ -225,6 +233,7 @@ const MentorDashboard = () => {
               />
             }
             viewMoreAction={viewMoreAction}
+            taskType={"SUBMITTED"}
           />
         </Box>
         <Box
@@ -243,6 +252,7 @@ const MentorDashboard = () => {
               />
             }
             viewMoreAction={viewMoreAction}
+            taskType={"pending_allocation"}
           />
         </Box>
 
@@ -375,3 +385,11 @@ const MentorDashboard = () => {
 };
 
 export default MentorDashboard;
+
+{
+  /* <TaskListMainPage
+          taskdata={getTaskDetailData(viewTaskType)}
+          taskType={viewTaskType}
+          setShowTaskListPage={setShowTaskListPage}
+        /> */
+}

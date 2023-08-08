@@ -1,6 +1,6 @@
 import { Box, Button,useTheme } from "@mui/material";
 import { tokens } from "../../../theme";
-import Header from "../../../components/Header";
+import Header from "../../../common/Header";
 import BarChart from "../../../components/BarChart";
 import { useNavigate } from "react-router-dom";
 
