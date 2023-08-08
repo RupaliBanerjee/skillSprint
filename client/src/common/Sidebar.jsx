@@ -244,7 +244,7 @@ const Sidebar = () => {
               <>
                 <Item
                   title="Evaluate"
-                  to="/evaluate"
+                  to={`/evaluate/mainPage`}
                   icon={<EditNoteOutlinedIcon />}
                   selected={selected}
                   setSelected={setSlected}

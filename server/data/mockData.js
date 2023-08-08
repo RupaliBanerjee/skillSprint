@@ -328,7 +328,7 @@ export const student_taskMap = [
         weightage: 0,
       },
     ],
-    solution_zip: "https://dl.dropboxusercontent.com/s/xfl5mrmhi0zuo9q/getGroundAssignment.zip",
+    solution_zip: "",
     totalScore: 0,
   },
   {
@@ -811,8 +811,8 @@ export const taskDetails = [
       assigner: "",
       student: "",
     },
-    start_date: "2023/07/01",
-    end_date: "2023/08/01",
+    start_date: "2023/08/11",
+    end_date: "2023/09/01",
     task_type: "ASSIGNMENT",
     active: false,
     assesment_criteria:["accuracy","basic functionality","code quality","documentation"]

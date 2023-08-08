@@ -24,6 +24,9 @@ import MentorDashboard from "pages/mentor/dashboard";
 import MentorTaskDetails from "pages/mentor/taskDetail";
 import SubmissionGrid from "pages/mentor/submissionGrid"
 import TaskListMainPage from "pages/mentor/taskList";
+import ActiveProjectGrid from "pages/mentor/activeProjectPage/activeProjectGrid";
+import LecturerTaskListMainPage from "pages/lecturer/taskList";
+import StudentDetailGrid from "pages/lecturer/taskList/studentDetailGrid";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -70,12 +73,14 @@ function App() {
                     element={<Lecturer_Dashboard />}
                   />
                   <Route path="/profile" element={<ProfilePage />} />
-                  <Route path="/evaluate" element={<EvaluateMainPage />} />
+                  <Route path="/evaluate/:pageType" element={<EvaluateMainPage />} />
                   <Route path="/assign" element={<AssignProjectMainPage />} />
                   <Route
                     path="/publish/assignment"
                     element={<PublishAssignmentPage />}
                   />
+                    <Route path="/lecturer/studentTaskDetail/:task_type/:task_key" element={<StudentDetailGrid/>}/>
+                  <Route path="/lecturer/dashboard/taskList/:taskType" element={<LecturerTaskListMainPage/>}/>
                 </Routes>
               )}
               {accountType === ACCOUNT_TYPES.MENTOR && (
@@ -92,6 +97,7 @@ function App() {
                     element={<PublishAssignmentPage />}
                   />
                   <Route path="/mentor/project/:project_type" element={<TaskListMainPage/>}/>
+                  <Route path="/studentTaskDetail/:task_key" element={<ActiveProjectGrid/>}/>
                 </Routes>
               )}
             </main>

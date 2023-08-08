@@ -8,10 +8,13 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { updateAssesmentData } from "store/lecturerTaskInfo/lecturerTaskInfoSlice";
 import { TASK_TYPES } from "constants";
+import { useNavigate, useParams } from "react-router-dom";
 
 const EvaluateMainPage = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const navigate = useNavigate();
+  const { pageType } = useParams();
 
   const { assignment, project } = useSelector(
     (state) => state.lecturer_Task_Info.pending_assesment_list
@@ -19,9 +22,8 @@ const EvaluateMainPage = () => {
   const dispatch = useDispatch();
   const taskId_List = assignment.map((t) => t.key);
   taskId_List.push(...project.map((t) => t.key));
-  
-  
- /* After score changes update the redux store and the db with new scores */
+
+  /* After score changes update the redux store and the db with new scores */
   const updateTaskData = (taskData) => {
     axios
       .post("/lecturer/updateTaskMap/score", { taskData: taskData })
@@ -61,8 +63,8 @@ const EvaluateMainPage = () => {
       type: "Lecturer Task",
     },
   ];
-  console.log("Check Assignment in Evaluate Page",assignment)
-  console.log("Check project in Evaluate Page",project)
+  console.log("Check Assignment in Evaluate Page", assignment);
+  console.log("Check project in Evaluate Page", project);
   // useEffect(() => {
   //   tabInfo = [
   //     {
@@ -88,6 +90,19 @@ const EvaluateMainPage = () => {
         alignItems="center"
       >
         <Header title="View All Task" subtitle="Start new Task evaluation" />
+        {pageType === "secondaryPage" && (
+          <Button
+            sx={{
+              backgroundColor: colors.blueAccent[700],
+              color: colors.grey[100],
+            }}
+            onClick={() => {
+              navigate("/lecturer/dashboard");
+            }}
+          >
+            Back
+          </Button>
+        )}
       </Box>
       <Box flex="1 1 100%" height="75vh" backgroundColor={colors.primary[400]}>
         <BasicTabs tabInfo={tabInfo} updateTaskData={updateTaskData} />

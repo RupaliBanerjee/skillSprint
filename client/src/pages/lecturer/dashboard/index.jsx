@@ -23,10 +23,12 @@ import {
   updateAssesmentData,
   updateActiveTaskData,
 } from "store/lecturerTaskInfo/lecturerTaskInfoSlice";
+import { useNavigate } from "react-router-dom";
 
 const Lecturer_Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const navigate =useNavigate();
 
   const userID = useSelector((state) => state.userInfo.logged_in_userId);
   const dispatch = useDispatch();
@@ -43,8 +45,12 @@ const Lecturer_Dashboard = () => {
     (state) => state.lecturer_Task_Info.unAssigned_project_list
   );
 
-  const viewMoreAction = () => {
-    console.log("Clicked");
+  const viewMoreAction = (type) => {
+   if(type==="pending_evaluation"){
+    navigate("/evaluate/secondaryPage")
+   }else{
+    navigate(`/lecturer/dashboard/taskList/${type}`)
+   }
   };
 
   let active_assignment_list = [];
@@ -290,6 +296,7 @@ const Lecturer_Dashboard = () => {
               />
             }
             viewMoreAction={viewMoreAction}
+            taskType="active_assignments"
           />
         </Box>
         <Box
@@ -308,6 +315,7 @@ const Lecturer_Dashboard = () => {
               />
             }
             viewMoreAction={viewMoreAction}
+            taskType="active_projects"
           />
         </Box>
         <Box
@@ -326,6 +334,7 @@ const Lecturer_Dashboard = () => {
               />
             }
             viewMoreAction={viewMoreAction}
+            taskType="pending_evaluation"
           />
         </Box>
 

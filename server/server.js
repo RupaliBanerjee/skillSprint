@@ -41,13 +41,16 @@ app.use("/admin", adminRoutes);
 
 /* Mongoose Setup */
 //const PORT = process.env.PORT || 9000;
-const PORT=5000
+const PORT = 5000;
 //process.env.MONGO_URL
 mongoose
-  .connect("mongodb+srv://rupalibanerjeesb:PBLk21172849@pblcluster.vgkwkrf.mongodb.net/", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(
+    "mongodb+srv://rupalibanerjeesb:PBLk21172849@pblcluster.vgkwkrf.mongodb.net/",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
   .then(() => {
     app.get("/getUsers", (req, res) => {
       User.find()
@@ -76,6 +79,38 @@ mongoose
         .catch((err) => {
           console.log(err);
         });
+    });
+
+    /* Update Profile Data */
+    app.post("/updateProfile/data", (req, res) => {
+      let { first_name, last_name, email, address_1, address_2, contact_no } =
+        req.body.profileData;
+      const data = {
+        first_name,
+        last_name,
+        email,
+        address_1,
+        address_2,
+        contact_no,
+      };
+      //console.log("Check profileData",data);
+      User.updateOne(
+        { user_id: req.body.profileData.user_id },
+        {
+          $set: {
+            first_name: first_name,
+            last_name: last_name,
+            email: email,
+            address_1: address_1,
+            address_2: address_2,
+            contact_no: contact_no,
+          },
+        }
+      )
+        .then((response) => {
+          res.send(response);
+        })
+        .catch((err) => console.log("Server error for update profile", err));
     });
 
     /* Signup */

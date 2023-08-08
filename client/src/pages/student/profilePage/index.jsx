@@ -3,16 +3,31 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../../common/Header";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { updateUserData } from "store/userInfo/userInfoSlice";
 
 const ProfilePage = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
-  const handleFormSubmit = (values) => {
-    console.log(values);
-  };
-
   const userData = useSelector((state) => state.userInfo.userData);
+  const navigate=useNavigate();
+  const dispatch=useDispatch();
+
+  const handleFormSubmit = async(values) => {
+   try{
+    const updatedProfileData={...userData,...values}
+    
+    const response=await axios.post("/updateProfile/data",{profileData:updatedProfileData})
+    if(response.status===200){
+      dispatch(updateUserData({...updatedProfileData}))
+      navigate("/lecturer/dashboard");
+    }
+   }catch(err){
+    console.log("Profile update error",err)
+   }
+  };
 
   return (
     <Box m="20px">
@@ -21,12 +36,12 @@ const ProfilePage = () => {
       <Formik
         onSubmit={handleFormSubmit}
         initialValues={{
-          firstName: userData.first_name,
-          lastName: userData.last_name,
+          first_name: userData.first_name,
+          last_name: userData.last_name,
           email: userData.email,
-          contact: userData.contact_no,
-          address1:userData.address_1,
-          address2:userData.address_2
+          contact_no: userData.contact_no,
+          address_1:userData.address_1,
+          address_2:userData.address_2
         }}
         validationSchema={checkoutSchema}
       >
@@ -54,10 +69,10 @@ const ProfilePage = () => {
                 label="First Name"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.firstName}
-                name="firstName"
-                error={!!touched.firstName && !!errors.firstName}
-                helperText={touched.firstName && errors.firstName}
+                value={values.first_name}
+                name="first_name"
+                error={!!touched.first_name && !!errors.first_name}
+                helperText={touched.first_name && errors.first_name}
                 sx={{ gridColumn: "span 2" }}
               />
               <TextField
@@ -67,10 +82,10 @@ const ProfilePage = () => {
                 label="Last Name"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.lastName}
-                name="lastName"
-                error={!!touched.lastName && !!errors.lastName}
-                helperText={touched.lastName && errors.lastName}
+                value={values.last_name}
+                name="last_name"
+                error={!!touched.last_name && !!errors.last_name}
+                helperText={touched.last_name && errors.last_name}
                 sx={{ gridColumn: "span 2" }}
               />
               <TextField
@@ -93,10 +108,10 @@ const ProfilePage = () => {
                 label="Contact Number"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.contact}
-                name="contact"
-                error={!!touched.contact && !!errors.contact}
-                helperText={touched.contact && errors.contact}
+                value={values.contact_no}
+                name="contact_no"
+                error={!!touched.contact_no && !!errors.contact_no}
+                helperText={touched.contact_no && errors.contact_no}
                 sx={{ gridColumn: "span 4" }}
               />
               <TextField
@@ -106,10 +121,10 @@ const ProfilePage = () => {
                 label="Address 1"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.address1}
-                name="address1"
-                error={!!touched.address1 && !!errors.address1}
-                helperText={touched.address1 && errors.address1}
+                value={values.address_1}
+                name="address_1"
+                error={!!touched.address_1 && !!errors.address_1}
+                helperText={touched.address_1 && errors.address_1}
                 sx={{ gridColumn: "span 4" }}
               />
               <TextField
@@ -119,10 +134,10 @@ const ProfilePage = () => {
                 label="Address 2"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.address2}
-                name="address2"
-                error={!!touched.address2 && !!errors.address2}
-                helperText={touched.address2 && errors.address2}
+                value={values.address_2}
+                name="address_2"
+                error={!!touched.address_2 && !!errors.address_2}
+                helperText={touched.address_2 && errors.address_2}
                 sx={{ gridColumn: "span 4" }}
               />
             </Box>
@@ -142,23 +157,23 @@ const phoneRegExp =
   /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
 
 const checkoutSchema = yup.object().shape({
-  firstName: yup.string().required("required"),
-  lastName: yup.string().required("required"),
+  first_name: yup.string().required("required"),
+  last_name: yup.string().required("required"),
   email: yup.string().email("invalid email").required("required"),
-  contact: yup
+  contact_no: yup
     .string()
     .matches(phoneRegExp, "Phone number is not valid")
     .required("required"),
-  address1: yup.string().required("required"),
-  address2: yup.string().required("required"),
+  address_1: yup.string().required("required"),
+  address_2: yup.string().required("required"),
 });
 const initialValues = {
-  firstName: "",
-  lastName: "",
+  first_name: "",
+  last_name: "",
   email: "",
-  contact: "",
-  address1: "",
-  address2: "",
+  contact_no: "",
+  address_1: "",
+  address_2: "",
 };
 
 export default ProfilePage;

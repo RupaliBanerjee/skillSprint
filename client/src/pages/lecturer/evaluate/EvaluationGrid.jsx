@@ -22,16 +22,21 @@ const EvaluationGrid = (props) => {
 
   //const data=useSelector(state=>state.lecturer_Task_Info)
   /* Destructure the data object for TAskDetails */
-  console.log("Check the data for Evaluation Grid",data)
-  data.map((task,index) => {
-    
-      const taskObj = Object.assign({}, {...task}, {...task.studentTaskMap[0]});
-   
-    taskData.push({ ...taskObj });
-    
-    
+  console.log("Check the data for Evaluation Grid", data);
+  data.map((task, index) => {
+    if (task?.studentTaskMap?.length > 0) {
+      const taskObj = Object.assign(
+        {},
+        { ...task },
+        { ...task.studentTaskMap[0] }
+      );
+
+      taskData.push({ ...taskObj });
+    }else{
+      taskData.push({...task})
+    }
   });
-  console.log("Check taskData",taskData)
+  console.log("Check taskData", taskData);
   const columns = [
     { field: "key", headerName: "KEY", flex: 0.5 },
     {

@@ -21,7 +21,7 @@ const TaskList = (props) => {
 
   return (
     <Box overflow="auto" height={"60vh"}>
-      {taskData.map((project, i) => (
+      {taskData?.map((project, i) => (
         <Box
           key={`${project.id}-${i}`}
           display="grid"

@@ -26,7 +26,7 @@ import DialogWithTitle from "common/DialogWithTitle";
 import ScoreCard from "components/ScoreCard";
 import SliderWithInputField from "components/SliderWithInputField";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ACCOUNT_TYPES } from "constants";
 
 // const useStyles = createUseStyles({
@@ -48,6 +48,7 @@ const TaskDetail = (props) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const navigate = useNavigate();
+  const { project_type,taskType } = useParams();
 
   const accountType = useSelector((state) => state?.userInfo.userData.role);
 
@@ -67,6 +68,8 @@ const TaskDetail = (props) => {
   const [showSolutionDownload, setShowSolutionDownload] = useState(false);
   const [showAddScore, setShowAddScore] = useState(false);
   const [showStudentSubmission, setShowStudentSubmissionBtn] = useState(false);
+  const [showTrackProgressBtn, setShowTrackProgressBtn] = useState(false);
+  const [showStudentDetailBtn,setShowStudentDetailBtn] = useState(false);
 
   const dispatch = useDispatch();
   const currentURL = window.location.href.split("http://localhost:3006")[1];
@@ -104,14 +107,23 @@ const TaskDetail = (props) => {
 
     if (
       ((taskData?.studentTaskMap &&
-        taskData.studentTaskMap.solution_zip !== "") ||
+        taskData.studentTaskMap.every((taskMap)=>taskMap.solution_zip !== "")) ||
         (taskData?.solution_zip && taskData.solution_zip !== "")) &&
       accountType === ACCOUNT_TYPES.LECTURER
     ) {
       setShowSolutionDownload(true);
     }
-    if (accountType === ACCOUNT_TYPES.MENTOR) {
+    if (
+      accountType === ACCOUNT_TYPES.MENTOR &&
+      project_type === "SUBMITTED"
+    ) {
       setShowStudentSubmissionBtn(true);
+    }
+    if (accountType === ACCOUNT_TYPES.MENTOR && project_type === "ACTIVE") {
+      setShowTrackProgressBtn(true);
+    }
+    if (accountType ===ACCOUNT_TYPES.LECTURER && (taskType==="active_assignments" || taskType==="active_projects" )){
+      setShowStudentDetailBtn(true)
     }
   }, [taskData]);
 
@@ -320,6 +332,46 @@ const TaskDetail = (props) => {
                         }}
                       >
                         View Submission
+                      </Button>
+                    </Box>
+                  </Tooltip>
+                )}
+                {showTrackProgressBtn && (
+                  <Tooltip title="Show subtask details">
+                    <Box borderRadius="4px">
+                      <Button
+                        sx={{
+                          backgroundColor: colors.blueAccent[700],
+                          color: colors.grey[100],
+                        }}
+                        endIcon={<AppRegistrationOutlinedIcon />}
+                        onClick={() => {
+                          navigate(
+                            `/studentTaskDetail/${taskData?.key}`
+                          );
+                        }}
+                      >
+                        Track Progress
+                      </Button>
+                    </Box>
+                  </Tooltip>
+                )}
+                 {showStudentDetailBtn && (
+                  <Tooltip title="Show subtask details">
+                    <Box borderRadius="4px">
+                      <Button
+                        sx={{
+                          backgroundColor: colors.blueAccent[700],
+                          color: colors.grey[100],
+                        }}
+                        endIcon={<AppRegistrationOutlinedIcon />}
+                        onClick={() => {
+                          navigate(
+                            `/lecturer/studentTaskDetail/${taskData?.task_type}/${taskData?.key}`
+                          );
+                        }}
+                      >
+                        Student Detail
                       </Button>
                     </Box>
                   </Tooltip>
