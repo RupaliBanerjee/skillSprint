@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "@pandemicode/material-ui-dropzone": "^3.5.5",
-    "react-jss": "^10.10.0"
-  }
-}

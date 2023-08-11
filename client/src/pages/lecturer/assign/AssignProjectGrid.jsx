@@ -37,8 +37,7 @@ const AssignProjectGrid = (props) => {
         // Show Task Detail on click of view button
         const onViewClick = (e) => {
           setAssignClicked(!assignClicked);
-
-          viewProjectDetail(params?.row);
+        viewProjectDetail(params?.row);
         };
 
         return (
@@ -82,7 +81,7 @@ const AssignProjectGrid = (props) => {
           color: colors.greenAccent[300],
         },
         "& .MuiDataGrid-columnHeaders": {
-          backgroundColor: colors.blueAccent[700],
+          backgroundColor: colors.grey[800],
           borderBottom: "none",
         },
         "& .MuiDataGrid-virtualScroller": {
@@ -90,7 +89,7 @@ const AssignProjectGrid = (props) => {
         },
         "& .MuiDataGrid-footerContainer": {
           borderTop: "none",
-          backgroundColor: colors.blueAccent[700],
+          backgroundColor: colors.grey[800],
         },
         "& .MuiCheckbox-root": {
           color: `${colors.greenAccent[200]} !important`,

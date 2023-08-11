@@ -40,6 +40,7 @@ const TaskCountWidget = (props) => {
               variant="h2"
               fontWeight="bold"
               sx={{ color: colors.grey[100] }}
+              data-testid={`${account_Type}-${taskType}`}
             >
               {count}
             </Typography>

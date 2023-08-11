@@ -1,62 +1,69 @@
 import React, { useState } from "react";
-import { Box, Icon, Button, IconButton, useTheme ,Menu,MenuItem} from "@mui/material";
+import {
+  Box,
+  Icon,
+  Button,
+  IconButton,
+  useTheme,
+  Menu,
+  MenuItem,
+} from "@mui/material";
 import { useContext } from "react";
 import { ColorModeContext, tokens } from "../theme";
 import { InputBase } from "@mui/material";
-import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
-import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
+
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
-import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
+import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { reset } from "store/userInfo/userInfoSlice";
 //import { useTheme } from "@emotion/react";
+import theme from "../theme";
 const Topbar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const navigate=useNavigate();
-  const dispatch=useDispatch();
-  const colorMode = useContext(ColorModeContext);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [showProfileOptions, setShowProfileOptions] = useState(false);
-  const [selectedOption,setSelectedOption]= useState(null)
+  const [selectedOption, setSelectedOption] = useState(null);
 
-
-  const handleClose=()=>{
+  const handleClose = () => {
     setShowProfileOptions(false);
-  }
+  };
 
-  const signOut=()=>{
+  const signOut = () => {
     // setShowProfileOptions(false);
-    navigate("/")
-    dispatch(reset())
-    
-  }
+    navigate("/");
+    dispatch(reset());
+  };
 
   //const showProfileOptions = () => {};
   return (
-    <Box display={"flex"} justifyContent={"space-between"} p={1}>
+    <Box
+      display={"flex"}
+      justifyContent={"space-between"}
+      p={1}
+      sx={{ color: colors.grey[100] }}
+    >
       {/* Search Bar */}
       <Box
         display={"flex"}
         sx={{ backgroundColor: colors.primary[400], borderRadius: "3px" }}
       >
-        <InputBase sx={{ ml: 2, flex: 1 }} placeholder="Search" />
-        <IconButton type="button" sx={{ p: 1 }}>
+        <InputBase
+          sx={{ ml: 2, flex: 1, color: colors.grey[100] }}
+          placeholder="Search"
+        />
+        <IconButton type="button" sx={{ p: 1, color: colors.grey[100] }}>
           <SearchIcon />
         </IconButton>
       </Box>
       {/* Icons */}
       <Box display={"flex"}>
-        <IconButton onClick={colorMode.toggleColorMode}>
-          {theme.palette.mode === "dark" ? (
-            <DarkModeOutlinedIcon />
-          ) : (
-            <LightModeOutlinedIcon />
-          )}
-        </IconButton>
         <IconButton>
           <NotificationsOutlinedIcon />
         </IconButton>
@@ -66,13 +73,12 @@ const Topbar = () => {
         <IconButton
           onClick={(e) => {
             setShowProfileOptions(true);
-            setSelectedOption(e.currentTarget)
+            setSelectedOption(e.currentTarget);
           }}
         >
           <PersonOutlinedIcon />
         </IconButton>
         <Menu
-          id="menu-appbar"
           selectedOption={selectedOption}
           anchorOrigin={{
             vertical: "top",

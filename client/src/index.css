@@ -7,11 +7,13 @@ body,
   height: 100%;
   width: 100%;
   font-family: "Source Sans 3", sans-serif;
+  color: #e0e0e0;
 }
 
 .app {
   display: flex;
   position: relative;
+  
 }
 
 ::-webkit-scrollbar {
@@ -26,6 +28,6 @@ body,
   background: #888;
 }
 /* handle hover */
-::-webkit-scrollbar-track :hover{
+::-webkit-scrollbar-track :hover {
   background: #555;
 }

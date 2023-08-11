@@ -139,7 +139,7 @@ const AssignProjectDetail = (props) => {
       //Duplicate exist
       const studentMap = {
         ...task,
-        solution_zip:"",
+        solution_zip: "",
         ["overAllScore"]: getOverAllScore(task.user_id, taskMapData),
         ["task_id_list"]: getTaskId_list(task.user_id, taskMapData),
         ["task_data_list"]: getTaskDataList(
@@ -155,7 +155,7 @@ const AssignProjectDetail = (props) => {
       };
       return studentMap;
     });
-    
+
     dispatch(addStudentTaskMap({ student_taskMap: [...newStudentTaskMap] }));
     //console.log("Check New Task Map", newStudentTaskMap);
   };
@@ -195,9 +195,12 @@ const AssignProjectDetail = (props) => {
 
   const updateTaskMap = async (taskMapList) => {
     try {
-      const getTaskIidList=taskMapList.map((task)=>(task.task_id))
+      const getTaskIidList = taskMapList.map((task) => task.task_id);
       const response = await axios.post("/lecturer/setTaskMap", taskMapList);
-      const taskDetailUpdate=await axios.post("/lecturer/updateTaskDetail",getTaskIidList)
+      const taskDetailUpdate = await axios.post(
+        "/lecturer/updateTaskDetail",
+        getTaskIidList
+      );
       navigate("/lecturer/dashboard");
     } catch (err) {
       console.log("updateTaskMap client error", err);
@@ -217,7 +220,7 @@ const AssignProjectDetail = (props) => {
         <Box
           display={"flex"}
           justifyContent="space-between"
-          backgroundColor={colors.primary[500]}
+         sx={{background:"#070707"}}
         >
           <Button
             sx={{

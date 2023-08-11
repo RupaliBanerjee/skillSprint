@@ -144,15 +144,14 @@ const AssignSubTask = (props) => {
         ["subtask_id"]: studentSubTaskMap.get(subtask.user_id),
       };
     });
-    
 
     /* Used for removing all duplicate enteries in the list */
     const uniqueTaskMapList = [
       ...new Map(finalTaskMapList.map((item) => [item[key], item])).values(),
     ];
-    
+
     /* Send data to AssignProjectDetail.jsx file to update the db */
-    setStudentInfo(uniqueTaskMapList)
+    setStudentInfo(uniqueTaskMapList);
   };
 
   /* Check if all the subtasks have been assigned to student  */
@@ -210,7 +209,7 @@ const AssignSubTask = (props) => {
       <Box
         display={"flex"}
         justifyContent={"space-between"}
-        backgroundColor={colors.primary[500]}
+        sx={{background:"#070707"}}
       >
         <Button
           sx={{
@@ -240,7 +239,6 @@ const AssignSubTask = (props) => {
         </Button>
       </Box>
       <Box
-        mt="40px"
         height="60vh"
         sx={{
           "& .MuiDataGrid-root": {
@@ -253,7 +251,7 @@ const AssignSubTask = (props) => {
             color: colors.greenAccent[300],
           },
           "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: colors.blueAccent[700],
+            backgroundColor: colors.grey[800],
             borderBottom: "none",
           },
           "& .MuiDataGrid-virtualScroller": {
@@ -261,7 +259,7 @@ const AssignSubTask = (props) => {
           },
           "& .MuiDataGrid-footerContainer": {
             borderTop: "none",
-            backgroundColor: colors.blueAccent[700],
+            backgroundColor: colors.grey[800],
           },
           "& .MuiCheckbox-root": {
             color: `${colors.greenAccent[200]} !important`,

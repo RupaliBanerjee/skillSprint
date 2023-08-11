@@ -7,26 +7,36 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { updateUserData } from "store/userInfo/userInfoSlice";
+import { ACCOUNT_TYPES } from "constants";
 
 const ProfilePage = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
   const userData = useSelector((state) => state.userInfo.userData);
-  const navigate=useNavigate();
-  const dispatch=useDispatch();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const account_type = userData.role;
 
-  const handleFormSubmit = async(values) => {
-   try{
-    const updatedProfileData={...userData,...values}
-    
-    const response=await axios.post("/updateProfile/data",{profileData:updatedProfileData})
-    if(response.status===200){
-      dispatch(updateUserData({...updatedProfileData}))
-      navigate("/lecturer/dashboard");
+  const handleFormSubmit = async (values) => {
+    try {
+      const updatedProfileData = { ...userData, ...values };
+
+      const response = await axios.post("/updateProfile/data", {
+        profileData: updatedProfileData,
+      });
+      if (response.status === 200) {
+        dispatch(updateUserData({ ...updatedProfileData }));
+        const url =
+          account_type === ACCOUNT_TYPES.STUDENT
+            ? `/dashboard/${userData.user_id}`
+            : account_type === ACCOUNT_TYPES.LECTURER
+            ? "/lecturer/dashboard"
+            : "/mentor/dashboard";
+        navigate(url);
+      }
+    } catch (err) {
+      console.log("Profile update error", err);
     }
-   }catch(err){
-    console.log("Profile update error",err)
-   }
   };
 
   return (
@@ -40,8 +50,8 @@ const ProfilePage = () => {
           last_name: userData.last_name,
           email: userData.email,
           contact_no: userData.contact_no,
-          address_1:userData.address_1,
-          address_2:userData.address_2
+          address_1: userData.address_1,
+          address_2: userData.address_2,
         }}
         validationSchema={checkoutSchema}
       >

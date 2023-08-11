@@ -22,7 +22,7 @@ const EvaluationGrid = (props) => {
 
   //const data=useSelector(state=>state.lecturer_Task_Info)
   /* Destructure the data object for TAskDetails */
-  console.log("Check the data for Evaluation Grid", data);
+
   data.map((task, index) => {
     if (task?.studentTaskMap?.length > 0) {
       const taskObj = Object.assign(
@@ -32,8 +32,8 @@ const EvaluationGrid = (props) => {
       );
 
       taskData.push({ ...taskObj });
-    }else{
-      taskData.push({...task})
+    } else {
+      taskData.push({ ...task });
     }
   });
   console.log("Check taskData", taskData);
@@ -109,7 +109,7 @@ const EvaluationGrid = (props) => {
           color: colors.greenAccent[300],
         },
         "& .MuiDataGrid-columnHeaders": {
-          backgroundColor: colors.blueAccent[700],
+          backgroundColor: colors.grey[800],
           borderBottom: "none",
         },
         "& .MuiDataGrid-virtualScroller": {
@@ -117,7 +117,7 @@ const EvaluationGrid = (props) => {
         },
         "& .MuiDataGrid-footerContainer": {
           borderTop: "none",
-          backgroundColor: colors.blueAccent[700],
+          backgroundColor: colors.grey[800],
         },
         "& .MuiCheckbox-root": {
           color: `${colors.greenAccent[200]} !important`,

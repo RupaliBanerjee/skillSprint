@@ -10,6 +10,7 @@ body,
   height: 100%;
   width: 100%;
   font-family: "Source Sans 3", sans-serif;
+  color: #e0e0e0;
 }
 
 .app {

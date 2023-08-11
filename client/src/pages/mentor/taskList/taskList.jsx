@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
 import { tokens } from "theme";
 import SendIcon from "@mui/icons-material/Send";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import GlobalStyles from "styles/Global.styled";
 import { useSelector } from "react-redux";
 
@@ -12,6 +12,7 @@ const TaskList = (props) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
+  const {project_type} =useParams();
   
 
   //Truncate String
@@ -30,6 +31,7 @@ const TaskList = (props) => {
           alignItems="center"
           borderBottom={`4px solid ${colors.primary[500]}`}
           p="15px"
+          data-testid={`${project_type}-project-list-item`}
         >
           <Box>
             <Typography

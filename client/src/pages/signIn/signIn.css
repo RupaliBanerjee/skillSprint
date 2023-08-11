@@ -1,10 +1,10 @@
 body {
-  background: linear-gradient(90deg, #141b2d 0%, #141b2def 34%, #141b2dee 100%);
-  color:#e0e0e0;
+  background: linear-gradient(90deg, #010101 0%, #010101ef 34%, #010101ee 100%);
+  color: #e0e0e0;
 }
 
 .login {
-  width: 360px;
+  width: 80vh;
   padding: 8% 0 0;
   margin: auto;
   font-family: "Source Sans 3", sans-serif;
@@ -13,17 +13,17 @@ body {
 .form,.signup {
   position: relative;
   z-index: 1;
-  background: #0f131e;
+  background: #151515;
   border-radius: 10px;
-  max-width: 360px;
+  
   margin: 0 auto 100px;
   padding: 45px;
   text-align: center;
-  box-shadow: rgb(0, 0, 0, 0.7) 5px 10px 50px, rgb(0, 0, 0, 0.7) -5px 0px 250px;
+  box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.3);
 }
 .signup input{
   outline: 0;
-  background: #090d17;
+  background: #0a0a0a;
   width: 100%;
   border: 0;
   color:#e0e0e0;
@@ -37,7 +37,7 @@ body {
 
 .form input {
   outline: 0;
-  background: #090d17;
+  background: #0a0a0a;
   width: 100%;
   border: 0;
   color:#e0e0e0;
@@ -51,7 +51,7 @@ body {
 
 .form select{
   outline: 0;
-  background: #090d17;
+  background: #0a0a0a;
   width: 100%;
   border: 0;
   color:#e0e0e0;
@@ -64,18 +64,19 @@ body {
 }
 
 .form input:focus, .signup input:focus {
-  background: #1f2535;
+  background: #0a0a0a;
 }
 
 .form button ,.signup button{
   font-family: "Source Sans 3", sans-serif;
   text-transform: uppercase;
   outline: 0;
-  background: #090d17;
+  background: #0a0a0a;
   width: 100%;
   border: 0;
-  border-radius: 5px;
-  padding: 15px;
+  border-radius: 1.1em;
+  padding: 10px;
+  margin-right: 0.5em;
   color:#e0e0e0;
   font-size: 14px;
   -webkit-transition: all 0.3 ease;
@@ -84,7 +85,7 @@ body {
 }
 
 .form button:active,.signup button:active {
-  background: #1f2535;
+  background: #1f1f1f;
   color:#e0e0e0;
 }
 
@@ -99,7 +100,7 @@ body {
   margin: 0 0 10px 10px;
   text-align: left;
   font-size: 10px;
-  color: #f07f7f;
+  color: #ec6969;
 }
 
 .form a, .signup a{

@@ -22,7 +22,7 @@ jest.mock("constants", () => ({
 describe("test all student account functionality", () => {
 
   /* Test if the published assignment list is rendered correctly*/
-  it("renders published assignment list based on unassigned_Task count from redux store", () => {
+  it(" published assignment list based on unassigned_Task count from redux store", () => {
     const userData = {
       loading: false,
       logged_in_userId: "2117280000",

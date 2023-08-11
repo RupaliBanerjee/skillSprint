@@ -1,7 +1,7 @@
-import { ColorModeContext, useMode } from "./theme";
+import { ColorModeContext, useDarkMode } from "./theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import Topbar from "./common/Topbar";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Sidebar from "./common/Sidebar";
 import Dashboard from "./pages/student/dashboard";
 import GlobalStyles from "./styles/Global.styled";
@@ -27,12 +27,16 @@ import TaskListMainPage from "pages/mentor/taskList";
 import ActiveProjectGrid from "pages/mentor/activeProjectPage/activeProjectGrid";
 import LecturerTaskListMainPage from "pages/lecturer/taskList";
 import StudentDetailGrid from "pages/lecturer/taskList/studentDetailGrid";
+import { useEffect } from "react";
+import theme from "./theme";
 
 function App() {
-  const [theme, colorMode] = useMode();
+  const [theme, colorMode] = useDarkMode();
   const accountType = useSelector((state) => state?.userInfo.userData.role);
-
-  console.log("accountType", accountType);
+  const navigate=useNavigate()
+  useEffect(() => {
+    navigate("/", { replace: true });
+  }, []);
 
   return (
     <ColorModeContext.Provider value={colorMode}>

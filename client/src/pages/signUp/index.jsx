@@ -23,6 +23,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchUserData } from "store/userInfo/userInfoSlice";
 import { fetchUserTaskMap } from "store/userTaskMap/userTaskMapSlice";
 import { ACCOUNT_TYPES } from "constants";
+import pbl_logo from "../../assets/images/pbl_logo.png"
 
 //import "./signIn.css";
 // import { useGetUserQuery } from "store/api";
@@ -123,14 +124,36 @@ const SignUp = () => {
           <Box
             className="signup"
             sx={{
-              minWidth: "60vh",
+              minWidth: "85vh",
               minHeight:"50vh",
               marginBottom: "2rem",
             }}
           >
             {/* Passing handleSubmit parameter tohtml form onSubmit property */}
             <form noValidate onSubmit={handleSubmit}>
-              <Typography variant="h3" marginBottom="1rem">Sign up</Typography>
+            <Box display={"flex"} justifyContent={"center"}>
+                  <Box>
+                    <Box
+                      display={"flex"}
+                      justifyContent={"center"}
+                      flexDirection={"row"}
+                    >
+                      <img
+                        alt="app-logo"
+                        width="65px"
+                        height="60px"
+                        src={pbl_logo}
+                      />
+                      <Typography variant="h1" alignSelf={"end"}>
+                        SKILL SPRINT
+                      </Typography>
+                    </Box>
+
+                    <Typography sx={{ mb: "1rem" }}>
+                      Unlocking opportunities through Project Based Learning
+                    </Typography>
+                  </Box>
+                </Box>
               <Box display={"flex"} justifyContent={"center"} gap={1}>
                 {/* First Name */}
                 <input
@@ -262,7 +285,7 @@ const SignUp = () => {
                   color: colors.grey[100],
                 }}
               >
-                Submit
+                Register
               </Button>
             </form>
             <br />

@@ -48,7 +48,7 @@ const TaskDetail = (props) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const navigate = useNavigate();
-  const { project_type,taskType } = useParams();
+  const { project_type, taskType } = useParams();
 
   const accountType = useSelector((state) => state?.userInfo.userData.role);
 
@@ -69,7 +69,7 @@ const TaskDetail = (props) => {
   const [showAddScore, setShowAddScore] = useState(false);
   const [showStudentSubmission, setShowStudentSubmissionBtn] = useState(false);
   const [showTrackProgressBtn, setShowTrackProgressBtn] = useState(false);
-  const [showStudentDetailBtn,setShowStudentDetailBtn] = useState(false);
+  const [showStudentDetailBtn, setShowStudentDetailBtn] = useState(false);
 
   const dispatch = useDispatch();
   const currentURL = window.location.href.split("http://localhost:3006")[1];
@@ -101,29 +101,35 @@ const TaskDetail = (props) => {
     }
 
     /* For Bottom bar button visibility */
-    if (accountType === ACCOUNT_TYPES.LECTURER && taskData?.totalScore === 0) {
+    if (
+      accountType === ACCOUNT_TYPES.LECTURER &&
+      currentURL === "/evaluate/mainPage" &&
+      taskData?.studentTaskMap[0].totalScore === 0
+    ) {
       setShowAddScore(true);
     }
 
     if (
       ((taskData?.studentTaskMap &&
-        taskData.studentTaskMap.every((taskMap)=>taskMap.solution_zip !== "")) ||
+        taskData.studentTaskMap.every(
+          (taskMap) => taskMap.solution_zip !== ""
+        )) ||
         (taskData?.solution_zip && taskData.solution_zip !== "")) &&
       accountType === ACCOUNT_TYPES.LECTURER
     ) {
       setShowSolutionDownload(true);
     }
-    if (
-      accountType === ACCOUNT_TYPES.MENTOR &&
-      project_type === "SUBMITTED"
-    ) {
+    if (accountType === ACCOUNT_TYPES.MENTOR && project_type === "SUBMITTED") {
       setShowStudentSubmissionBtn(true);
     }
     if (accountType === ACCOUNT_TYPES.MENTOR && project_type === "ACTIVE") {
       setShowTrackProgressBtn(true);
     }
-    if (accountType ===ACCOUNT_TYPES.LECTURER && (taskType==="active_assignments" || taskType==="active_projects" )){
-      setShowStudentDetailBtn(true)
+    if (
+      accountType === ACCOUNT_TYPES.LECTURER &&
+      (taskType === "active_assignments" || taskType === "active_projects")
+    ) {
+      setShowStudentDetailBtn(true);
     }
   }, [taskData]);
 
@@ -281,99 +287,98 @@ const TaskDetail = (props) => {
               <Box display={"flex"} justifyContent={"flex-end"}>
                 {showSolutionDownload && (
                   <Tooltip title="Download Solution Zip">
-                    <Box borderRadius="4px" mr={2}>
-                      <Button
-                        sx={{
-                          backgroundColor: colors.blueAccent[700],
-                          color: colors.grey[100],
-                        }}
-                        endIcon={<FileDownloadOutlinedIcon />}
-                        onClick={downloadSolution}
-                      >
-                        Solution
-                      </Button>
-                    </Box>
+                    <Button
+                      sx={{
+                        backgroundColor: colors.blueAccent[700],
+                        color: colors.grey[100],
+                        borderRadius: "4px",
+                        mr: "0.5rem",
+                      }}
+                      endIcon={<FileDownloadOutlinedIcon />}
+                      onClick={downloadSolution}
+                    >
+                      Solution
+                    </Button>
                   </Tooltip>
                 )}
 
                 {showAddScore && (
                   <Tooltip title="Start Evaluation">
-                    <Box borderRadius="4px">
-                      <Button
-                        sx={{
-                          backgroundColor: colors.blueAccent[700],
-                          color: colors.grey[100],
-                        }}
-                        endIcon={<AppRegistrationOutlinedIcon />}
-                        onClick={() => {
-                          setShowScoreDialog(true);
-                        }}
-                      >
-                        Add Score
-                      </Button>
-                    </Box>
+                    <Button
+                      sx={{
+                        backgroundColor: colors.blueAccent[700],
+                        color: colors.grey[100],
+                        borderRadius: "4px",
+                        mr: "0.5rem",
+                      }}
+                      endIcon={<AppRegistrationOutlinedIcon />}
+                      onClick={() => {
+                        setShowScoreDialog(true);
+                      }}
+                      data-testid="add-score-btn"
+                    >
+                      Add Score
+                    </Button>
                   </Tooltip>
                 )}
                 {showStudentSubmission && (
                   <Tooltip title="Show submission details">
-                    <Box borderRadius="4px">
-                      <Button
-                        sx={{
-                          backgroundColor: colors.blueAccent[700],
-                          color: colors.grey[100],
-                        }}
-                        endIcon={<AppRegistrationOutlinedIcon />}
-                        onClick={() => {
-                          if (currentURL !== " /mentor/dashboard") {
-                            navigate(
-                              `/mentor/studentSubmission/${taskData?.key}`
-                            );
-                          }
-                        }}
-                      >
-                        View Submission
-                      </Button>
-                    </Box>
+                    <Button
+                      sx={{
+                        backgroundColor: colors.blueAccent[700],
+                        color: colors.grey[100],
+                        borderRadius: "4px",
+                        mr: "0.5rem",
+                      }}
+                      endIcon={<AppRegistrationOutlinedIcon />}
+                      onClick={() => {
+                        if (currentURL !== " /mentor/dashboard") {
+                          navigate(
+                            `/mentor/studentSubmission/${taskData?.key}`
+                          );
+                        }
+                      }}
+                    >
+                      View Submission
+                    </Button>
                   </Tooltip>
                 )}
                 {showTrackProgressBtn && (
                   <Tooltip title="Show subtask details">
-                    <Box borderRadius="4px">
-                      <Button
-                        sx={{
-                          backgroundColor: colors.blueAccent[700],
-                          color: colors.grey[100],
-                        }}
-                        endIcon={<AppRegistrationOutlinedIcon />}
-                        onClick={() => {
-                          navigate(
-                            `/studentTaskDetail/${taskData?.key}`
-                          );
-                        }}
-                      >
-                        Track Progress
-                      </Button>
-                    </Box>
+                    <Button
+                      sx={{
+                        backgroundColor: colors.blueAccent[700],
+                        color: colors.grey[100],
+                        borderRadius: "4px",
+                        mr: "0.5rem",
+                      }}
+                      endIcon={<AppRegistrationOutlinedIcon />}
+                      onClick={() => {
+                        navigate(`/studentTaskDetail/${taskData?.key}`);
+                      }}
+                    >
+                      Track Progress
+                    </Button>
                   </Tooltip>
                 )}
-                 {showStudentDetailBtn && (
+                {showStudentDetailBtn && (
                   <Tooltip title="Show subtask details">
-                    <Box borderRadius="4px">
-                      <Button
-                        sx={{
-                          backgroundColor: colors.blueAccent[700],
-                          color: colors.grey[100],
-                        }}
-                        endIcon={<AppRegistrationOutlinedIcon />}
-                        onClick={() => {
-                          navigate(
-                            `/lecturer/studentTaskDetail/${taskData?.task_type}/${taskData?.key}`
-                          );
-                        }}
-                      >
-                        Student Detail
-                      </Button>
-                    </Box>
+                    <Button
+                      sx={{
+                        backgroundColor: colors.blueAccent[700],
+                        color: colors.grey[100],
+                        borderRadius: "4px",
+                        mr: "0.5rem",
+                      }}
+                      endIcon={<AppRegistrationOutlinedIcon />}
+                      onClick={() => {
+                        navigate(
+                          `/lecturer/studentTaskDetail/${taskData?.task_type}/${taskData?.key}`
+                        );
+                      }}
+                    >
+                      Student Detail
+                    </Button>
                   </Tooltip>
                 )}
               </Box>

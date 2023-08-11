@@ -79,10 +79,10 @@ const Sidebar = () => {
           padding: " 0px 10px 10px 0px !important",
         },
         "& .pro-inner-item:hover": {
-          color: "#868dfb !important",
+          color: "#0fa060 !important",
         },
         "& .pro-menu-item.active": {
-          color: "#6870fa !important",
+          color: "#058040 !important",
         },
       }}
     >
@@ -268,7 +268,7 @@ const Sidebar = () => {
             {accountType === ACCOUNT_TYPES.MENTOR && (
               <Item
                 title="Publish"
-                to="/publish/assignment"
+                to="/publish/project"
                 icon={<AssignmentOutlinedIcon />}
                 selected={selected}
                 setSelected={setSlected}

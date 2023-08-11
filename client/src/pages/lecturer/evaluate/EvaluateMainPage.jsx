@@ -63,8 +63,7 @@ const EvaluateMainPage = () => {
       type: "Lecturer Task",
     },
   ];
-  console.log("Check Assignment in Evaluate Page", assignment);
-  console.log("Check project in Evaluate Page", project);
+ 
   // useEffect(() => {
   //   tabInfo = [
   //     {

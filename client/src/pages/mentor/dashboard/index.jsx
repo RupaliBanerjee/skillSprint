@@ -35,7 +35,6 @@ const MentorDashboard = () => {
   const [studentCount, setStudentCount] = useState(0);
   const [studentTaskMap, setStudentTaskMap] = useState([]);
   const [viewTaskType, setViewTaskType] = useState("");
-  
 
   const userID = useSelector((state) => state.userInfo.logged_in_userId);
   const activeList = useSelector((state) => state.mentorTaskInfo.active_list);
@@ -150,16 +149,13 @@ const MentorDashboard = () => {
   };
 
   /* Get all tasks published by mentor */
-  const createMentorTaskList = () => {
-    axios
-      .get(`/mentor/taskInfo/${userID}`)
-      .then((response) => {
-        const taskInfo = response.data;
-        updateMentorTaskInfo_Store(taskInfo);
-      })
-      .catch((err) => {
-        console.log("Check the errors for mentor task Info", err);
-      });
+  const createMentorTaskList = async () => {
+    try {
+      const taskInfo = await axios.get(`/mentor/taskInfo/${userID}`);
+      updateMentorTaskInfo_Store(taskInfo.data);
+    } catch (err) {
+      //console.log("Check the errors for mentor task Info", err);
+    }
   };
 
   useEffect(() => {
@@ -182,7 +178,6 @@ const MentorDashboard = () => {
     navigate(`/mentor/taskDetails/${taskData.key}`);
   };
 
-  
   return (
     <Box m="10px 10px" p="0 10px">
       {/* HEADER */}
@@ -335,6 +330,7 @@ const MentorDashboard = () => {
                 alignItems="center"
                 borderBottom={`4px solid ${colors.primary[500]}`}
                 p="15px"
+                data-testid="submitted-project-list-item"
               >
                 <Box>
                   <Typography
