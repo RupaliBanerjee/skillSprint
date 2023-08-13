@@ -48,7 +48,7 @@ const TaskDetail = (props) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const navigate = useNavigate();
-  const { project_type, taskType } = useParams();
+  const { project_type, taskType,task_key } = useParams();
 
   const accountType = useSelector((state) => state?.userInfo.userData.role);
 
@@ -110,7 +110,7 @@ const TaskDetail = (props) => {
     }
 
     if (
-      ((taskData?.studentTaskMap &&
+      ((Array.isArray(taskData?.studentTaskMap) &&
         taskData.studentTaskMap.every(
           (taskMap) => taskMap.solution_zip !== ""
         )) ||
@@ -119,7 +119,7 @@ const TaskDetail = (props) => {
     ) {
       setShowSolutionDownload(true);
     }
-    if (accountType === ACCOUNT_TYPES.MENTOR && project_type === "SUBMITTED") {
+    if (accountType === ACCOUNT_TYPES.MENTOR && (project_type === "SUBMITTED" || task_key===taskData.key)) {
       setShowStudentSubmissionBtn(true);
     }
     if (accountType === ACCOUNT_TYPES.MENTOR && project_type === "ACTIVE") {

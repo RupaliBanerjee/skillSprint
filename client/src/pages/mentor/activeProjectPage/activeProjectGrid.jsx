@@ -126,7 +126,7 @@ const ActiveProjectGrid = () => {
         />
         <Button
           sx={{
-            backgroundColor: colors.blueAccent[700],
+            backgroundColor: colors.greenAccent[600],
             color: colors.grey[100],
           }}
           onClick={() => {

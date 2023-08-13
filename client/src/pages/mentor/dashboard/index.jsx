@@ -347,9 +347,10 @@ const MentorDashboard = () => {
                 <Box color={colors.grey[100]}>{task.end_date}</Box>
                 <Button
                   sx={{
-                    backgroundColor: colors.greenAccent[500],
+                    backgroundColor: colors.greenAccent[600],
                     p: "5px 10px",
                     borderRadius: "4px",
+                    color:colors.grey[100]
                   }}
                   onClick={() => viewDetails(task)}
                 >

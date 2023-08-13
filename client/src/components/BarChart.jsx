@@ -8,6 +8,8 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { ACCOUNT_TYPES } from "constants";
 
+/* Reference : https://nivo.rocks/bar/ */
+
 const BarChart = ({ isDashboard = false }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);

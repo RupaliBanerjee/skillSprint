@@ -117,8 +117,8 @@ const router=express.Router();
   router.get("/getAllTaskId", (req, res) => {
     TaskDetail.find()
       .then((taskData) => {
-        const taskIdList = taskData.map((task) => task.key);
-        res.send(taskIdList);
+       const taskIdList = taskData.map((task) => task.key);
+       res.send(taskIdList);
       })
       .catch((err) => {
         console.log("get all task Ids error", err);
@@ -128,7 +128,8 @@ const router=express.Router();
   /* publish new assignment */
   router.post("/addNewTask/assignment", (req, res) => {
     const taskDetailEntry = req.body.taskDetail;
-    TaskDetail.create(taskDetailEntry)
+    console.log("check TaskDetailEntry",taskDetailEntry);
+    TaskDetail.insertMany([{...taskDetailEntry}])
       .then((response) => {
         res.send(response);
       })

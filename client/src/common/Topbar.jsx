@@ -49,7 +49,7 @@ const Topbar = () => {
       p={1}
       sx={{ color: colors.grey[100] }}
     >
-      {/* Search Bar */}
+      {/* Search Bar Currently not functional */}
       <Box
         display={"flex"}
         sx={{ backgroundColor: colors.primary[400], borderRadius: "3px" }}
@@ -62,7 +62,7 @@ const Topbar = () => {
           <SearchIcon />
         </IconButton>
       </Box>
-      {/* Icons */}
+      {/* Icons for top left corner */}
       <Box display={"flex"}>
         <IconButton>
           <NotificationsOutlinedIcon />
@@ -93,6 +93,7 @@ const Topbar = () => {
           onClose={handleClose}
         >
           <MenuItem onClick={signOut}>Sign out</MenuItem>
+          {/* The activity tracker is in future scope */}
           <MenuItem onClick={handleClose}>Activity Tracker</MenuItem>
         </Menu>
       </Box>

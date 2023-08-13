@@ -51,7 +51,7 @@ const PublishAssignmentPage = () => {
     "documentation",
     "basic functionality",
   ]);
-  let oldTaskKeys = null;
+  const [oldTaskKeys, setOldTaskKeys] = useState([]);
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const userID = useSelector((state) => state?.userInfo?.userData.user_id);
@@ -124,10 +124,11 @@ const PublishAssignmentPage = () => {
   const getAllTaskIds = async () => {
     try {
       const taskIdList = await axios.get("/lecturer/getAllTaskId");
-      oldTaskKeys = taskIdList.data.map((data) => {
-        const idValues = data.split("").slice(3, data.length).join("");
+      let oldTasks = taskIdList.data.map((data) => {
+        const idValues = data?.split("").slice(3, data.length).join("");
         return idValues;
       });
+      setOldTaskKeys(oldTasks);
     } catch (err) {
       console.log("get TAsk Ids error", err);
     }
@@ -153,7 +154,7 @@ const PublishAssignmentPage = () => {
         pdf_file: pdfFile,
         start_date: startDate,
         end_date: endDate,
-        task_type: "ASSIGNMENT",
+        task_type: "PROJECT",
         active: false,
         assesment_criteria: [...criteriaList],
         subTaskInfo: [...subTaskData],
@@ -162,8 +163,11 @@ const PublishAssignmentPage = () => {
     }
   }, [subTaskData]);
 
-  const duplicateIdCheck = (value) =>
-    oldTaskKeys ? oldTaskKeys?.indexOf(value) === -1 : true;
+  const duplicateIdCheck = (value) => {
+    console.log("Check Value", value);
+    console.log("Check oldTaskKeys", oldTaskKeys);
+    return oldTaskKeys ? oldTaskKeys?.indexOf(value) === -1 : true;
+  };
 
   /* Validation for publish Task */
   const publishTaskSchema = yup.object().shape({
@@ -250,7 +254,14 @@ const PublishAssignmentPage = () => {
           }) => (
             <form onSubmit={handleSubmit}>
               <Box display="flex" justifyContent="end" mb={2}>
-                <Button type="submit" color="secondary" variant="contained">
+                <Button
+                  type="submit"
+                  sx={{
+                    backgroundColor: colors.greenAccent[600],
+                    color: colors.grey[100],
+                  }}
+                  variant="contained"
+                >
                   Save
                 </Button>
               </Box>

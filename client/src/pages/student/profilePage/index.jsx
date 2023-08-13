@@ -1,4 +1,4 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField,useTheme} from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -8,8 +8,11 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { updateUserData } from "store/userInfo/userInfoSlice";
 import { ACCOUNT_TYPES } from "constants";
+import { tokens } from "theme";
 
 const ProfilePage = () => {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
   const userData = useSelector((state) => state.userInfo.userData);
@@ -152,7 +155,14 @@ const ProfilePage = () => {
               />
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
-              <Button type="submit" color="secondary" variant="contained">
+              <Button
+                type="submit"
+                sx={{
+                  backgroundColor: colors.greenAccent[600],
+                  color: colors.grey[100],
+                }}
+                variant="contained"
+              >
                 Save
               </Button>
             </Box>
