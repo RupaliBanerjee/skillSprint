@@ -11,7 +11,7 @@ const initialState = {
 
 //AsyncThunk generates pending fulfilled and rejected action types
 export const fetchUserData = createAsyncThunk("user/fetchData", (id) => {
-  return axios.get(`/getUserInfo/${id}`).then((response) => {
+  return axios.get(`/student/getUserInfo/${id}`).then((response) => {
     return response.data;
     //dispatch(fetchUserSucceeded(users)) this line is not needed as auto generated actions available
   });

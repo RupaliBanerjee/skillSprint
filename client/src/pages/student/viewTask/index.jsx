@@ -31,7 +31,7 @@ const ViewTask = () => {
   /* Update TaskMap in DB */
   const updateTaskMapSolution = (task_id, solution) => {
     try {
-      axios.post("/updateTaskMap/solution", {
+      axios.post("/student/updateTaskMap/solution", {
         task_id: task_id,
         solution_zip: solution,
       });
@@ -43,7 +43,7 @@ const ViewTask = () => {
   /* Update TaskDetail in DB */
   const updateTaskDetailComments = (task_id, comments) => {
     try {
-      axios.post("/updateTaskDetail/comments", {
+      axios.post("/student/updateTaskDetail/comments", {
         task_id: task_id,
         student_comments: comments,
       });

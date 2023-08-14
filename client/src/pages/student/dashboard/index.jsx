@@ -106,7 +106,7 @@ const Dashboard = () => {
     all_assigned_task_ids.push(...submitted_task.map((task) => task.task_id));
 
     try {
-      const response = await axios.post("/latestTask", {
+      const response = await axios.post("/student/latestTask", {
         all_assigned_task_ids: all_assigned_task_ids,
       });
       const assignmentType = response.data.filter(
@@ -127,7 +127,7 @@ const Dashboard = () => {
 
   const getTaskDetails = () => {
     axios
-      .post("/taskDetails", {
+      .post("/student/taskDetails", {
         activeTask: active_task,
         submittedTask: submitted_task,
       })

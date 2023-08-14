@@ -12,7 +12,7 @@ describe("task submission api test", () => {
       task_id: "HCI0033",
     };
     const response = await request(baseURL)
-      .post("/updateTaskMap/solution")
+      .post("/student/updateTaskMap/solution")
       .send(submissionData);
     const msg = response.body.acknowledged;
     expect(response.statusCode).toBe(200);
@@ -28,7 +28,7 @@ describe("taskDetail Collection update on submisssion", () => {
       student_comments: "code repository link from dropbox",
     };
     const response = await request(baseURL)
-      .post("/updateTaskDetail/comments")
+      .post("/student/updateTaskDetail/comments")
       .send(submissionData);
     const msg = response.body.acknowledged;
     expect(response.statusCode).toBe(200);

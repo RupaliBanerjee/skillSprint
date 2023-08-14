@@ -29,7 +29,7 @@ const ViewInactiveTask = () => {
 
   const updateTaskDetail=async(task_id)=>{
     try{
-      const response=await axios.post("/updateTaskDetail/status",{task_id:task_id});
+      const response=await axios.post("/student/updateTaskDetail/status",{task_id:task_id});
       if(response.status===200){
         navigate(-1)
       }
@@ -42,7 +42,7 @@ const ViewInactiveTask = () => {
    /* After enroll update taskDetails and TaskMap DB and redux store */
   const updateTaskMap=async(taskData)=>{
     try{
-      const response=await axios.post("/updateTaskMap",taskData);
+      const response=await axios.post("/student/updateTaskMap",taskData);
       if(response.status===200){
         dispatch(addTask(taskData));
         updateTaskDetail(taskData.task_id)

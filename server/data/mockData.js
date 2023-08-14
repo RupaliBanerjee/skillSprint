@@ -968,10 +968,10 @@ export const taskDetails = [
       assigner: "",
       student: "",
     },
-    start_date: "2023/07/25",
-    end_date: "2023/08/14",
+    start_date: "2023/08/05",
+    end_date: "2023/08/30",
     task_type: "ASSIGNMENT",
-    active: false,
+    active: true,
     pdf_file:"",
     assesment_criteria:["accuracy","basic functionality","code quality","documentation"]
   },

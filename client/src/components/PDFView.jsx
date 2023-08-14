@@ -96,7 +96,7 @@ const PDFView = (props) => {
 
   
   return (
-    <Box display={"flex"} height={"60vh"} overflow={"auto"}>
+    <Box display={"flex"} height={"50vh"} overflow={"auto"}>
       {/* <input type="file" onChange={getFile}/> */}
       {/* <button>Submit</button> */}
       <ViewerPage pdfFile={pdfFileData} />

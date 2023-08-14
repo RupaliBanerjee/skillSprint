@@ -1,6 +1,11 @@
 import { createContext, useMemo } from "react";
 import { createTheme } from "@mui/material/styles";
 
+
+/* The theme code is referenced from https://github.com/ed-roh/react-admin-dashboard
+  The colors have been modified and replaced with application specific color codes
+*/
+
 // color design tokens export
 export const tokens = () => ({
   grey: {
