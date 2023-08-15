@@ -54,6 +54,10 @@ const Dashboard = () => {
   );
   const { id } = useParams();
 
+  const dateInPast = (first_date) => {
+    return new Date(first_date) < new Date(new Date());
+  };
+
   const find_recent_submission_score = () => {
     submitted_task_detail.map((task) => {
       let min_diff = 100;
@@ -109,9 +113,10 @@ const Dashboard = () => {
       const response = await axios.post("/student/latestTask", {
         all_assigned_task_ids: all_assigned_task_ids,
       });
-      const assignmentType = response.data.filter(
+      let assignmentType = response.data.filter(
         (task) => task.task_type === TASK_TYPES.ASSIGNMENT
       );
+        assignmentType=assignmentType.filter((task)=>!dateInPast(task.start_date))
 
       dispatch(
         updateTask({

@@ -103,7 +103,7 @@ const TaskDetail = (props) => {
     /* For Bottom bar button visibility */
     if (
       accountType === ACCOUNT_TYPES.LECTURER &&
-      currentURL === "/evaluate/mainPage" &&
+      (currentURL === "/evaluate/mainPage" || currentURL === "/evaluate/secondaryPage") &&
       taskData?.studentTaskMap[0].totalScore === 0
     ) {
       setShowAddScore(true);
@@ -185,7 +185,7 @@ const TaskDetail = (props) => {
     <>
       <Box border={`4px solid ${colors.primary[500]}`} marginTop="20px">
         {!showFilePreview_dialog && (
-          <Box width="100%" p="10px">
+          <Box width="100%" sx={{minWidth:"60rem"}} p="10px">
             <Box display="flex" flexDirection={"column"}>
               <Box display="flex" justifyContent="space-between">
                 <Typography

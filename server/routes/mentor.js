@@ -13,8 +13,7 @@ const router = express.Router();
 /* Get Task Detail for all the tasks published  by the mentor */
 router.get("/taskInfo/:user_id", (req, res) => {
   const {user_id }= req.params;
- console.log("Check userId",user_id)
-  let active_project_List = [];
+ let active_project_List = [];
   let submitted_project_List = [];
   TaskDetail.find({ publisher_id: user_id })
     .then((taskData) => {

@@ -6,19 +6,7 @@ import User from '../models/User.js';
 
 const router=express.Router();
 
- /* get userData to store in redux store */
-router.get("/getUserInfo/:id", (req, res) => {
-    const user_id = req.params.id;
-   
-    User.findOne({ user_id: user_id })
-      .then((userInfo) => {
-        res.send(userInfo);
-      })
-      .catch((err) => console.log("getUserInfo Error", err));
-  });
-
-
-  /* Get task Map for retriving all task IDs */
+ /* Get task Map for retriving all task IDs */
   router.get("/taskMap/:id", (req, res) => {
     const id = req.params.id;
     console.log("user_id", id);

@@ -13,11 +13,13 @@ import {
 import { tokens } from "theme";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import TextareaAutosize from "@mui/base/TextareaAutosize";
+import { useNavigate } from "react-router-dom";
 
 const AddScore_Dialogue = (props) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const { open, closeDialog, scoreDetail } = props;
+  const navigate=useNavigate();
 
   const handleClose = () => {
     closeDialog();
@@ -67,6 +69,9 @@ const AddScore_Dialogue = (props) => {
             margin: "10px 0",
             backgroundColor: colors.primary[500],
             color: colors.grey[100],
+          }}
+          onClick={()=>{
+            navigate("/lecturer/dashboard")
           }}
         >
           Save changes

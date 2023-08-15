@@ -49,7 +49,10 @@ const EvaluateMainPage = () => {
               : project,
           })
         );
-      });
+      }).then(()=>{
+        navigate("/lecturer/dashboard")
+      })
+    
   };
   let tabInfo = [
     {
