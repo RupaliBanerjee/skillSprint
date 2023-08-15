@@ -1,4 +1,12 @@
 
+## Declaration
+
+"I verify that I am the sole author of the programmes contained in this archive, except where explicitly stated to the contrary."
+
+Rupali Banerjee
+15-08-2023
+
+
 # SkillSprint for Project Based Learning
 
 
@@ -40,15 +48,13 @@ Students can review provided PDFs before enrolling in assignments to assess alig
  
 
 
-1. Dashboard page with account specific widgets 
-
-2. Evaluate Assign and publish page for Lecturer
-
-3. Publish page for Mentor
-
-4. Login page
-5. Signup Page
-
+1. login Page
+2. Signup Page
+3. Student enroll
+4. Student task submission
+5. Lecturer -Evaluate task, Assign task, Publish assignment
+6. Mentor -Publish projects with group of subtasks, track progress for active projects, view student score details
+7. SignOut
 
 
 
@@ -57,7 +63,7 @@ Students can review provided PDFs before enrolling in assignments to assess alig
 Demo link from dropbox
 
 
-https://dl.dropboxusercontent.com/s/salyizuxr640pdv/SkillSprint%20Recording.gif?dl=0
+https://dl.dropboxusercontent.com/scl/fi/6y3ifv04of8ognlvi3d3o/finalDemo.gif?rlkey=lpe18jbuz1xwj36jas9n6otel&dl=0
 
 ## User Credentials 
 
