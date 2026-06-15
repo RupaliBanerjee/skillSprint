@@ -31,7 +31,9 @@ app.use(bodyParser.json({ limit: "50mb" }));
 app.use(express.json({ limit: "50mb" }));
 //bodyParser.json({ limit: "50mb" })
 
-app.use(cors());
+app.use(cors({
+  origin:process.env.FRONTEND_URL || "http://localhost:3000"
+}));
 
 /* ROUTES */
 app.use("/student", studentRoutes);
@@ -40,8 +42,8 @@ app.use("/mentor", mentorRoutes);
 
 
 /* Mongoose Setup */
-//const PORT = process.env.PORT || 9000;
-const PORT = 5000;
+const PORT = process.env.PORT || 9000;
+//const PORT = 5000;
 //process.env.MONGO_URL
 mongoose
   .connect(
