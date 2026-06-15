@@ -9,9 +9,11 @@ const initialState = {
   error: "",
 };
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 //AsyncThunk generates pending fulfilled and rejected action types
 export const fetchUserTaskMap = createAsyncThunk("user/fetchTaskMap", (id) => {
-  return axios.get(`/student/taskMap/${id}`).then((response) => {
+  return axios.get(`${API_URL}/student/taskMap/${id}`).then((response) => {
     return response.data;
     //dispatch(fetchUserSucceeded(users)) this line is not needed as auto generated actions available
   });

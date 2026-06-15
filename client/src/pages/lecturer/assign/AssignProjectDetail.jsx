@@ -13,6 +13,7 @@ import {
 import { useNavigate } from "react-router-dom";
 
 const AssignProjectDetail = (props) => {
+  const API_URL = import.meta.env.VITE_API_URL;
   const { projectDetail, assignClicked, setAssignClicked } = props;
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -26,15 +27,15 @@ const AssignProjectDetail = (props) => {
   const [studentInfo, setStudentInfo] = useState([]);
 
   const active_assignment = useSelector(
-    (state) => state.lecturer_Task_Info.active_assignment_list
+    (state) => state.lecturer_Task_Info.active_assignment_list,
   );
   const active_project = useSelector(
-    (state) => state.lecturer_Task_Info.active_project_list
+    (state) => state.lecturer_Task_Info.active_project_list,
   );
   const dispatch = useDispatch();
 
   const studentTaskMapList = useSelector(
-    (state) => state.lecturer_Task_Info.student_taskMap
+    (state) => state.lecturer_Task_Info.student_taskMap,
   );
 
   /* To add student info data for the active projects and assignments in Lecturer_Task_Info */
@@ -48,7 +49,7 @@ const AssignProjectDetail = (props) => {
           ...task,
           ["studentInfo"]: studentInfo,
         };
-      }
+      },
     );
     const active_project_withStudentDetail = active_project.map((task) => {
       const studentInfo_List = [];
@@ -63,7 +64,7 @@ const AssignProjectDetail = (props) => {
       updateActiveTaskData({
         active_assignment_list: active_assignment_withStudentDetail,
         active_project_list: active_project_withStudentDetail,
-      })
+      }),
     );
   };
 
@@ -78,7 +79,7 @@ const AssignProjectDetail = (props) => {
 
   const getTaskId_list = (user_id, taskMapData) => {
     const StudentTaskList = taskMapData.filter(
-      (user) => user.user_id === user_id
+      (user) => user.user_id === user_id,
     );
     let allTaskIds = [];
     StudentTaskList.forEach((student) => {
@@ -90,16 +91,19 @@ const AssignProjectDetail = (props) => {
   const getTaskDataList = (user_id, taskDetailList, taskMapData) => {
     const taskIds = getTaskId_list(user_id, taskMapData);
     const getTaskData = taskDetailList.filter(
-      (t) => taskIds.indexOf(t.key) !== -1
+      (t) => taskIds.indexOf(t.key) !== -1,
     );
     return getTaskData;
   };
 
   const getTaskDetails = async (TaskIdList) => {
     try {
-      const response = await axios.post("/lecturer/getAllTaskDetail", {
-        taskId: TaskIdList,
-      });
+      const response = await axios.post(
+        `${API_URL}/lecturer/getAllTaskDetail`,
+        {
+          taskId: TaskIdList,
+        },
+      );
       return response.data.taskDetailList;
     } catch (err) {}
   };
@@ -108,7 +112,7 @@ const AssignProjectDetail = (props) => {
   const getActiveTaskCount = (user_id, taskDetailList, taskMapData) => {
     const taskIds = getTaskId_list(user_id, taskMapData);
     const taskList = taskDetailList.filter(
-      (task) => taskIds.indexOf(task.key) !== -1
+      (task) => taskIds.indexOf(task.key) !== -1,
     );
     const taskCount = taskList.filter((task) => task.active).length;
     return taskCount;
@@ -133,7 +137,7 @@ const AssignProjectDetail = (props) => {
     /* Get the student total score data for project assign grid */
     const newStudentTaskMap = taskMapData.map((task) => {
       const taskDetail = taskDetailList.filter(
-        (t) => t.key === task.task_id
+        (t) => t.key === task.task_id,
       )[0];
       // if (studentId.get(task.user_id) > 1) {
       //Duplicate exist
@@ -145,12 +149,12 @@ const AssignProjectDetail = (props) => {
         ["task_data_list"]: getTaskDataList(
           task.user_id,
           taskDetailList,
-          taskMapData
+          taskMapData,
         ),
         ["active_task_count"]: getActiveTaskCount(
           task.user_id,
           taskDetailList,
-          taskMapData
+          taskMapData,
         ),
       };
       return studentMap;
@@ -162,7 +166,7 @@ const AssignProjectDetail = (props) => {
 
   const getTaskMap = async () => {
     try {
-      const response = await axios.get("/lecturer/getAllTaskMap");
+      const response = await axios.get(`${API_URL}/lecturer/getAllTaskMap`);
       const taskMapData = response.data;
 
       updateStudentInfo(taskMapData);
@@ -196,10 +200,13 @@ const AssignProjectDetail = (props) => {
   const updateTaskMap = async (taskMapList) => {
     try {
       const getTaskIidList = taskMapList.map((task) => task.task_id);
-      const response = await axios.post("/lecturer/setTaskMap", taskMapList);
+      const response = await axios.post(
+        `${API_URL}/lecturer/setTaskMap`,
+        taskMapList,
+      );
       const taskDetailUpdate = await axios.post(
-        "/lecturer/updateTaskDetail",
-        getTaskIidList
+        `${API_URL}/lecturer/updateTaskDetail`,
+        getTaskIidList,
       );
       navigate("/lecturer/dashboard");
     } catch (err) {
@@ -220,7 +227,7 @@ const AssignProjectDetail = (props) => {
         <Box
           display={"flex"}
           justifyContent="space-between"
-         sx={{background:"#070707"}}
+          sx={{ background: "#070707" }}
         >
           <Button
             sx={{

@@ -12,12 +12,14 @@ import { updateTask } from "store/userTaskDetail/userTaskDetailSlice";
 const ViewTask = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const { active_Task, submitted_Task,unAssigned_Task } = useSelector(
-    (state) => state.userTaskDetail
+  const { active_Task, submitted_Task, unAssigned_Task } = useSelector(
+    (state) => state.userTaskDetail,
   );
   const active_projects = [];
   const active_assignment = [];
   const dispatch = useDispatch();
+
+  const API_URL = import.meta.env.VITE_API_URL;
 
   /* Create seperate array for Project and Assignment */
   active_Task.forEach((task) => {
@@ -31,7 +33,7 @@ const ViewTask = () => {
   /* Update TaskMap in DB */
   const updateTaskMapSolution = (task_id, solution) => {
     try {
-      axios.post("/student/updateTaskMap/solution", {
+      axios.post(`${API_URL}/student/updateTaskMap/solution`, {
         task_id: task_id,
         solution_zip: solution,
       });
@@ -43,7 +45,7 @@ const ViewTask = () => {
   /* Update TaskDetail in DB */
   const updateTaskDetailComments = (task_id, comments) => {
     try {
-      axios.post("/student/updateTaskDetail/comments", {
+      axios.post(`${API_URL}/student/updateTaskDetail/comments`, {
         task_id: task_id,
         student_comments: comments,
       });
@@ -55,27 +57,26 @@ const ViewTask = () => {
   /* Update Redux store after DB changes for solution submission */
   const updateReduxStoreTaskMap = (taskData) => {
     const newActiveTaskList = active_Task.filter(
-      (task) => task.task_id !== taskData.task_id
+      (task) => task.task_id !== taskData.task_id,
     );
     const newSubmittedTaskList = [...submitted_Task];
     newSubmittedTaskList.push(taskData);
-    
+
     dispatch(
       updateTask({
         active_Task: newActiveTaskList,
         submitted_Task: newSubmittedTaskList,
-        unAssigned_Task:unAssigned_Task
-      })
+        unAssigned_Task: unAssigned_Task,
+      }),
     );
   };
 
   /* Update Student Submission Data for active task */
   const updateTaskDataStudent = async (taskData) => {
-    
     updateTaskMapSolution(taskData.task_id, taskData.solution_zip);
     updateTaskDetailComments(
       taskData.task_id,
-      taskData.task_detail.comments.student
+      taskData.task_detail.comments.student,
     );
     updateReduxStoreTaskMap(taskData);
   };

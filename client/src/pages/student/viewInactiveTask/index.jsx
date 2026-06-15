@@ -16,57 +16,66 @@ const ViewInactiveTask = () => {
   const colors = tokens(theme.palette.mode);
   const navigate = useNavigate();
 
-  const userId=useSelector((state)=>state?.userInfo?.userData.user_id);
-  const dispatch=useDispatch();
+  const API_URL = import.meta.env.VITE_API_URL;
+
+  const userId = useSelector((state) => state?.userInfo?.userData.user_id);
+  const dispatch = useDispatch();
 
   const { task_key } = useParams();
   const taskData = useSelector((state) => {
     return state.userTaskDetail.unAssigned_Task.filter(
-      (t) => t.key === task_key
+      (t) => t.key === task_key,
     );
   });
 
-
-  const updateTaskDetail=async(task_id)=>{
-    try{
-      const response=await axios.post("/student/updateTaskDetail/status",{task_id:task_id});
-      if(response.status===200){
-        navigate(-1)
+  const updateTaskDetail = async (task_id) => {
+    try {
+      const response = await axios.post(
+        `${API_URL}/student/updateTaskDetail/status`,
+        {
+          task_id: task_id,
+        },
+      );
+      if (response.status === 200) {
+        navigate(-1);
       }
-    }catch(err){
-      console.log("TaskDetail update",err)
+    } catch (err) {
+      console.log("TaskDetail update", err);
     }
-  }
+  };
 
-
-   /* After enroll update taskDetails and TaskMap DB and redux store */
-  const updateTaskMap=async(taskData)=>{
-    try{
-      const response=await axios.post("/student/updateTaskMap",taskData);
-      if(response.status===200){
+  /* After enroll update taskDetails and TaskMap DB and redux store */
+  const updateTaskMap = async (taskData) => {
+    try {
+      const response = await axios.post(
+        `${API_URL}/student/updateTaskMap`,
+        taskData,
+      );
+      if (response.status === 200) {
         dispatch(addTask(taskData));
-        updateTaskDetail(taskData.task_id)
+        updateTaskDetail(taskData.task_id);
       }
-    }catch(err){
-      console.log("Update task map Error",err)
+    } catch (err) {
+      console.log("Update task map Error", err);
     }
-    
-  }
+  };
 
- 
-  const enrollTask=()=>{
-    const scoreList=taskData[0].assesment_criteria.map((criteria)=>({name:criteria,weightage:0}))
-    
-    const taskMapEntry={
-      user_id:userId,
-      task_id:taskData[0].key,
-      score:scoreList,
-      solution_zip:'',
-      totalScore:0
-    }
-    
-   updateTaskMap(taskMapEntry)
-  }
+  const enrollTask = () => {
+    const scoreList = taskData[0].assesment_criteria.map((criteria) => ({
+      name: criteria,
+      weightage: 0,
+    }));
+
+    const taskMapEntry = {
+      user_id: userId,
+      task_id: taskData[0].key,
+      score: scoreList,
+      solution_zip: "",
+      totalScore: 0,
+    };
+
+    updateTaskMap(taskMapEntry);
+  };
   return (
     <Box m="10px 20px">
       {/* HEADER */}

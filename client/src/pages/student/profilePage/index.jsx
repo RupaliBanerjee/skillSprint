@@ -1,4 +1,4 @@
-import { Box, Button, TextField,useTheme} from "@mui/material";
+import { Box, Button, TextField, useTheme } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -15,6 +15,8 @@ const ProfilePage = () => {
   const colors = tokens(theme.palette.mode);
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
   const userData = useSelector((state) => state.userInfo.userData);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -24,7 +26,7 @@ const ProfilePage = () => {
     try {
       const updatedProfileData = { ...userData, ...values };
 
-      const response = await axios.post("/updateProfile/data", {
+      const response = await axios.post(`${API_URL}/updateProfile/data`, {
         profileData: updatedProfileData,
       });
       if (response.status === 200) {
@@ -33,8 +35,8 @@ const ProfilePage = () => {
           account_type === ACCOUNT_TYPES.STUDENT
             ? `/dashboard/${userData.user_id}`
             : account_type === ACCOUNT_TYPES.LECTURER
-            ? "/lecturer/dashboard"
-            : "/mentor/dashboard";
+              ? "/lecturer/dashboard"
+              : "/mentor/dashboard";
         navigate(url);
       }
     } catch (err) {

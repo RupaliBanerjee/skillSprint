@@ -29,6 +29,7 @@ const Dashboard = () => {
   const colors = tokens(theme.palette.mode);
   const all_assigned_task_ids = [];
   const navigate = useNavigate();
+  const API_URL = import.meta.env.VITE_API_URL;
 
   /* Send the deadline and task info for task that needs to be completed before next 100 days */
   const [difference_In_Days, setDifference_In_Days] = useState(100);
@@ -39,18 +40,18 @@ const Dashboard = () => {
   /* Data from userTaskMap redux data store*/
   const active_task = useSelector((state) => state.userTaskMap.active_task);
   const submitted_task = useSelector(
-    (state) => state.userTaskMap.submitted_task
+    (state) => state.userTaskMap.submitted_task,
   );
   const taskMapLoading = useSelector((state) => state.userTaskMap.loading);
   /* Data from userTaskDetail redux store */
   const active_task_detail = useSelector(
-    (state) => state.userTaskDetail.active_Task
+    (state) => state.userTaskDetail.active_Task,
   );
   const submitted_task_detail = useSelector(
-    (state) => state.userTaskDetail.submitted_Task
+    (state) => state.userTaskDetail.submitted_Task,
   );
   const unassigned_task = useSelector(
-    (state) => state.userTaskDetail.unAssigned_Task
+    (state) => state.userTaskDetail.unAssigned_Task,
   );
   const { id } = useParams();
 
@@ -94,7 +95,7 @@ const Dashboard = () => {
         let timeDiff = end_date.getTime() - current_date.getTime();
         diff_days = timeDiff / (1000 * 3600 * 24);
 
-        if (diff_days < difference_In_Days && diff_days>0) {
+        if (diff_days < difference_In_Days && diff_days > 0) {
           setDifference_In_Days(diff_days);
           latestDate = end_date;
           setCurrent_task({ ...task });
@@ -110,20 +111,22 @@ const Dashboard = () => {
     all_assigned_task_ids.push(...submitted_task.map((task) => task.task_id));
 
     try {
-      const response = await axios.post("/student/latestTask", {
+      const response = await axios.post(`${API_URL}/student/latestTask`, {
         all_assigned_task_ids: all_assigned_task_ids,
       });
       let assignmentType = response.data.filter(
-        (task) => task.task_type === TASK_TYPES.ASSIGNMENT
+        (task) => task.task_type === TASK_TYPES.ASSIGNMENT,
       );
-        assignmentType=assignmentType.filter((task)=>!dateInPast(task.start_date))
+      assignmentType = assignmentType.filter(
+        (task) => !dateInPast(task.start_date),
+      );
 
       dispatch(
         updateTask({
           active_Task: taskData.activeTaskWithDetail,
           submitted_Task: taskData.submittedTaskWithDetail,
           unAssigned_Task: [...assignmentType],
-        })
+        }),
       );
     } catch (err) {
       console.log("get Latest Task client error", err);
@@ -143,7 +146,7 @@ const Dashboard = () => {
             active_Task: taskData.activeTaskWithDetail,
             submitted_Task: taskData.submittedTaskWithDetail,
             unAssigned_Task: [],
-          })
+          }),
         );
         getAllLatestTasks(taskData);
       })
