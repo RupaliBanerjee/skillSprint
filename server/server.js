@@ -42,7 +42,7 @@ app.use("/mentor", mentorRoutes);
 
 
 /* Mongoose Setup */
-const PORT = process.env.PORT || 9000;
+const PORT = process.env.PORT || 5000;
 //const PORT = 5000;
 //process.env.MONGO_URL
 mongoose
