@@ -47,7 +47,7 @@ const PORT = process.env.PORT || 5000;
 //process.env.MONGO_URL
 mongoose
   .connect(
-    "mongodb+srv://rupalibanerjeesb:PBLk21172849@pblcluster.vgkwkrf.mongodb.net/",
+    process.env.MONGODB_URI,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
