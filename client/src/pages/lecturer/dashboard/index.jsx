@@ -1,13 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  Box,
-  Button,
-  IconButton,
-  Typography,
-  useTheme,
-  Backdrop,
-  CircularProgress,
-} from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import Header from "common/Header";
 import { tokens } from "theme";
 import AddCardOutlinedIcon from "@mui/icons-material/AddCardOutlined";
@@ -26,7 +18,7 @@ import {
 import { useNavigate } from "react-router-dom";
 
 const Lecturer_Dashboard = () => {
-  const API_URL = import.meta.env.VITE_API_URL;
+  const API_URL = process.env.VITE_API_URL;
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const navigate = useNavigate();

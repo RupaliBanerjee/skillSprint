@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
+import { Box, Button, useTheme } from "@mui/material";
 import { tokens } from "theme";
 import AssignProjectTabs from "./AssignProjectTabs";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,7 +13,7 @@ import {
 import { useNavigate } from "react-router-dom";
 
 const AssignProjectDetail = (props) => {
-  const API_URL = import.meta.env.VITE_API_URL;
+  const API_URL = process.env.VITE_API_URL;
   const { projectDetail, assignClicked, setAssignClicked } = props;
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
