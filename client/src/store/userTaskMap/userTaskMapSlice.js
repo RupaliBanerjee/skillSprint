@@ -9,7 +9,7 @@ const initialState = {
   error: "",
 };
 
-const API_URL = process.env.VITE_API_URL;
+const API_URL = process.env.REACT_APP_API_URL;
 
 //AsyncThunk generates pending fulfilled and rejected action types
 export const fetchUserTaskMap = createAsyncThunk("user/fetchTaskMap", (id) => {

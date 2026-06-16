@@ -18,7 +18,7 @@ import {
 import { useNavigate } from "react-router-dom";
 
 const Lecturer_Dashboard = () => {
-  const API_URL = process.env.VITE_API_URL;
+  const API_URL = process.env.REACT_APP_API_URL;
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const navigate = useNavigate();
