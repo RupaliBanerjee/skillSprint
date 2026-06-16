@@ -33,7 +33,7 @@ import DialogWithTitle from "common/DialogWithTitle";
 import AddSubTask from "pages/mentor/addSubTask";
 
 const PublishAssignmentPage = () => {
-  const API_URL = process.env.VITE_API_URL;
+  const API_URL = process.env.REACT_APP_API_URL;
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const navigate = useNavigate();

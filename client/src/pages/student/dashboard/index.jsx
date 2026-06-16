@@ -29,7 +29,7 @@ const Dashboard = () => {
   const colors = tokens(theme.palette.mode);
   const all_assigned_task_ids = [];
   const navigate = useNavigate();
-  const API_URL = process.env.VITE_API_URL;
+  const API_URL = process.env.REACT_APP_API_URL;
 
   /* Send the deadline and task info for task that needs to be completed before next 100 days */
   const [difference_In_Days, setDifference_In_Days] = useState(100);

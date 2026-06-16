@@ -51,7 +51,7 @@ const SignUp = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-  const API_URL = process.env.VITE_API_URL;
+  const API_URL = process.env.REACT_APP_API_URL;
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
