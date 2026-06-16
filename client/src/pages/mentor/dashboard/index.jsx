@@ -29,6 +29,8 @@ const MentorDashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -39,7 +41,7 @@ const MentorDashboard = () => {
   const userID = useSelector((state) => state.userInfo.logged_in_userId);
   const activeList = useSelector((state) => state.mentorTaskInfo.active_list);
   const submittedList = useSelector(
-    (state) => state.mentorTaskInfo.submitted_list
+    (state) => state.mentorTaskInfo.submitted_list,
   );
   const pendingList = useSelector((state) => state.mentorTaskInfo.pending_list);
 
@@ -65,7 +67,7 @@ const MentorDashboard = () => {
     /* add student Info for the activeList */
     const active_list_with_student_data = activeList.map((task) => {
       const studentData = activeStudentList.filter(
-        (data) => data.task_id === task.key
+        (data) => data.task_id === task.key,
       );
       // if(studentData.length===0){
       //   pendingTaskList.push({...task})
@@ -82,7 +84,7 @@ const MentorDashboard = () => {
 
     let submittedTaskList = submittedList.filter((task) => {
       const taskMapData = studentInfoList.filter(
-        (taskMap) => taskMap.task_id === task.key
+        (taskMap) => taskMap.task_id === task.key,
       );
       if (taskMapData.length === 0) {
         pendingTaskList.push({ ...task });
@@ -98,7 +100,7 @@ const MentorDashboard = () => {
         (data) =>
           data.task_id === task.key &&
           data.solution_zip !== "" &&
-          data.totalScore !== 0
+          data.totalScore !== 0,
       );
 
       return { ...task, studentTaskMap: [...studentData] };
@@ -107,18 +109,18 @@ const MentorDashboard = () => {
     /* add student info to pendingTask list */
     const pending_list_with_student_data = pendingList.map((task) => {
       const studentData = submittedStudentList.filter(
-        (data) => data.task_id === task.key
+        (data) => data.task_id === task.key,
       );
 
       return { ...task, studentTaskMap: { ...studentData[0] } };
     });
     /* Filter out the active task that dont have studentTaskMap */
     const final_activeTaskList = active_list_with_student_data.filter(
-      (task) => task.studentTaskMap.length > 0
+      (task) => task.studentTaskMap.length > 0,
     );
 
     const pendingTaskList_final = pending_list_with_student_data.filter(
-      (task) => Object.keys(task.studentTaskMap).length == 0
+      (task) => Object.keys(task.studentTaskMap).length == 0,
     );
     dispatch(updatePendingTaskData([...pendingTaskList_final]));
     dispatch(updateActiveTaskData([...final_activeTaskList]));
@@ -128,7 +130,10 @@ const MentorDashboard = () => {
   /* Api call to get the student task maps for all active and submitted projects */
   const getStudentTaskMap = async (taskIdList) => {
     try {
-      const response = await axios.post("/mentor/getStudentInfo", taskIdList);
+      const response = await axios.post(
+        `${API_URL}/mentor/getStudentInfo`,
+        taskIdList,
+      );
       /* Store the student taskmap list in useState and then call update Student Info only when the active and submitted value change */
       // updateStudentInfoStore(response.data.taskMapList);
       setStudentTaskMap(response.data.taskMapList);
@@ -151,7 +156,7 @@ const MentorDashboard = () => {
   /* Get all tasks published by mentor */
   const createMentorTaskList = async () => {
     try {
-      const taskInfo = await axios.get(`/mentor/taskInfo/${userID}`);
+      const taskInfo = await axios.get(`${API_URL}/mentor/taskInfo/${userID}`);
       updateMentorTaskInfo_Store(taskInfo.data);
     } catch (err) {
       //console.log("Check the errors for mentor task Info", err);
@@ -350,7 +355,7 @@ const MentorDashboard = () => {
                     backgroundColor: colors.greenAccent[600],
                     p: "5px 10px",
                     borderRadius: "4px",
-                    color:colors.grey[100]
+                    color: colors.grey[100],
                   }}
                   onClick={() => viewDetails(task)}
                 >

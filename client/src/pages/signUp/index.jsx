@@ -17,13 +17,11 @@ import Signup from "styles/SignUp.styled";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-
-
 import { useSelector, useDispatch } from "react-redux";
 import { fetchUserData } from "store/userInfo/userInfoSlice";
 import { fetchUserTaskMap } from "store/userTaskMap/userTaskMapSlice";
 import { ACCOUNT_TYPES } from "constants";
-import pbl_logo from "../../assets/images/pbl_logo.png"
+import pbl_logo from "../../assets/images/pbl_logo.png";
 
 //import "./signIn.css";
 // import { useGetUserQuery } from "store/api";
@@ -53,48 +51,56 @@ const SignUp = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const accountType = useSelector((state) => state?.userInfo.userData.role);
-  const userData=useSelector((state)=>state?.userInfo?.userData.user_id);
+  const userData = useSelector((state) => state?.userInfo?.userData.user_id);
 
-  const getUserData = (id, user_id,account_type) => {
+  const getUserData = (id, user_id, account_type) => {
     dispatch(fetchUserData(user_id));
-    if(account_type===ACCOUNT_TYPES.STUDENT){
+    if (account_type === ACCOUNT_TYPES.STUDENT) {
       dispatch(fetchUserTaskMap(user_id)).unwrap();
-    }  
+    }
     const url =
-    account_type === ACCOUNT_TYPES.STUDENT
+      account_type === ACCOUNT_TYPES.STUDENT
         ? `/dashboard/${user_id}`
-        : account_type ===ACCOUNT_TYPES.LECTURER ? "/lecturer/dashboard":"/mentor/dashboard";
+        : account_type === ACCOUNT_TYPES.LECTURER
+          ? "/lecturer/dashboard"
+          : "/mentor/dashboard";
     navigate(url);
   };
 
-  const createNewUser=async(userInfo)=>{
-    try{
-      const response=await axios.post("/createNewUser",userInfo);
-      if(response.status===200){
-        getUserData(response.data._id, response.data.user_id,response.data.accountType);
+  const createNewUser = async (userInfo) => {
+    try {
+      const response = await axios.post(`${API_URL}/createNewUser`, userInfo);
+      if (response.status === 200) {
+        getUserData(
+          response.data._id,
+          response.data.user_id,
+          response.data.accountType,
+        );
       }
-    }catch(err){
-      console.log("New User Sign up error",err)
+    } catch (err) {
+      console.log("New User Sign up error", err);
     }
-  }
+  };
 
   const handleFormSubmit = (values) => {
-    const allFormValues=values;
-    const userInfo={
-      first_name:allFormValues.first_name,
-      last_name:allFormValues.last_name,
-      email:allFormValues.email,
-      password:allFormValues.password,
-      address_1:"",
-      address_2:"",
-      contact_no:allFormValues.contact_no,
-      role:allFormValues.role,
-      user_id:allFormValues.k_number
-    }
-    createNewUser(userInfo)
+    const allFormValues = values;
+    const userInfo = {
+      first_name: allFormValues.first_name,
+      last_name: allFormValues.last_name,
+      email: allFormValues.email,
+      password: allFormValues.password,
+      address_1: "",
+      address_2: "",
+      contact_no: allFormValues.contact_no,
+      role: allFormValues.role,
+      user_id: allFormValues.k_number,
+    };
+    createNewUser(userInfo);
   };
 
   return (
@@ -125,35 +131,35 @@ const SignUp = () => {
             className="signup"
             sx={{
               minWidth: "85vh",
-              minHeight:"50vh",
+              minHeight: "50vh",
               marginBottom: "2rem",
             }}
           >
             {/* Passing handleSubmit parameter tohtml form onSubmit property */}
             <form noValidate onSubmit={handleSubmit}>
-            <Box display={"flex"} justifyContent={"center"}>
-                  <Box>
-                    <Box
-                      display={"flex"}
-                      justifyContent={"center"}
-                      flexDirection={"row"}
-                    >
-                      <img
-                        alt="app-logo"
-                        width="65px"
-                        height="60px"
-                        src={pbl_logo}
-                      />
-                      <Typography variant="h1" alignSelf={"end"}>
-                        SKILL SPRINT
-                      </Typography>
-                    </Box>
-
-                    <Typography sx={{ mb: "1rem" }}>
-                      Unlocking opportunities through Project Based Learning
+              <Box display={"flex"} justifyContent={"center"}>
+                <Box>
+                  <Box
+                    display={"flex"}
+                    justifyContent={"center"}
+                    flexDirection={"row"}
+                  >
+                    <img
+                      alt="app-logo"
+                      width="65px"
+                      height="60px"
+                      src={pbl_logo}
+                    />
+                    <Typography variant="h1" alignSelf={"end"}>
+                      SKILL SPRINT
                     </Typography>
                   </Box>
+
+                  <Typography sx={{ mb: "1rem" }}>
+                    Unlocking opportunities through Project Based Learning
+                  </Typography>
                 </Box>
+              </Box>
               <Box display={"flex"} justifyContent={"center"} gap={1}>
                 {/* First Name */}
                 <input

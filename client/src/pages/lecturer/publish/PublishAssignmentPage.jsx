@@ -33,6 +33,7 @@ import DialogWithTitle from "common/DialogWithTitle";
 import AddSubTask from "pages/mentor/addSubTask";
 
 const PublishAssignmentPage = () => {
+  const API_URL = import.meta.env.VITE_API_URL;
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const navigate = useNavigate();
@@ -59,9 +60,12 @@ const PublishAssignmentPage = () => {
 
   const updateTaskDetailDB = async (taskData) => {
     try {
-      const response = await axios.post("/lecturer/addNewTask/assignment", {
-        taskDetail: taskData,
-      });
+      const response = await axios.post(
+        `${API_URL}/lecturer/addNewTask/assignment`,
+        {
+          taskDetail: taskData,
+        },
+      );
 
       if (response.status === 200) {
         if (accountType === ACCOUNT_TYPES.LECTURER) {
@@ -87,13 +91,13 @@ const PublishAssignmentPage = () => {
     const allFormControlValues = values;
     setTaskId(
       allFormControlValues.subject_key.concat(
-        allFormControlValues.assignment_id
-      )
+        allFormControlValues.assignment_id,
+      ),
     );
     if (accountType === ACCOUNT_TYPES.LECTURER) {
       const TaskDetailNewRecord = {
         key: allFormControlValues.subject_key.concat(
-          allFormControlValues.assignment_id
+          allFormControlValues.assignment_id,
         ),
         publisher_id: userID,
         assigner_id: "",
@@ -123,7 +127,7 @@ const PublishAssignmentPage = () => {
 
   const getAllTaskIds = async () => {
     try {
-      const taskIdList = await axios.get("/lecturer/getAllTaskId");
+      const taskIdList = await axios.get(`${API_URL}/lecturer/getAllTaskId`);
       let oldTasks = taskIdList.data.map((data) => {
         const idValues = data?.split("").slice(3, data.length).join("");
         return idValues;

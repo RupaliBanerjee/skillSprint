@@ -26,31 +26,32 @@ import {
 import { useNavigate } from "react-router-dom";
 
 const Lecturer_Dashboard = () => {
+  const API_URL = import.meta.env.VITE_API_URL;
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const navigate =useNavigate();
+  const navigate = useNavigate();
 
   const userID = useSelector((state) => state.userInfo.logged_in_userId);
   const dispatch = useDispatch();
   const activeAssignmentList = useSelector(
-    (state) => state.lecturer_Task_Info.active_assignment_list
+    (state) => state.lecturer_Task_Info.active_assignment_list,
   );
   const activeProjectList = useSelector(
-    (state) => state.lecturer_Task_Info.active_project_list
+    (state) => state.lecturer_Task_Info.active_project_list,
   );
   const { assignment, project } = useSelector(
-    (state) => state.lecturer_Task_Info.pending_assesment_list
+    (state) => state.lecturer_Task_Info.pending_assesment_list,
   );
   const unAssignedProjectList = useSelector(
-    (state) => state.lecturer_Task_Info.unAssigned_project_list
+    (state) => state.lecturer_Task_Info.unAssigned_project_list,
   );
 
   const viewMoreAction = (type) => {
-   if(type==="pending_evaluation"){
-    navigate("/evaluate/secondaryPage")
-   }else{
-    navigate(`/lecturer/dashboard/taskList/${type}`)
-   }
+    if (type === "pending_evaluation") {
+      navigate("/evaluate/secondaryPage");
+    } else {
+      navigate(`/lecturer/dashboard/taskList/${type}`);
+    }
   };
 
   let active_assignment_list = [];
@@ -68,12 +69,12 @@ const Lecturer_Dashboard = () => {
     //console.log("Check the assignment ans project list for pending Assesment",assignmentList)
     const pending_assignment = [
       ...assignmentList.filter(
-        (task) => dateInPast(task.end_date) || task.comments.student !== ""
+        (task) => dateInPast(task.end_date) || task.comments.student !== "",
       ),
     ];
     const pending_project = [
       ...projectList.filter(
-        (task) => dateInPast(task.end_date) || task.comments.student !== ""
+        (task) => dateInPast(task.end_date) || task.comments.student !== "",
       ),
     ];
 
@@ -90,51 +91,51 @@ const Lecturer_Dashboard = () => {
   const create_student_detail_list_activeAssignment = (
     studentDetailList,
     active_assignment_list,
-    active_project_list
+    active_project_list,
   ) => {
     /* For Assignments */
     let active_assignment_with_student_data = active_assignment_list.map(
       (task) => {
         const studentData = studentDetailList.filter(
           (studentTask) =>
-            studentTask.task_id === task.key && studentTask.totalScore === 0
+            studentTask.task_id === task.key && studentTask.totalScore === 0,
         );
 
         return { ...task, studentTaskMap: [...studentData] };
-      }
+      },
     );
-    
+
     active_assignment_with_student_data =
       active_assignment_with_student_data.filter(
-        (task) => task.studentTaskMap.length > 0
+        (task) => task.studentTaskMap.length > 0,
       );
     /* For Projects */
 
     let active_project_with_student_data = active_project_list.map((task) => {
       const studentData = studentDetailList.filter(
         (studentTask) =>
-          studentTask.task_id === task.key && studentTask.totalScore === 0
+          studentTask.task_id === task.key && studentTask.totalScore === 0,
       );
 
       return { ...task, studentTaskMap: [...studentData] };
     });
 
     active_project_with_student_data = active_project_with_student_data.filter(
-      (task) => task.studentTaskMap.length > 0
+      (task) => task.studentTaskMap.length > 0,
     );
 
     dispatch(
       updateActiveTaskData({
         active_assignment_list: active_assignment_with_student_data,
         active_project_list: active_project_with_student_data,
-      })
+      }),
     );
   };
 
   /* add student detail to the pending assesment list */
   const create_student_detail_list = (
     studentDetailList,
-    pending_assesment_list
+    pending_assesment_list,
   ) => {
     const { assignment, project } = pending_assesment_list;
     let updateted_assignment_list = [];
@@ -143,7 +144,7 @@ const Lecturer_Dashboard = () => {
     updateted_assignment_list = assignment.map((task) => {
       const studentData = studentDetailList.filter(
         (studentTask) =>
-          studentTask.task_id === task.key && studentTask.totalScore === 0
+          studentTask.task_id === task.key && studentTask.totalScore === 0,
       );
 
       return {
@@ -152,14 +153,14 @@ const Lecturer_Dashboard = () => {
       };
     });
     updateted_assignment_list = updateted_assignment_list.filter(
-      (task) => task.studentTaskMap.length > 0
+      (task) => task.studentTaskMap.length > 0,
     );
 
     /* Student TAsk map data for pending evaluation projects */
     updateted_project_list = project.map((task) => {
       const studentData = studentDetailList.filter(
         (studentTask) =>
-          studentTask.task_id === task.key && studentTask.totalScore === 0
+          studentTask.task_id === task.key && studentTask.totalScore === 0,
       );
 
       return {
@@ -169,14 +170,14 @@ const Lecturer_Dashboard = () => {
     });
     /* Filter out the projects that do not have any studentTaskMap */
     updateted_project_list = updateted_project_list.filter(
-      (task) => task.studentTaskMap.length > 0
+      (task) => task.studentTaskMap.length > 0,
     );
 
     dispatch(
       updateAssesmentData({
         assignment: updateted_assignment_list,
         project: updateted_project_list,
-      })
+      }),
     );
   };
 
@@ -192,7 +193,7 @@ const Lecturer_Dashboard = () => {
       .then((response) => {
         create_student_detail_list(
           response.data.taskMapData,
-          pending_assesment_list
+          pending_assesment_list,
         );
       });
   };
@@ -200,7 +201,7 @@ const Lecturer_Dashboard = () => {
   /* update active Assignment List based on student TaskMap entry - If student Task Map exists */
   const updateActiveTaskList = (
     active_assignment_list,
-    active_project_list
+    active_project_list,
   ) => {
     let taskList = active_assignment_list.map((task) => task.key);
     let projectListIds = active_project_list.map((task) => task.key);
@@ -212,7 +213,7 @@ const Lecturer_Dashboard = () => {
         create_student_detail_list_activeAssignment(
           response.data.taskMapData,
           active_assignment_list,
-          active_project_list
+          active_project_list,
         );
       });
   };
@@ -224,7 +225,7 @@ const Lecturer_Dashboard = () => {
     active_assignment_list = [...assignmentList.filter((t) => t.active)];
     pending_assesment_list = getPendingList(
       [...assignmentList.filter((t) => !t.active)],
-      [...projectList.filter((t) => !t.active)]
+      [...projectList.filter((t) => !t.active)],
     );
     active_project_list = [...projectList.filter((task) => task.active)];
     unAssigned_project_list = [
@@ -234,7 +235,7 @@ const Lecturer_Dashboard = () => {
         }
       }),
     ];
-   
+
     // completed_task_list = getCompletedTaskList(
     //   [...assignmentList.filter((t) => !t.active)],
     //   [...projectList.filter((t) => !t.active)]
@@ -246,14 +247,14 @@ const Lecturer_Dashboard = () => {
         active_project_list: active_project_list,
         pending_assesment_list: pending_assesment_list,
         unAssigned_project_list: unAssigned_project_list,
-      })
+      }),
     );
     updatePendingAssesmentList(pending_assesment_list);
     updateActiveTaskList(active_assignment_list, active_project_list);
   };
 
   const createTaskList = () => {
-    axios.get(`/lecturer/taskInfo/${userID}`).then((response) => {
+    axios.get(`${API_URL}/lecturer/taskInfo/${userID}`).then((response) => {
       let tasklist = response.data;
       getAllTask(tasklist);
     });
