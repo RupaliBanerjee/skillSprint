@@ -74,7 +74,9 @@ const SignUp = () => {
 
   const createNewUser = async (userInfo) => {
     try {
+      console.log("Check user Info: ",userInfo)
       const response = await axios.post(`${API_URL}/createNewUser`, userInfo);
+      console.log("Check response from DB",response)
       if (response.status === 200) {
         getUserData(
           response.data._id,
