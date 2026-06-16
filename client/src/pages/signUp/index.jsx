@@ -48,6 +48,7 @@ const schema = Yup.object().shape({
 });
 
 const SignUp = () => {
+  alert("VERSION 2");
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
