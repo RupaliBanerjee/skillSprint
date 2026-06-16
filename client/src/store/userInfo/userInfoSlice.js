@@ -8,7 +8,7 @@ const initialState = {
   error: "",
   account_type: "",
 };
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = process.env.VITE_API_URL;
 
 //AsyncThunk generates pending fulfilled and rejected action types
 export const fetchUserData = createAsyncThunk("user/fetchData", (id) => {

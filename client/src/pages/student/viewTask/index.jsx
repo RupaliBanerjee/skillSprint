@@ -19,7 +19,7 @@ const ViewTask = () => {
   const active_assignment = [];
   const dispatch = useDispatch();
 
-  const API_URL = import.meta.env.VITE_API_URL;
+  const API_URL = process.env.VITE_API_URL;
 
   /* Create seperate array for Project and Assignment */
   active_Task.forEach((task) => {
