@@ -32,7 +32,7 @@ app.use(express.json({ limit: "50mb" }));
 //bodyParser.json({ limit: "50mb" })
 
 app.use(cors({
-  origin:process.env.FRONTEND_URL || "http://localhost:3000"
+  origin:process.env.FRONTEND_URL || "http://localhost:3006"
 }));
 
 /* ROUTES */
