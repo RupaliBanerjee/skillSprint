@@ -48,7 +48,6 @@ const schema = Yup.object().shape({
 });
 
 const SignUp = () => {
-  alert("VERSION 2");
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -75,9 +74,7 @@ const SignUp = () => {
 
   const createNewUser = async (userInfo) => {
     try {
-      console.log("Check user Info: ",userInfo)
       const response = await axios.post(`${API_URL}/createNewUser`, userInfo);
-      console.log("Check response from DB",response)
       if (response.status === 200) {
         getUserData(
           response.data._id,
@@ -110,7 +107,6 @@ const SignUp = () => {
     <>
       {/* Wrapping form inside formik tag and passing our schema to validationSchema prop */}
       <Formik
-        validationSchema={schema}
         initialValues={{
           first_name: "",
           last_name: "",
@@ -120,6 +116,7 @@ const SignUp = () => {
           password: "",
           role: "",
         }}
+        validationSchema={schema}
         onSubmit={handleFormSubmit}
       >
         {({
@@ -129,181 +126,188 @@ const SignUp = () => {
           handleChange,
           handleBlur,
           handleSubmit,
-        }) => (
-          <Box
-            className="signup"
-            sx={{
-              minWidth: "85vh",
-              minHeight: "50vh",
-              marginBottom: "2rem",
-            }}
-          >
-            {/* Passing handleSubmit parameter tohtml form onSubmit property */}
-            <form noValidate onSubmit={handleSubmit}>
-              <Box display={"flex"} justifyContent={"center"}>
-                <Box>
-                  <Box
-                    display={"flex"}
-                    justifyContent={"center"}
-                    flexDirection={"row"}
-                  >
-                    <img
-                      alt="app-logo"
-                      width="65px"
-                      height="60px"
-                      src={pbl_logo}
-                    />
-                    <Typography variant="h1" alignSelf={"end"}>
-                      SKILL SPRINT
+        }) => {
+          console.log(values);
+          console.log(errors);
+          return (
+            <Box
+              className="signup"
+              sx={{
+                minWidth: "85vh",
+                minHeight: "50vh",
+                marginBottom: "2rem",
+              }}
+            >
+              {/* Passing handleSubmit parameter tohtml form onSubmit property */}
+              <form noValidate onSubmit={handleSubmit}>
+                <Box display={"flex"} justifyContent={"center"}>
+                  <Box>
+                    <Box
+                      display={"flex"}
+                      justifyContent={"center"}
+                      flexDirection={"row"}
+                    >
+                      <img
+                        alt="app-logo"
+                        width="65px"
+                        height="60px"
+                        src={pbl_logo}
+                      />
+                      <Typography variant="h1" alignSelf={"end"}>
+                        SKILL SPRINT
+                      </Typography>
+                    </Box>
+
+                    <Typography sx={{ mb: "1rem" }}>
+                      Unlocking opportunities through Project Based Learning
                     </Typography>
                   </Box>
-
-                  <Typography sx={{ mb: "1rem" }}>
-                    Unlocking opportunities through Project Based Learning
-                  </Typography>
                 </Box>
-              </Box>
-              <Box display={"flex"} justifyContent={"center"} gap={1}>
-                {/* First Name */}
+                <Box display={"flex"} justifyContent={"center"} gap={1}>
+                  {/* First Name */}
+                  <input
+                    type="text"
+                    name="first_name"
+                    onChange={(e) => {
+                      console.log("typing", e.target.value);
+                      handleChange(e);
+                    }}
+                    onBlur={handleBlur}
+                    value={values.first_name}
+                    placeholder="First Name"
+                    className="form-control inp_text"
+                    id="first_name"
+                  />
+                  {/* Last Name */}
+                  <input
+                    type="text"
+                    name="last_name"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.last_name}
+                    placeholder="Last Name"
+                    className="form-control inp_text"
+                    id="last_name"
+                  />
+                </Box>
+                {/* If validation is not passed show errors */}
+                <p className="error">
+                  {errors.first_name && touched.first_name && errors.first_name}
+                </p>
+                {/* K number */}
                 <input
                   type="text"
-                  name="first_name"
+                  name="k_number"
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={values.first_name}
-                  placeholder="First Name"
+                  value={values.k_number}
+                  placeholder="Enter valid K Number"
                   className="form-control inp_text"
-                  id="first_name"
+                  id="k_number"
                 />
-                {/* Last Name */}
+                {/* If validation is not passed show errors */}
+                <p className="error">
+                  {errors.k_number && touched.k_number && errors.k_number}
+                </p>
+                {/* Contact Number */}
                 <input
                   type="text"
-                  name="last_name"
+                  name="contact_no"
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={values.last_name}
-                  placeholder="Last Name"
+                  value={values.contact_no}
+                  placeholder="Contact Number"
                   className="form-control inp_text"
-                  id="last_name"
+                  id="contact_no"
                 />
-              </Box>
-              {/* If validation is not passed show errors */}
-              <p className="error">
-                {errors.first_name && touched.first_name && errors.first_name}
-              </p>
-              {/* K number */}
-              <input
-                type="text"
-                name="k_number"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.k_number}
-                placeholder="Enter valid K Number"
-                className="form-control inp_text"
-                id="k_number"
-              />
-              {/* If validation is not passed show errors */}
-              <p className="error">
-                {errors.k_number && touched.k_number && errors.k_number}
-              </p>
-              {/* Contact Number */}
-              <input
-                type="text"
-                name="contact_no"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.contact_no}
-                placeholder="Contact Number"
-                className="form-control inp_text"
-                id="last_name"
-              />
-              {/* If validation is not passed show errors */}
-              <p className="error">
-                {errors.last_name && touched.last_name && errors.last_name}
-              </p>
-              {/* Email ID */}
-              {/* Our input html with passing formik parameters like handleChange, values, handleBlur to input properties */}
-              <input
-                type="email"
-                name="email"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.email}
-                placeholder="Enter email id / username"
-                className="form-control inp_text"
-                id="email"
-              />
-              {/* If validation is not passed show errors */}
-              <p className="error">
-                {errors.email && touched.email && errors.email}
-              </p>
-              {/* Password */}
-              {/* Our input html with passing formik parameters like handleChange, values, handleBlur to input properties */}
-              <input
-                type="password"
-                name="password"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.password}
-                placeholder="Enter password"
-                className="form-control"
-              />
-              {/* If validation is not passed show errors */}
-              <p className="error">
-                {errors.password && touched.password && errors.password}
-              </p>
-              {/* Acoount Type */}
-              <Select
-                labelId="account_type_id"
-                fullWidth
-                displayEmpty
-                name="role"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.role}
-                placeholder="Account Type"
-                className="form-control"
-                renderValue={(selected) => {
-                  if (selected.length === 0) {
+                {/* If validation is not passed show errors */}
+                <p className="error">
+                  {errors.contact_no && touched.contact_no && errors.contact_no}
+                </p>
+                {/* Email ID */}
+                {/* Our input html with passing formik parameters like handleChange, values, handleBlur to input properties */}
+                <input
+                  type="email"
+                  name="email"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.email}
+                  placeholder="Enter email id / username"
+                  className="form-control inp_text"
+                  id="email"
+                />
+                {/* If validation is not passed show errors */}
+                <p className="error">
+                  {errors.email && touched.email && errors.email}
+                </p>
+                {/* Password */}
+                {/* Our input html with passing formik parameters like handleChange, values, handleBlur to input properties */}
+                <input
+                  type="password"
+                  name="password"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.password}
+                  placeholder="Enter password"
+                  className="form-control"
+                />
+                {/* If validation is not passed show errors */}
+                <p className="error">
+                  {errors.password && touched.password && errors.password}
+                </p>
+                {/* Acoount Type */}
+                <Select
+                  labelId="account_type_id"
+                  fullWidth
+                  displayEmpty
+                  name="role"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.role}
+                  placeholder="Account Type"
+                  className="form-control"
+                  renderValue={(selected) => {
+                    if (selected.length === 0) {
+                      return (
+                        <Typography sx={{ float: "left", marginTop: "5px" }}>
+                          Account Type
+                        </Typography>
+                      );
+                    }
+
                     return (
                       <Typography sx={{ float: "left", marginTop: "5px" }}>
-                        Account Type
+                        {selected}
                       </Typography>
                     );
-                  }
-
-                  return (
-                    <Typography sx={{ float: "left", marginTop: "5px" }}>
-                      {selected}
-                    </Typography>
-                  );
-                }}
-              >
-                <MenuItem value="student">Student</MenuItem>
-                <MenuItem value="lecturer">Lecturer</MenuItem>
-                <MenuItem value="mentor">Mentor</MenuItem>
-              </Select>
-              <p className="error">
-                {errors.role && touched.role && errors.role}
-              </p>
-              {/* Click on submit button to submit the form */}
-              <Button
-                type="submit"
-                sx={{
-                  backgroundColor: colors.blueAccent[700],
-                  color: colors.grey[100],
-                }}
-              >
-                Register
-              </Button>
-            </form>
-            <br />
-            <Typography sx={{ color: colors.grey[100] }}>Or</Typography>
-            <Link to="/" color={colors.grey[100]}>
-              Already have an account
-            </Link>
-          </Box>
-        )}
+                  }}
+                >
+                  <MenuItem value="student">Student</MenuItem>
+                  <MenuItem value="lecturer">Lecturer</MenuItem>
+                  <MenuItem value="mentor">Mentor</MenuItem>
+                </Select>
+                <p className="error">
+                  {errors.role && touched.role && errors.role}
+                </p>
+                {/* Click on submit button to submit the form */}
+                <Button
+                  type="submit"
+                  sx={{
+                    backgroundColor: colors.blueAccent[700],
+                    color: colors.grey[100],
+                  }}
+                >
+                  Register
+                </Button>
+              </form>
+              <br />
+              <Typography sx={{ color: colors.grey[100] }}>Or</Typography>
+              <Link to="/" color={colors.grey[100]}>
+                Already have an account
+              </Link>
+            </Box>
+          );
+        }}
       </Formik>
     </>
   );
