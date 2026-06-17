@@ -135,7 +135,7 @@ const Dashboard = () => {
 
   const getTaskDetails = () => {
     axios
-      .post("/student/taskDetails", {
+      .post(`${API_URL}/student/taskDetails`, {
         activeTask: active_task,
         submittedTask: submitted_task,
       })
