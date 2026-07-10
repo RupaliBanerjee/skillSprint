@@ -31,9 +31,19 @@ const Topbar = () => {
   const [showProfileOptions, setShowProfileOptions] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
 
-  const handleClose = () => {
-    setShowProfileOptions(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleProfileClick = (event) => {
+    setAnchorEl(event.currentTarget);
   };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  // const handleClose = () => {
+  //   setShowProfileOptions(false);
+  // };
 
   const signOut = () => {
     // setShowProfileOptions(false);
@@ -72,28 +82,25 @@ const Topbar = () => {
         </IconButton>
         <IconButton
           onClick={(e) => {
-            setShowProfileOptions(true);
-            setSelectedOption(e.currentTarget);
+            handleProfileClick(e);
           }}
         >
           <PersonOutlinedIcon />
         </IconButton>
         <Menu
-          selectedOption={selectedOption}
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
           anchorOrigin={{
             vertical: "top",
             horizontal: "right",
           }}
-          keepMounted
           transformOrigin={{
             vertical: "top",
             horizontal: "right",
           }}
-          open={Boolean(showProfileOptions)}
-          onClose={handleClose}
         >
           <MenuItem onClick={signOut}>Sign out</MenuItem>
-          {/* The activity tracker is in future scope */}
           <MenuItem onClick={handleClose}>Activity Tracker</MenuItem>
         </Menu>
       </Box>

@@ -64,7 +64,7 @@ function TabPanel(props) {
                   color: colors.grey[100],
                 }}
                 onClick={() => {
-                  navigateBack()
+                  navigateBack();
                 }}
               >
                 Back
@@ -72,7 +72,7 @@ function TabPanel(props) {
             )}
           </Box>
           {/* For Lecturer evaluation page */}
-          {!isTaskTypeStudent && taskData == undefined ? (
+          {!isTaskTypeStudent && taskData === undefined ? (
             <EvaluationGrid
               data={data}
               tabName={name}
@@ -85,7 +85,6 @@ function TabPanel(props) {
                 taskData={taskData}
                 activeTask={false}
                 updateTaskData={updateTaskData}
-               
               />
             )
           )}
@@ -131,7 +130,6 @@ function a11yProps(index) {
 export default function BasicTabs(props) {
   //Tab Names from Parent Component
   const { tabInfo, updateTaskData, updateTaskDataStudent } = props;
- 
 
   const [value, setValue] = React.useState(0);
   const [currentTab, setCurrentTab] = useState("ASSIGNMNENTS");
@@ -153,7 +151,13 @@ export default function BasicTabs(props) {
           aria-label="basic tabs example"
         >
           {tabInfo.map((tabItem, i) => {
-            return <Tab label={tabItem.tabName} key={`${tabItem}-${i}`} {...a11yProps(i)} />;
+            return (
+              <Tab
+                label={tabItem.tabName}
+                key={`${tabItem}-${i}`}
+                {...a11yProps(i)}
+              />
+            );
           })}
         </Tabs>
       </Box>
