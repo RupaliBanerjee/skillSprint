@@ -181,7 +181,9 @@ const Lecturer_Dashboard = () => {
       assignment.length > 0 ? assignment.map((t) => t.key) : [];
     taskId_List.push(...project?.map((t) => t.key));
     axios
-      .post("/lecturer/getStudentTaskMap", { taskId_List: taskId_List })
+      .post(`${API_URL}/lecturer/getStudentTaskMap`, {
+        taskId_List: taskId_List,
+      })
       .then((response) => {
         create_student_detail_list(
           response.data.taskMapData,
@@ -200,7 +202,7 @@ const Lecturer_Dashboard = () => {
     taskList = taskList.concat([...projectListIds]);
 
     axios
-      .post("/lecturer/getStudentTaskMap", { taskId_List: taskList })
+      .post(`${API_URL}/lecturer/getStudentTaskMap`, { taskId_List: taskList })
       .then((response) => {
         create_student_detail_list_activeAssignment(
           response.data.taskMapData,

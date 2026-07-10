@@ -17,26 +17,27 @@ const EvaluateMainPage = () => {
   const { pageType } = useParams();
 
   const { assignment, project } = useSelector(
-    (state) => state.lecturer_Task_Info.pending_assesment_list
+    (state) => state.lecturer_Task_Info.pending_assesment_list,
   );
   const dispatch = useDispatch();
+  const API_URL = process.env.REACT_APP_API_URL;
   const taskId_List = assignment.map((t) => t.key);
   taskId_List.push(...project.map((t) => t.key));
 
   /* After score changes update the redux store and the db with new scores */
   const updateTaskData = (taskData) => {
     axios
-      .post("/lecturer/updateTaskMap/score", { taskData: taskData })
+      .post(`${API_URL}/lecturer/updateTaskMap/score`, { taskData: taskData })
       .then((response) => {
         let changed_assignment_data = [];
         let changed_project_data = [];
         if (taskData.task_type === TASK_TYPES.ASSIGNMENT) {
           changed_assignment_data = assignment.filter(
-            (task) => task.key !== taskData.key
+            (task) => task.key !== taskData.key,
           );
         } else {
           changed_project_data = project.map(
-            (task) => task.key !== taskData.key
+            (task) => task.key !== taskData.key,
           );
         }
         dispatch(
@@ -47,12 +48,12 @@ const EvaluateMainPage = () => {
             project: changed_project_data.length
               ? changed_project_data
               : project,
-          })
+          }),
         );
-      }).then(()=>{
-        navigate("/lecturer/dashboard")
       })
-    
+      .then(() => {
+        navigate("/lecturer/dashboard");
+      });
   };
   let tabInfo = [
     {
@@ -66,7 +67,7 @@ const EvaluateMainPage = () => {
       type: "Lecturer Task",
     },
   ];
- 
+
   // useEffect(() => {
   //   tabInfo = [
   //     {

@@ -28,6 +28,7 @@ const schema = Yup.object().shape({
 });
 
 const SignIn = () => {
+  const API_URL = process.env.REACT_APP_API_URL;
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const navigate = useNavigate();
@@ -48,20 +49,20 @@ const SignIn = () => {
       account_type === ACCOUNT_TYPES.STUDENT
         ? `/dashboard/${user_id}`
         : account_type === ACCOUNT_TYPES.LECTURER
-        ? "/lecturer/dashboard"
-        : "/mentor/dashboard";
+          ? "/lecturer/dashboard"
+          : "/mentor/dashboard";
     navigate(url);
   };
 
   const authenticateUser = (userCredential) => {
     axios
-      .post("/login", userCredential)
+      .post(`${API_URL}/login`, userCredential)
       .then((response) => {
         if (response.status === 200) {
           getUserData(
             response.data._id,
             response.data.user_id,
-            response.data.accountType
+            response.data.accountType,
           );
         }
       })
@@ -92,7 +93,7 @@ const SignIn = () => {
           <div className="login">
             <div className="form">
               {/* Passing handleSubmit parameter tohtml form onSubmit property */}
-              <form noValidate onSubmit={handleSubmit}>
+              <form noValidate onSubmit={handleSubmit} autoComplete="off">
                 <Box display={"flex"} justifyContent={"center"}>
                   <Box>
                     <Box
@@ -125,6 +126,7 @@ const SignIn = () => {
                   value={values.email}
                   placeholder="Enter email id / username"
                   className="form-control inp_text"
+                  autoComplete="off"
                   id="email"
                 />
                 {/* If validation is not passed show errors */}
@@ -139,6 +141,7 @@ const SignIn = () => {
                   onBlur={handleBlur}
                   value={values.password}
                   placeholder="Enter password"
+                  autoComplete="off"
                   className="form-control"
                 />
                 {/* If validation is not passed show errors */}
