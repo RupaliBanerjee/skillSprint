@@ -121,6 +121,13 @@ const AssignSubTask = (props) => {
   const addNewTaskMapData = () => {
     console.log("Check if all data available on task map", taskMapList);
     const key = "user_id";
+
+    // Create score array from assessment criteria
+    const scoreList = projectDetail.assesment_criteria.map((criteria) => ({
+      name: criteria,
+      weightage: 0,
+    }));
+
     /* Create array of subtask IDs for each student_id */
     const studentSubTaskMap = new Map();
     taskMapList.forEach((subtask) => {
@@ -136,12 +143,12 @@ const AssignSubTask = (props) => {
 
     const finalTaskMapList = taskMapList.map((subtask) => {
       return {
-        ["user_id"]: subtask.user_id,
-        ["score"]: [],
-        ["totalScore"]: 0,
-        ["solution_zip"]: "",
-        ["task_id"]: subtask.task_id,
-        ["subtask_id"]: studentSubTaskMap.get(subtask.user_id),
+        user_id: subtask.user_id,
+        score: scoreList.map((item) => ({ ...item })),
+        totalScore: 0,
+        solution_zip: "",
+        task_id: subtask.task_id,
+        subtask_id: studentSubTaskMap.get(subtask.user_id),
       };
     });
 
@@ -157,7 +164,7 @@ const AssignSubTask = (props) => {
   /* Check if all the subtasks have been assigned to student  */
   const isSubTasksAssigned = () => {
     const assignedSubtaskList = taskMapList?.filter(
-      (subtask) => subtask.user_id != ""
+      (subtask) => subtask.user_id != "",
     );
     const isAssigned = assignedSubtaskList?.length === rowData?.length;
     return isAssigned;
@@ -209,7 +216,7 @@ const AssignSubTask = (props) => {
       <Box
         display={"flex"}
         justifyContent={"space-between"}
-        sx={{background:"#070707"}}
+        sx={{ background: "#070707" }}
       >
         <Button
           sx={{

@@ -86,7 +86,7 @@ function SimpleDialog(props) {
       }}
     >
       <BootstrapDialog onClose={handleClose} open={open}>
-        <Box m={"20px"} sx={{ minWidth: "80vh", height: "40vh" }}>
+        <Box m={"20px"} sx={{ height: "40vh" }}>
           <DialogTitle
             sx={{ display: "flex", justifyContent: "space-between", p: "0" }}
           >
@@ -204,8 +204,8 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  "& .MuiPaper-root":{
-    backgroundColor:"#010101"
+  "& .MuiPaper-root": {
+    backgroundColor: "#010101",
   },
   "& .MuiDialogContent-root": {
     padding: theme.spacing(2),

@@ -142,12 +142,13 @@ const PublishAssignmentPage = () => {
     getAllTaskIds();
   }, []);
 
+  // UPDATE THE ASSIGNER ID TO MATCH THE LECTURER ID. CURRENTLY HARDCODED FOR TESTING PURPOSES. NEED TO CHANGE LATER
   useEffect(() => {
     if (subTaskData.length > 0) {
       const TaskDetailNewRecord = {
         key: formDetails.subject_key.concat(formDetails.assignment_id),
-        publisher_id: "2117280001",
-        assigner_id: userID,
+        publisher_id: userID,
+        assigner_id: "k1234580",
         title: formDetails.title,
         summary: formDetails.summary,
         comments: {

@@ -23,6 +23,7 @@ import { fetchUserTaskMap } from "store/userTaskMap/userTaskMapSlice";
 import { updateTask } from "store/userTaskDetail/userTaskDetailSlice";
 import { TASK_TYPES } from "constants";
 import { useState } from "react";
+import TaskAltOutlinedIcon from "@mui/icons-material/TaskAltOutlined";
 
 const Dashboard = () => {
   const theme = useTheme();
@@ -195,11 +196,49 @@ const Dashboard = () => {
         >
           {/* ROW 1 */}
           <Box gridColumn="span 6" backgroundColor={colors.primary[400]}>
-            {active_task_detail.length && (
+            {active_task_detail.length > 0 ? (
               <NotificationWidget
                 taskdata={current_task}
                 dateInfo={difference_In_Days}
               />
+            ) : (
+              <Box
+                display="flex"
+                flexDirection="row"
+                justifyContent="flex-start"
+                alignItems="center"
+                textAlign="center"
+                height="100%"
+                width="100%"
+                p={4}
+              >
+                <TaskAltOutlinedIcon
+                  sx={{
+                    fontSize: 64,
+                    color: colors.greenAccent[400],
+                    mb: 1,
+                  }}
+                />
+                <Box
+                  ml={8}
+                  display="flex"
+                  flexDirection="column"
+                  justifyContent="center"
+                  alignItems="flex-start"
+                >
+                  <Typography
+                    variant="h4"
+                    fontWeight={600}
+                    color={colors.grey[100]}
+                  >
+                    Time for the next challenge!
+                  </Typography>
+
+                  <Typography variant="body1" color={colors.grey[300]} mt={1}>
+                    You have completed all your old assignments and projects
+                  </Typography>
+                </Box>
+              </Box>
             )}
           </Box>
           <Box
@@ -279,8 +318,19 @@ const Dashboard = () => {
             gridRow="span 1.5"
             backgroundColor={colors.primary[400]}
           >
-            {active_task_detail.length && (
+            {active_task_detail.length > 0 ? (
               <AssignmentDetail taskInfo={current_task} />
+            ) : (
+              <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                height="100%"
+              >
+                <Typography color={colors.grey[400]} variant="h5">
+                  No assignment selected
+                </Typography>
+              </Box>
             )}
           </Box>
           {/* Row 3 */}
