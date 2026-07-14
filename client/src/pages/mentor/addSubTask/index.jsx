@@ -17,6 +17,13 @@ const AddSubTask = (props) => {
   const colors = tokens(theme.palette.mode);
   const [rows, setRows] = useState([{}]);
   const { setSubTaskInfo, task_id } = props;
+  // Create score array from assessment criteria
+  const scoreList = [
+    { name: "accuracy", weightage: 0 },
+    { name: "code quality", weightage: 0 },
+    { name: "documentation", weightage: 0 },
+    { name: "basic functionality", weightage: 0 },
+  ];
 
   const handleChange = (index) => (e) => {
     const { name, value } = e.target;
@@ -49,10 +56,11 @@ const AddSubTask = (props) => {
         task_completed: false,
         task_detail: task.subTaskDescription,
         task_repo: "",
+        task_score: scoreList,
         task_id: `${task_id}_0${index + 1}`,
       };
     });
-    setSubTaskInfo(subTaskList)
+    setSubTaskInfo(subTaskList);
   };
 
   return (

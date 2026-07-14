@@ -31,15 +31,18 @@ const TaskDetailsSchema = new mongoose.Schema({
     type: String,
     enum: ["ASSIGNMENT", "PROJECT"],
   },
-  subTaskInfo:[{
-    task_label:String,
-    task_detail:String,
-    task_complete:Boolean,
-    task_repo:String,
-    task_id:String
-  }],
+  subTaskInfo: [
+    {
+      task_label: String,
+      task_detail: String,
+      task_complete: Boolean,
+      task_repo: String,
+      task_score: [CategorySchema],
+      task_id: String,
+    },
+  ],
   active: Boolean,
-  assesment_criteria:[{type:String}]
+  assesment_criteria: [{ type: String }],
 });
 
 const TaskDetail = mongoose.model("taskDetail", TaskDetailsSchema);

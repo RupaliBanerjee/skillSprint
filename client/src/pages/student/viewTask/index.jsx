@@ -31,11 +31,12 @@ const ViewTask = () => {
   });
 
   /* Update TaskMap in DB */
-  const updateTaskMapSolution = (task_id, solution) => {
+  const updateTaskMapSolution = (task_id, solution, taskData) => {
     try {
       axios.post(`${API_URL}/student/updateTaskMap/solution`, {
         task_id: task_id,
         solution_zip: solution,
+        taskData: taskData,
       });
     } catch (err) {
       console.log("Check taskMapUpdate Error", err);
@@ -73,7 +74,7 @@ const ViewTask = () => {
 
   /* Update Student Submission Data for active task */
   const updateTaskDataStudent = async (taskData) => {
-    updateTaskMapSolution(taskData.task_id, taskData.solution_zip);
+    updateTaskMapSolution(taskData.task_id, taskData.solution_zip, taskData);
     updateTaskDetailComments(
       taskData.task_id,
       taskData.task_detail.comments.student,

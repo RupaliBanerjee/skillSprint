@@ -28,6 +28,9 @@ import SliderWithInputField from "components/SliderWithInputField";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { ACCOUNT_TYPES } from "constants";
+import Paper from "@mui/material/Paper";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import { DataGrid } from "@mui/x-data-grid";
 
 // const useStyles = createUseStyles({
 //   title: {
@@ -48,7 +51,7 @@ const TaskDetail = (props) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const navigate = useNavigate();
-  const { project_type, taskType,task_key } = useParams();
+  const { project_type, taskType, task_key } = useParams();
 
   const accountType = useSelector((state) => state?.userInfo.userData.role);
 
@@ -57,6 +60,12 @@ const TaskDetail = (props) => {
   const [showScoreDialog, setShowScoreDialog] = useState(false);
   const [newScoreDetail, setNewScoreDetail] = useState([]);
   const [pdfFileData, setPdfFileData] = useState(null);
+
+  /* --- New state for PROJECT sub-task grid --- */
+  const [selectedSubTask, setSelectedSubTask] = useState(null);
+  const [showSubTaskScoreDialog, setShowSubTaskScoreDialog] = useState(false);
+  const [showSubTaskUploadDialog, setShowSubTaskUploadDialog] = useState(false);
+  const [subTaskNewScore, setSubTaskNewScore] = useState([]);
 
   /* For all button show hide top bar */
   const [showUploadBtn, setShowUploadBtn] = useState(false);
@@ -80,7 +89,7 @@ const TaskDetail = (props) => {
     }
     if (taskData?.pdf_file || taskData?.task_detail?.pdf_file) {
       setPdfFileData(
-        taskData.pdf_file ? taskData.pdf_file : taskData?.task_detail.pdf_file
+        taskData.pdf_file ? taskData.pdf_file : taskData?.task_detail.pdf_file,
       );
     }
     /* For Top bar button visibility */
@@ -103,7 +112,8 @@ const TaskDetail = (props) => {
     /* For Bottom bar button visibility */
     if (
       accountType === ACCOUNT_TYPES.LECTURER &&
-      (currentURL === "/evaluate/mainPage" || currentURL === "/evaluate/secondaryPage") &&
+      (currentURL === "/evaluate/mainPage" ||
+        currentURL === "/evaluate/secondaryPage") &&
       taskData?.studentTaskMap[0].totalScore === 0
     ) {
       setShowAddScore(true);
@@ -112,14 +122,17 @@ const TaskDetail = (props) => {
     if (
       ((Array.isArray(taskData?.studentTaskMap) &&
         taskData.studentTaskMap.every(
-          (taskMap) => taskMap.solution_zip !== ""
+          (taskMap) => taskMap.solution_zip !== "",
         )) ||
         (taskData?.solution_zip && taskData.solution_zip !== "")) &&
       accountType === ACCOUNT_TYPES.LECTURER
     ) {
       setShowSolutionDownload(true);
     }
-    if (accountType === ACCOUNT_TYPES.MENTOR && (project_type === "SUBMITTED" || task_key===taskData.key)) {
+    if (
+      accountType === ACCOUNT_TYPES.MENTOR &&
+      (project_type === "SUBMITTED" || task_key === taskData.key)
+    ) {
       setShowStudentSubmissionBtn(true);
     }
     if (accountType === ACCOUNT_TYPES.MENTOR && project_type === "ACTIVE") {
@@ -181,11 +194,194 @@ const TaskDetail = (props) => {
     window.open(`${taskData.solution_zip}`);
   };
 
+  /* For project subtask grid */
+  const filteredSubTasks = (taskData?.task_detail?.subTaskInfo || []).filter(
+    (subTask) => taskData?.subtask_id?.includes(subTask.task_id),
+  );
+
+  const subTaskRows = filteredSubTasks.map((subTask) => ({
+    id: subTask.task_id,
+    ...subTask,
+  }));
+
+  const allSubTaskScoresAdded =
+    filteredSubTasks.length > 0 &&
+    filteredSubTasks.every(
+      (subTask) =>
+        subTask.task_score?.length > 0 &&
+        subTask.task_score.every((score) => score.weightage > 0),
+    );
+
+  const allSubTaskSolutionsCompleted =
+    filteredSubTasks.length > 0 &&
+    filteredSubTasks.every(
+      (subTask) => subTask.task_repo && subTask.task_repo !== "",
+    );
+
+  const closeSubTaskDialogs = () => {
+    setShowSubTaskScoreDialog(false);
+    setShowSubTaskUploadDialog(false);
+    setSelectedSubTask(null);
+    setSubTaskNewScore([]);
+  };
+
+  const handleUpdateSubTaskScore = (subTask) => {
+    setSelectedSubTask(subTask);
+    setSubTaskNewScore(subTask.task_score || []);
+    setShowSubTaskScoreDialog(true);
+  };
+
+  const handleViewSubTaskSolution = (subTask) => {
+    if (subTask.task_repo && subTask.task_repo !== "") {
+      window.open(subTask.task_repo, "_blank", "noopener,noreferrer");
+    }
+  };
+
+  const handleSubTaskSolutionAction = (subTask) => {
+    setSelectedSubTask(subTask);
+    setShowSubTaskUploadDialog(true);
+  };
+
+  const saveSubTaskScore = () => {
+    if (!selectedSubTask) return;
+    // subTaskNewScore is a CategorySchema[]: [{ name, weightage }, ...]
+    const updatedSubTaskInfo = taskData.task_detail.subTaskInfo.map(
+      (subTask) =>
+        subTask.task_id === selectedSubTask.task_id
+          ? { ...subTask, task_score: subTaskNewScore }
+          : subTask,
+    );
+    const newTaskData = {
+      ...taskData,
+      task_detail: {
+        ...taskData.task_detail,
+        subTaskInfo: updatedSubTaskInfo,
+      },
+    };
+    updateTaskData(newTaskData);
+    closeSubTaskDialogs();
+  };
+
+  const saveSubTaskSolution = (student_comment, repo_link) => {
+    if (!selectedSubTask) return;
+    const updatedSubTaskInfo = taskData.task_detail.subTaskInfo.map(
+      (subTask) =>
+        subTask.task_id === selectedSubTask.task_id
+          ? {
+              ...subTask,
+              task_repo: repo_link,
+            }
+          : subTask,
+    );
+    const newTaskData = {
+      ...taskData,
+      task_detail: {
+        ...taskData.task_detail,
+        subTaskInfo: updatedSubTaskInfo,
+      },
+    };
+    updateTaskDataStudent(newTaskData);
+    closeSubTaskDialogs();
+  };
+
+  const handleSubmitProjectEvaluation = () => {
+    const newTaskData = {
+      ...taskData,
+      evaluationSubmitted: true,
+    };
+    updateTaskData(newTaskData);
+  };
+
+  const handleSubmitProjectSolution = () => {
+    const newTaskData = {
+      ...taskData,
+      submitted: true,
+      task_detail: {
+        ...taskData.task_detail,
+        active: false,
+      },
+    };
+    updateTaskDataStudent(newTaskData);
+    navigateBack();
+  };
+
+  const lecturerSubTaskColumns = [
+    { field: "task_id", headerName: "ID", width: 90 },
+    { field: "task_label", headerName: "Title", width: 200 },
+    { field: "task_detail", headerName: "Description", flex: 1, minWidth: 220 },
+    {
+      field: "evaluate",
+      headerName: "Evaluate",
+      width: 280,
+      sortable: false,
+      filterable: false,
+      renderCell: (params) => (
+        <Box display="flex" gap="0.5em">
+          <Button
+            size="small"
+            variant="contained"
+            sx={{
+              backgroundColor: colors.blueAccent[700],
+              color: colors.grey[100],
+            }}
+            onClick={() => handleUpdateSubTaskScore(params.row)}
+          >
+            Update Score
+          </Button>
+          <Button
+            size="small"
+            variant="outlined"
+            disabled={!params.row.solution_link}
+            onClick={() => handleViewSubTaskSolution(params.row)}
+          >
+            View Solution
+          </Button>
+        </Box>
+      ),
+    },
+  ];
+
+  const studentSubTaskColumns = [
+    { field: "task_id", headerName: "ID", width: 90 },
+    { field: "task_label", headerName: "Title", width: 200 },
+    { field: "task_detail", headerName: "Description", flex: 1, minWidth: 220 },
+    {
+      field: "solution",
+      headerName: "Solution",
+      width: 160,
+      sortable: false,
+      filterable: false,
+      renderCell: (params) => (
+        <Button
+          size="small"
+          variant="contained"
+          sx={{
+            backgroundColor: colors.blueAccent[700],
+            color: colors.grey[100],
+          }}
+          startIcon={
+            params.row.solution_uploaded ? (
+              <EditOutlinedIcon />
+            ) : (
+              <FileUploadOutlinedIcon />
+            )
+          }
+          onClick={() => handleSubTaskSolutionAction(params.row)}
+        >
+          {params.row.solution_uploaded ? "Edit" : "Upload"}
+        </Button>
+      ),
+    },
+  ];
+
   return (
     <>
-      <Box border={`4px solid ${colors.primary[500]}`} marginTop="20px">
+      <Paper
+        elevation={3}
+        sx={{ border: `4px solid ${colors.primary[500]}`, marginTop: "20px" }}
+      >
         {!showFilePreview_dialog && (
-          <Box width="100%" sx={{minWidth:"60rem"}} p="10px">
+          <Box width="100%" sx={{ minWidth: "60rem" }} p="10px">
             <Box display="flex" flexDirection={"column"}>
               <Box display="flex" justifyContent="space-between">
                 <Typography
@@ -254,13 +450,65 @@ const TaskDetail = (props) => {
                 borderBottom={`1px solid ${colors.primary[500]}`}
                 marginBottom={"10px"}
               >
-                Tech Stack
+                Deliverables :{" "}
               </Typography>
               <Typography>
                 {activeTask
                   ? taskData.task_detail.comments.publisher
                   : taskData.comments.publisher}
               </Typography>
+              {taskData?.task_detail?.subTaskInfo?.length > 0 && (
+                <Box mt="2em">
+                  <Typography variant="h6">Sub-tasks:</Typography>
+                  <Box mt="1em">
+                    <Box sx={{ width: "100%" }}>
+                      <DataGrid
+                        autoHeight
+                        rows={subTaskRows}
+                        columns={
+                          accountType === ACCOUNT_TYPES.LECTURER
+                            ? lecturerSubTaskColumns
+                            : studentSubTaskColumns
+                        }
+                        disableRowSelectionOnClick
+                        hideFooterSelectedRowCount
+                        pageSizeOptions={[5, 10, 25]}
+                        initialState={{
+                          pagination: { paginationModel: { pageSize: 5 } },
+                        }}
+                      />
+                    </Box>
+                    <Box display="flex" justifyContent="flex-end" mt="1em">
+                      {accountType === ACCOUNT_TYPES.LECTURER &&
+                        allSubTaskScoresAdded && (
+                          <Button
+                            variant="contained"
+                            sx={{
+                              backgroundColor: colors.blueAccent[700],
+                              color: colors.grey[100],
+                            }}
+                            onClick={handleSubmitProjectEvaluation}
+                          >
+                            Submit
+                          </Button>
+                        )}
+                      {accountType === ACCOUNT_TYPES.STUDENT &&
+                        allSubTaskSolutionsCompleted && (
+                          <Button
+                            variant="contained"
+                            sx={{
+                              backgroundColor: colors.blueAccent[700],
+                              color: colors.grey[100],
+                            }}
+                            onClick={handleSubmitProjectSolution}
+                          >
+                            Submit
+                          </Button>
+                        )}
+                    </Box>
+                  </Box>
+                </Box>
+              )}
               <Box display={"flex"} justifyContent={"space-between"}>
                 <Box display={"flex"} gap={"2em"} marginTop={"20px"}>
                   <Typography
@@ -334,7 +582,7 @@ const TaskDetail = (props) => {
                       onClick={() => {
                         if (currentURL !== " /mentor/dashboard") {
                           navigate(
-                            `/mentor/studentSubmission/${taskData?.key}`
+                            `/mentor/studentSubmission/${taskData?.key}`,
                           );
                         }
                       }}
@@ -373,7 +621,7 @@ const TaskDetail = (props) => {
                       endIcon={<AppRegistrationOutlinedIcon />}
                       onClick={() => {
                         navigate(
-                          `/lecturer/studentTaskDetail/${taskData?.task_type}/${taskData?.key}`
+                          `/lecturer/studentTaskDetail/${taskData?.task_type}/${taskData?.key}`,
                         );
                       }}
                     >
@@ -414,7 +662,31 @@ const TaskDetail = (props) => {
             pdfFileData={pdfFileData}
           />
         )}
-      </Box>
+        {/* PROJECT sub-task: score dialog (Lecturer) */}
+        {showSubTaskScoreDialog && (
+          <DialogWithTitle
+            oncloseDialog={closeSubTaskDialogs}
+            openDialog={showSubTaskScoreDialog}
+            title={`Add Score - ${selectedSubTask?.task_label || ""}`}
+            showActionButton={true}
+            saveScoreChanges={saveSubTaskScore}
+          >
+            <SliderWithInputField
+              newScoreDetail={subTaskNewScore}
+              setNewScoreDetail={setSubTaskNewScore}
+            />
+          </DialogWithTitle>
+        )}
+
+        {/* PROJECT sub-task: upload/edit solution dialog (Student) */}
+        {showSubTaskUploadDialog && (
+          <PDF_FileUpload
+            open={showSubTaskUploadDialog}
+            closeDialog={closeSubTaskDialogs}
+            saveStudentSubmission={saveSubTaskSolution}
+          />
+        )}
+      </Paper>
     </>
   );
 };

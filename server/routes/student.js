@@ -146,13 +146,19 @@ router.post("/updateTaskDetail/status", (req, res) => {
 
 /* Update the solution zip for TAskMap after student submission */
 router.post("/updateTaskMap/solution", (req, res) => {
-  const { task_id, solution_zip } = req.body;
+  const { task_id, solution_zip, taskData } = req.body;
   TaskMap.updateOne(
     { task_id: task_id },
     { $set: { solution_zip: solution_zip } },
   )
     .then((response) => res.send(response))
     .catch((err) => console.log("TaskMap solution update error", err));
+  TaskDetail.updateOne(
+    { key: task_id },
+    { $set: { subTaskInfo: taskData.task_detail.subTaskInfo } },
+  )
+    .then((response) => res.send(response))
+    .catch((err) => console.log("TaskDetail subTaskInfo update error", err));
 });
 
 /* Update student comment after submission in TaskDetail */
